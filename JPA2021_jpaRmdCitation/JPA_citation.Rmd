@@ -246,7 +246,7 @@ knitr::include_graphics("figures/kakou01.png")
 ```
 ---
 
-# BibTeXを加工する1; Author
+# 加工1; Author
 
 + 著者名の区切りは，西洋人名でも必要です。
   + Google Scholarなどで取ってきたファイルによっては，Family Name, First Nameの区切りがないものもあるので要注意。
@@ -255,7 +255,7 @@ knitr::include_graphics("figures/kakou01.png")
 
 ---
 
-# BibTeXを加工する2; 読み仮名を与える
+# 加工2; 読み仮名を与える
 
 + 日本の著者の場合，その読み方を**YOMI**変数を作って入力してください。機械は日本語文字の読み方まではわからないので，この情報がないと「日本語名をアルファベットに変換して並べ替える」というJPAルールに従うことができなくなります。
 
@@ -266,7 +266,7 @@ knitr::include_graphics("figures/kakou01b.png")
 
 ---
 
-# BibTeXを加工する3; Editor
+# 加工3; Editor
 
 + inCollection などで編集者を入力したい場合，あるいは翻訳者，日本版著者(一人の翻訳者)，訳本の監修者などがある場合があります。
 + 編集者は Editor，日本語版著者は JAuthor，日本語版監訳者は JKanyaku， 翻訳者は TRANSAUTHOR変数を作って対応します。
@@ -278,7 +278,7 @@ knitr::include_graphics("figures/kakou02.png")
 
 ---
 
-# BibTeXを加工する4; Tips1
+# 加工4; Tips1
 
 + 団体名など，「姓名」の形になっていない場合は，全体を{}で括ることで対応します。
 
@@ -289,7 +289,7 @@ knitr::include_graphics("figures/tips1.png")
 
 ---
 
-# BibTeXを加工する5; Tips2
+# 加工5; Tips2
 
 + ドイツ語やフランス語などの書籍が英語に翻訳された場合，英語への翻訳者，編集情報その他を追記します。これらの情報を入れる項目は，TRANSRATOR, TRANSWORK,TRANSINFOです。
 + 社名などで&マークが必要な場合は，\&と表記します。
