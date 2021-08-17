@@ -7,11 +7,41 @@ date: "2021/09/06"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: my_style.css
+    css: xaringan-themer.css
 ---
 
-```{r setup, include=FALSE}
+```{r setup,include=FALSE}
 options(htmltools.dir.version = FALSE)
+library(xaringanthemer)
+
+extra_css <- list(
+  ".red"   = list(color = "red"),
+  ".green"   = list(color = "green"),
+  ".small" = list("font-size" = "60%"),
+  ".med" = list("font-size" = "80%"),
+  ".large" = list("font-size" = "140%"),
+  ".full-width" = list(
+    display = "flex",
+    width   = "100%",
+    flex    = "11 auto"
+  )
+)
+
+style_mono_accent(
+  base_color = "#006400",
+  text_font_size = "25px",
+  code_font_size = "15px",
+  padding = "1em 1em 1em 1em",#margin
+  header_h1_font_size = "45px",
+  header_h2_font_size = "40px",
+  header_h3_font_size = "35px",
+  header_color = "#006400",
+  header_font_google = google_font("Song Myung"),
+  text_font_google   = google_font("Song Myung", "400", "400i"),
+  code_font_google   = google_font("Song Myung"),
+  link_color = "chocolate"
+)
+
 ```
 
 class: center, middle
@@ -126,7 +156,7 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
 
 + 例えばJ-stageは「メタデータをダウンロード」のところにBibTeX形式が用意されています。
 
-```{r bibtex1, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
+```{r bibtex1, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='90%'}
 knitr::include_graphics("figures/bibform1.png")
 ```
 
@@ -138,7 +168,7 @@ knitr::include_graphics("figures/bibform1.png")
 
 + 例えばGoogle Scholarはダブルクォーテーションマークをクリックすると引用形式が出てきますが，そこにBibTeX形式のファイル出力をするボタンがついています。
 
-```{r bibtex2, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
+```{r bibtex2, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='80%'}
 knitr::include_graphics("figures/bibform2.png")
 ```
 
@@ -150,7 +180,7 @@ knitr::include_graphics("figures/bibform2.png")
 
 + そんな時はこのサイト！[Lead2Amazon](https://lead.to/amazon/jp/)で出力をBibTeX形式にするとOK！
 
-```{r bibtex3, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
+```{r bibtex3, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='70%'}
 knitr::include_graphics("figures/bibform3.png")
 ```
 
@@ -174,10 +204,11 @@ knitr::include_graphics("figures/bibSample.png")
 
 + Bibファイルの構成は，まず@マークで始まり，中括弧で括られているところまでで1セットになっています。
 + 中身（エントリ）はカンマで区切られていることを確認してください。
-  + ネットから取ってきたBib形式のファイルは，そのままでは使えないものがほとんどで，加筆修正の必要があります。その際，「カッコで括る」「カンマで区切る」というファイル形式を損ねると，jpaRmdが動かなくなりますので，この基本をしっかり踏まえておいください。
+  + ネットから取ってきたBib形式のファイルは，そのままでは使えないものがほとんどで，加筆修正の必要があります。
+  + その際，「カッコで括る」「カンマで区切る」というファイル形式を損ねると，jpaRmdが動かなくなりますので，この基本をしっかり踏まえておいください。
   <!-- + Mendeley/Zoteroなどの文献管理ソフトが出力するBibファイルもjpaRmd用に加工する必要がある場合がほとんどです。 -->
 
-```{r bibtexp1, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
+```{r bibtexp1, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='60%'}
 knitr::include_graphics("figures/bibExp01.png")
 ```
 
@@ -192,7 +223,7 @@ knitr::include_graphics("figures/bibExp01.png")
     + inCollectionは本の一部を参照する時に使います。書籍の情報に加え，それが含まれている本の著者・編集者名，本のタイトル，どこの章・ページなのか，といった情報が含まれます。
     + inProceedingsは学会発表論文を参照する時に使います。
 
-```{r bibtexp2, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
+```{r bibtexp2,include=FALSE, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
 knitr::include_graphics("figures/bibExp02.png")
 ```
 
@@ -241,6 +272,12 @@ knitr::include_graphics("figures/bibExp03.png")
   + 自分がわかる任意の引用キーにすれば良いのですが，お勧めは半角英数文字，スペースなし，です。
    + たとえば @Asami2019 などとすれば良いでしょう。
 + 複数の著者がある場合は and で区切ってください。&マークは使わないでください。
+
+---
+# BibTeXを加工する1; Author
+
++ 加工例はこのようになります。
+
 ```{r , echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
 knitr::include_graphics("figures/kakou01.png")
 ```
@@ -272,6 +309,13 @@ knitr::include_graphics("figures/kakou01b.png")
 + 編集者は Editor，日本語版著者は JAuthor，日本語版監訳者は JKanyaku， 翻訳者は TRANSAUTHOR変数を作って対応します。
 + これらも人名として扱いますので，著者名同様，姓と名の 間をカンマで区切り，複数人の場合はandでつなげる，というようにしてください。
 
+---
+
+# 加工3; Editor
+
++ 加工例と出力例を示します。
+
+
 ```{r , echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
 knitr::include_graphics("figures/kakou02.png")
 ```
@@ -281,6 +325,7 @@ knitr::include_graphics("figures/kakou02.png")
 # 加工4; Tips1
 
 + 団体名など，「姓名」の形になっていない場合は，全体を{}で括ることで対応します。
++ 加工例と出力例を示します。
 
 ```{r , echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
 knitr::include_graphics("figures/tips1.png")
@@ -293,6 +338,7 @@ knitr::include_graphics("figures/tips1.png")
 
 + ドイツ語やフランス語などの書籍が英語に翻訳された場合，英語への翻訳者，編集情報その他を追記します。これらの情報を入れる項目は，TRANSRATOR, TRANSWORK,TRANSINFOです。
 + 社名などで&マークが必要な場合は，\&と表記します。
++ 加工例と出力例を示します。
 
 ```{r , echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
 knitr::include_graphics("figures/tips2.png")
@@ -305,16 +351,18 @@ knitr::include_graphics("figures/tips2.png")
 + その他書き方のサンプルとしては，jpaRmd::set_rc_jpa()で作られるサンプルファイルに含まれているreferences.bibを参照してください。
 + 多少，出力に合うようにbibファイルの方を合わせるという工夫が必要かもしれません。
 
---
-
 + 使う時は本文で，引用キーを使って引用するだけです。
   + 文中の引用は ＠引用キーで
   + 文末の引用は [@引用キー]で
 
 + 形式が間違っていなければ，引用文献リストも自動的に出来上がります。
 
+---
+
+# こんな感じに！
+
 ```{r , echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
-knitr::include_graphics("figures/ref.png")
+knitr::include_graphics("figures/refs.png")
 ```
 
 ---
@@ -328,6 +376,10 @@ knitr::include_graphics("figures/ref.png")
     + 引用部分が入るとエラーが起きるようであればBibファイル側の問題です
   + 1レコードずつ追加して行って出力されるかどうか見てみましょう
   + カッコの対応，カンマが抜けてないかなど基本書式の確認を忘れずに
+
+---
+# コンパイルでエラーが出なくても・・・
+
 + エラーがなくてもリストをチェックしましょう
   + 姓名の区切り忘れがあると，NA(欠損値を表すRのコード)が入った変なレコードが出てきたりします。
   + yomiを入れるのを忘れると，ソートがJPA準拠ではなくなります。

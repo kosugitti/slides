@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="小杉考司" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <link rel="stylesheet" href="my_style.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -131,7 +131,7 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
 
 + 例えばJ-stageは「メタデータをダウンロード」のところにBibTeX形式が用意されています。
 
-&lt;img src="figures/bibform1.png" width="100%" /&gt;
+&lt;img src="figures/bibform1.png" width="90%" /&gt;
 
 ---
 
@@ -141,7 +141,7 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
 
 + 例えばGoogle Scholarはダブルクォーテーションマークをクリックすると引用形式が出てきますが，そこにBibTeX形式のファイル出力をするボタンがついています。
 
-&lt;img src="figures/bibform2.png" width="100%" /&gt;
+&lt;img src="figures/bibform2.png" width="80%" /&gt;
 
 ---
 
@@ -151,7 +151,7 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
 
 + そんな時はこのサイト！[Lead2Amazon](https://lead.to/amazon/jp/)で出力をBibTeX形式にするとOK！
 
-&lt;img src="figures/bibform3.png" width="100%" /&gt;
+&lt;img src="figures/bibform3.png" width="70%" /&gt;
 
 
 ---
@@ -171,10 +171,11 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
 
 + Bibファイルの構成は，まず@マークで始まり，中括弧で括られているところまでで1セットになっています。
 + 中身（エントリ）はカンマで区切られていることを確認してください。
-  + ネットから取ってきたBib形式のファイルは，そのままでは使えないものがほとんどで，加筆修正の必要があります。その際，「カッコで括る」「カンマで区切る」というファイル形式を損ねると，jpaRmdが動かなくなりますので，この基本をしっかり踏まえておいください。
+  + ネットから取ってきたBib形式のファイルは，そのままでは使えないものがほとんどで，加筆修正の必要があります。
+  + その際，「カッコで括る」「カンマで区切る」というファイル形式を損ねると，jpaRmdが動かなくなりますので，この基本をしっかり踏まえておいください。
   &lt;!-- + Mendeley/Zoteroなどの文献管理ソフトが出力するBibファイルもjpaRmd用に加工する必要がある場合がほとんどです。 --&gt;
 
-&lt;img src="figures/bibExp01.png" width="100%" /&gt;
+&lt;img src="figures/bibExp01.png" width="60%" /&gt;
 
 ---
 
@@ -187,7 +188,7 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
     + inCollectionは本の一部を参照する時に使います。書籍の情報に加え，それが含まれている本の著者・編集者名，本のタイトル，どこの章・ページなのか，といった情報が含まれます。
     + inProceedingsは学会発表論文を参照する時に使います。
 
-&lt;img src="figures/bibExp02.png" width="100%" /&gt;
+
 
 ---
 
@@ -230,6 +231,12 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
   + 自分がわかる任意の引用キーにすれば良いのですが，お勧めは半角英数文字，スペースなし，です。
    + たとえば @Asami2019 などとすれば良いでしょう。
 + 複数の著者がある場合は and で区切ってください。&amp;マークは使わないでください。
+
+---
+# BibTeXを加工する1; Author
+
++ 加工例はこのようになります。
+
 &lt;img src="figures/kakou01.png" width="100%" /&gt;
 ---
 
@@ -257,6 +264,13 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
 + 編集者は Editor，日本語版著者は JAuthor，日本語版監訳者は JKanyaku， 翻訳者は TRANSAUTHOR変数を作って対応します。
 + これらも人名として扱いますので，著者名同様，姓と名の 間をカンマで区切り，複数人の場合はandでつなげる，というようにしてください。
 
+---
+
+# 加工3; Editor
+
++ 加工例と出力例を示します。
+
+
 &lt;img src="figures/kakou02.png" width="100%" /&gt;
 
 ---
@@ -264,6 +278,7 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
 # 加工4; Tips1
 
 + 団体名など，「姓名」の形になっていない場合は，全体を{}で括ることで対応します。
++ 加工例と出力例を示します。
 
 &lt;img src="figures/tips1.png" width="100%" /&gt;
 
@@ -274,6 +289,7 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
 
 + ドイツ語やフランス語などの書籍が英語に翻訳された場合，英語への翻訳者，編集情報その他を追記します。これらの情報を入れる項目は，TRANSRATOR, TRANSWORK,TRANSINFOです。
 + 社名などで&amp;マークが必要な場合は，\&amp;と表記します。
++ 加工例と出力例を示します。
 
 &lt;img src="figures/tips2.png" width="100%" /&gt;
 
@@ -284,15 +300,17 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
 + その他書き方のサンプルとしては，jpaRmd::set_rc_jpa()で作られるサンプルファイルに含まれているreferences.bibを参照してください。
 + 多少，出力に合うようにbibファイルの方を合わせるという工夫が必要かもしれません。
 
---
-
 + 使う時は本文で，引用キーを使って引用するだけです。
   + 文中の引用は ＠引用キーで
   + 文末の引用は [@引用キー]で
 
 + 形式が間違っていなければ，引用文献リストも自動的に出来上がります。
 
-&lt;img src="figures/ref.png" width="100%" /&gt;
+---
+
+# こんな感じに！
+
+&lt;img src="figures/refs.png" width="100%" /&gt;
 
 ---
 
@@ -305,6 +323,10 @@ output: jpaRmd::render_jjp(Rmd_file = "paper.Rmd", Bib_file = "references.bib")
     + 引用部分が入るとエラーが起きるようであればBibファイル側の問題です
   + 1レコードずつ追加して行って出力されるかどうか見てみましょう
   + カッコの対応，カンマが抜けてないかなど基本書式の確認を忘れずに
+
+---
+# コンパイルでエラーが出なくても・・・
+
 + エラーがなくてもリストをチェックしましょう
   + 姓名の区切り忘れがあると，NA(欠損値を表すRのコード)が入った変なレコードが出てきたりします。
   + yomiを入れるのを忘れると，ソートがJPA準拠ではなくなります。
