@@ -67,7 +67,7 @@ background-position: 90% 8%
 + BibTeXはその歴史の中でさまざまな引用スタイルを用意してきました。APAスタイルももちろんあります。
 
 ```{r fig3, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
-knitr::include_graphics("figures/bibtexwiki.png")
+knitr::include_graphics("figures/bibTexWiki.png")
 ```
 
 ---
@@ -165,7 +165,7 @@ knitr::include_graphics("figures/bibform3.png")
 
 
 ```{r bibtex4, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
-knitr::include_graphics("figures/bibsample.png")
+knitr::include_graphics("figures/bibSample.png")
 ```
 
 ---
@@ -178,7 +178,7 @@ knitr::include_graphics("figures/bibsample.png")
   <!-- + Mendeley/Zoteroなどの文献管理ソフトが出力するBibファイルもjpaRmd用に加工する必要がある場合がほとんどです。 -->
 
 ```{r bibtexp1, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
-knitr::include_graphics("figures/bibexp01.png")
+knitr::include_graphics("figures/bibExp01.png")
 ```
 
 ---
@@ -193,7 +193,7 @@ knitr::include_graphics("figures/bibexp01.png")
     + inProceedingsは学会発表論文を参照する時に使います。
 
 ```{r bibtexp2, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
-knitr::include_graphics("figures/bibexp02.png")
+knitr::include_graphics("figures/bibExp02.png")
 ```
 
 ---
@@ -206,7 +206,7 @@ knitr::include_graphics("figures/bibexp02.png")
   + 引用キーは任意の文字列ですので，わかりやすいように自分で書き換えましょう(後述)。
 
 ```{r bibtexp3, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
-knitr::include_graphics("figures/bibexp02.png")
+knitr::include_graphics("figures/bibExp02.png")
 ```
 
 
@@ -218,7 +218,7 @@ knitr::include_graphics("figures/bibexp02.png")
 + 左側に変数名，右側にその値が入っており，イコールで結んでいます。この基本形式をしっかり把握しましょう。
 
 ```{r bibtexp4, echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
-knitr::include_graphics("figures/bibexp03.png")
+knitr::include_graphics("figures/bibExp03.png")
 ```
 
 ---
