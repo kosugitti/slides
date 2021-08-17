@@ -18,21 +18,21 @@
  *  Version: 0.4.0
  *
  * ------------------------------------------------------- */
-@import url(https://fonts.googleapis.com/css?family=Song+Myung:400,400i&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Song+Myung&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Song+Myung&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,400i&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap);
 
 
 :root {
   /* Fonts */
-  --text-font-family: 'Song Myung';
+  --text-font-family: 'Noto Sans JP';
   --text-font-is-google: 1;
   --text-font-family-fallback: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial;
   --text-font-base: sans-serif;
-  --header-font-family: 'Song Myung';
+  --header-font-family: 'Noto Sans JP';
   --header-font-is-google: 1;
   --header-font-family-fallback: Georgia, serif;
-  --code-font-family: 'Song Myung';
+  --code-font-family: 'Noto Sans JP';
   --code-font-is-google: 1;
   --base-font-size: 20px;
   --text-font-size: 25px;

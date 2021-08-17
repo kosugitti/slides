@@ -36,9 +36,9 @@ style_mono_accent(
   header_h2_font_size = "40px",
   header_h3_font_size = "35px",
   header_color = "#006400",
-  header_font_google = google_font("Song Myung"),
-  text_font_google   = google_font("Song Myung", "400", "400i"),
-  code_font_google   = google_font("Song Myung"),
+  header_font_google = google_font("Noto Sans JP"),
+  text_font_google   = google_font("Noto Sans JP", "400", "400i"),
+  code_font_google   = google_font("Noto Sans JP"),
   link_color = "chocolate"
 )
 
