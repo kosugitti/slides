@@ -1,7 +1,7 @@
 ---
 title: "jpaRmdでらくらく文献処理！"
 subtitle: "TWS:再現可能な日本語論文執筆入門"
-author: "小杉考司"
+author: "小杉考司・国里愛彦"
 institute: "専修大学"
 date: "2021/09/06"
 output:
