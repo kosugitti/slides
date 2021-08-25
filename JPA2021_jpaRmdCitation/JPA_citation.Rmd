@@ -352,7 +352,7 @@ knitr::include_graphics("figures/tips2.png")
 + 多少，出力に合うようにbibファイルの方を合わせるという工夫が必要かもしれません。
 
 + 使う時は本文で，引用キーを使って引用するだけです。
-  + 文中の引用は ＠引用キーで
+  + 文中の引用は ＠引用キー で
   + 文末の引用は [@引用キー]で
 
 + 形式が間違っていなければ，引用文献リストも自動的に出来上がります。
@@ -364,18 +364,31 @@ knitr::include_graphics("figures/tips2.png")
 ```{r , echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
 knitr::include_graphics("figures/refs.png")
 ```
-
 ---
 
 # コンパイルでエラーが出たら
 
-+ 論文が書き上がった！と思ってもエラーが出てPDFが出力されない，ということがあります。
-+ エラーが出た時にチェックすべきことは，
-  + 引用がなくても出るエラーかどうかの確認
-    + 引用部分をコメントアウトし，本文のエラー出ないかどうか確認してください
-    + 引用部分が入るとエラーが起きるようであればBibファイル側の問題です
-  + 1レコードずつ追加して行って出力されるかどうか見てみましょう
-  + カッコの対応，カンマが抜けてないかなど基本書式の確認を忘れずに
++ 引用関係でエラーが出てPDFが出力されない，ということがあります。
++ エラーが出た時にチェックすべきこととして，引用キーとBibfileの記述が合っているかどうか，があります。
+  + Bibfileにあっても本文で引用されないのは問題になりません(無視されるので，冗長なBibfileでOK)
+  + 引用されているのにBibfileにキーがない場合はエラーが出力されます。
+  
+```{r , echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
+knitr::include_graphics("figures/ErrorMessage1.png")
+```
+
+
+---
+
+# よくあるエラー
+
++ **本文の引用キーの後ろには，半角スペースを入れておいてください。**
++ コンパイル時は@の後ろで半角スペースやカンマなど区切り記号が出るところまでを引用キーと解釈します。
+  
+```{r , echo=FALSE, fig.height=2.7, message=FALSE, warning=FALSE, dev='svglite', out.width='100%'}
+knitr::include_graphics("figures/ErrorMessage2.png")
+```
+
 
 ---
 # コンパイルでエラーが出なくても・・・
