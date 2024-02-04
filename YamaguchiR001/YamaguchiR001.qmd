@@ -1,17 +1,26 @@
 ---
 title: "初級から中級へのステップ -関数とパッケージの作り方-"
 author: "kosugitti"
-format: revealjs
+format: 
+    revealjs:
+        height: 900
+        width:  1600
+        transition: slide
+        slide-number: true
 ---
 
 ## 自己紹介
+
+:::: {.columns}
+
+::: {.column width="60%"}
 
 ### 略歴
 
 - 1976.01.17 大阪府大阪市生まれ
 - 2007.04～2018.03 山口大学教育学部に奉職
     + 大殿のあたりに住んでました
-- 2018.04〜専修大学人間科学部へ
+- 2018.04〜専修大学人間科学部
 
 ### 専門
 
@@ -20,6 +29,27 @@ format: revealjs
 ### R歴
 
 - 2007年から本格利用開始
+:::
+
+::: {.column width="40%"}
+あとでじゃん献本しましょう。
+
+:::{.r-stack}
+![](kosBlack.jpg){.fragment width="450"}
+
+![](RUMS1.jpg){.fragment width="450"}
+
+![](RUMS2.jpg){.fragment width="450"}
+
+![](SimBook.jpg){.fragment width="450"}
+:::
+
+:::
+
+::::
+
+
+
 
 ## 中級者とは何か
 
@@ -28,26 +58,36 @@ format: revealjs
 + 利用歴X年目から？
 + パイプ演算子を使い始めたら？
 
-個人的には，次のあたりが中級者のラインではないかと。
+個人的には，↓ぐらいが中級者のラインではないかと。ちなみに，いずれも「案ずるより産むが易し」で，やってみたら意外と簡単なステップなんです。
 
 + SピーSSなど，他の統計ソフトをアンインストールした
-+ 関数やスライドを作り始めた
++ 関数やパッケージを作り始めた
++ Quarto/Github/Shinyなどに手を出し始めた
 
-今日は**「関数とパッケージの作り方」**をお話しするので，今日の話を聞き終わったら皆さんも中級者です。
+今日は**「関数とパッケージの作り方」**をお話しするので，今日の話を聞き終わったら皆さんも中級者？
 
-## Bullets
+# 関数を作る
 
-When you click the **Render** button a document will be generated that includes:
+## 関数をつかう
+## 関数を作る1；引数がひとつのばあい
+## 関数を作る2；引数がふたつのばあい
+## 関数を作る3；デフォルトの設定
+## 関数を作る4；注意点(スコープ)
+## Hands-on!
+## 関数を作るメリット
+### いつ作るのか
+### カプセル化
 
--   Content authored with markdown
--   Output from executable code
+# パッケージを作る
 
-## Code
+## パッケージを使う
+## パッケージを作るメリット
+## 自分だけのひみつパッケージ
+## Build！
+## パッケージの公開の仕方
+## 余談；Githubによるバージョン管理
+## ライセンスを考えよう
+## ヘルプの書き方；roxygen
+## Check and Build
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-
+# Enjoy!
