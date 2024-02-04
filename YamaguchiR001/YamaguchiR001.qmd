@@ -1,0 +1,53 @@
+---
+title: "初級から中級へのステップ -関数とパッケージの作り方-"
+author: "kosugitti"
+format: revealjs
+---
+
+## 自己紹介
+
+### 略歴
+
+- 1976.01.17 大阪府大阪市生まれ
+- 2007.04～2018.03 山口大学教育学部に奉職
+    + 大殿のあたりに住んでました
+- 2018.04〜専修大学人間科学部へ
+
+### 専門
+
+- 数理社会心理学(社会心理学＋心理統計)
+
+### R歴
+
+- 2007年から本格利用開始
+
+## 中級者とは何か
+
+初級者を名乗るのは簡単なことですが，どこから中級者を名乗ればいいのかは難しい。
+
++ 利用歴X年目から？
++ パイプ演算子を使い始めたら？
+
+個人的には，次のあたりが中級者のラインではないかと。
+
++ SピーSSなど，他の統計ソフトをアンインストールした
++ 関数やスライドを作り始めた
+
+今日は**「関数とパッケージの作り方」**をお話しするので，今日の話を聞き終わったら皆さんも中級者です。
+
+## Bullets
+
+When you click the **Render** button a document will be generated that includes:
+
+-   Content authored with markdown
+-   Output from executable code
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+
