@@ -31,6 +31,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="YamaguchiR001_files/libs/revealjs/dist/theme/quarto.css">
   <link href="YamaguchiR001_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -469,30 +534,295 @@
 <h2>あなたのパッケージはどこから?</h2>
 <ul>
 <li>一般的には，<strong>CRAN(The Comprehensive R Archive Network)</strong>という書庫ネットワークからダウンロードする(している)。 <img data-src="CRAN.png" alt="CRAN一覧"></li>
-<li>古いパッケージでもはやCRANに載っていない，というときはアーカイブや作者のサイトからファイルをダウンロードしたりする。ちなみに，パッケージは複数のファイルをまとめて<code>.tar.gz</code>形式で圧縮されています。<sup>1</sup></li>
-<li>最近はGithubをつかって公開されていることも多く，<code>devtools</code>パッケージ</li>
+<li>古いパッケージでもはやCRANに載っていない，というときはアーカイブや作者のサイトからファイルをダウンロードしたりする。ちなみに，パッケージは複数のファイルをまとめて<code>.tar.gz</code>形式で圧縮されています。
+<ul>
+<li>→.tar.gzはUnix系の圧縮方法で，tarで複数のファイルを一つにまとめ，gzipで圧縮するという2段階ステップを経ているのでこんな感じの拡張子になる。</li>
+</ul></li>
+<li>最近はGithubをつかって公開されていることも多く，<code>devtools</code>パッケージを使ってダウンロードすることができる。</li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Unix系の圧縮方法で，tarで複数のファイルを一つにまとめ，gzipで圧縮するという2段階ステップを経ているのでこんな感じの拡張子になる。</p></li></ol></aside></section>
-<section id="パッケージを作るメリット" class="slide level2">
-<h2>パッケージを作るメリット</h2>
 </section>
-<section id="自分だけのひみつパッケージ" class="slide level2">
-<h2>自分だけのひみつパッケージ</h2>
+<section id="余談githubって" class="slide level2">
+<h2>(余談)Githubって？</h2>
+<ul>
+<li>GithubはGitというシステムをインターネットをHubとして使うようにしたもの。</li>
+</ul>
+<h3 id="gitって">Gitって？</h3>
+<ul>
+<li>Gitはバージョン管理システムのこと <img data-src="branch.png"></li>
+<li>commitとは保存と同じような意味。ファイル構造やファイルの差分を記録していくこと。</li>
+<li>幹の部分をいきなり変更するのではなく，枝葉で修正を加えて，「よーしこれで！」という時に幹をアップデートする仕組み。</li>
+</ul>
 </section>
-<section id="build" class="slide level2">
-<h2>Build！</h2>
+<section id="余談githubってその2" class="slide level2">
+<h2>(余談)Githubって？(その2)</h2>
+<ul>
+<li>さっきのcommit/pull requestをネット上でやる。</li>
+<li>Githubというサイトにファイルを保存する場所(レポジトリ)を作ってやり取り。</li>
+<li>ネットに挙げる(push)，ネットから最新版を取ってくる(pull)という作業が含まれる。 <img data-src="github.png"></li>
+</ul>
 </section>
-<section id="パッケージの公開の仕方" class="slide level2">
-<h2>パッケージの公開の仕方</h2>
+<section id="余談githubってその3" class="slide level2">
+<h2>(余談)Githubって？(その3)</h2>
+<h3 id="githubのメリット">Githubのメリット</h3>
+<ul>
+<li>複数チームによる並列的な開発に貢献！
+<ul>
+<li>もとはLinuxの開発システム</li>
+<li>個人で使ってもなんら問題ない。</li>
+<li>文系のひとが使うことにもメリットが(作文・執筆)
+<ul>
+<li>卒論の執筆状況の管理・バックアップに使える！指導教員も安心</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="githubの便利機能">Githubの便利機能</h3>
+<ul>
+<li>Github PagesというWebサイトを作ることも
+<ul>
+<li>パッケージ/ソフトウェアの開発と公開が同時に進められる
+<ul>
+<li>随時Bug Fixができる</li>
+<li>CRANへの登録は審査があって時間がかかるので，最近はこちらで野良パッケージを公開する人も多い</li>
+</ul></li>
+<li>Webサイトの書き方はRmd/Quartoでカンタン</li>
+<li>RStudioと連携できる</li>
+</ul></li>
+</ul>
 </section>
-<section id="ライセンスを考えよう" class="slide level2">
-<h2>ライセンスを考えよう</h2>
+<section id="宣伝" class="slide level2">
+<h2>宣伝</h2>
+<p><a href="https://kosugitti.github.io/Exametrika/">https://kosugitti.github.io/Exametrika/</a></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Readme.mdが自動的にサイト化される <img data-src="Exametrika1.png" class="quarto-figure quarto-figure-center"></p>
+</div><div class="column" style="width:50%;">
+<p>Githubのレポジトリはこんな感じ <img data-src="Exametrika2.png"></p>
+</div>
+</div>
+<p><img data-src="Exametrika_install.png"></p>
 </section>
-<section id="ヘルプの書き方roxygen" class="slide level2">
-<h2>ヘルプの書き方；roxygen</h2>
+<section id="パッケージを作ってみよう" class="slide level2">
+<h2>パッケージを作ってみよう</h2>
+<p>パッケージには関数，データセット，ヘルプファイルが含まれますが・・・</p>
+<h3 id="パッケージを自作するメリット">パッケージを自作するメリット</h3>
+<ul>
+<li>勉強になる！
+<ul>
+<li>統計モデルは数式で説明されて，使う時は関数の使い方を学ぶ
+<ul>
+<li>解説と実践の間に乖離があると思いません？</li>
+<li>数式の解説って，式展開を追うだけでわかりますか？数値で確認したくない？</li>
+</ul></li>
+</ul></li>
+<li>再利用ができるようになる！
+<ul>
+<li>同じコードを3回書いたら関数化しよう。</li>
+<li>いつも書く自分のコードは書いて保存しておこう</li>
+<li>ヘルプファイルで自分への記録に</li>
+</ul></li>
+<li>共有しよう
+<ul>
+<li>データセットも巻数も，まとめて<code>library(MyPackage)</code></li>
+<li>最初に書いた自作パッケージは科研のもの
+<ul>
+<li>データセットとよく使うコードをパッケージングして共同研究者とシェア</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="パッケージを作る環境はずいぶんと整っています" class="slide level2">
+<h2>パッケージを作る環境はずいぶんと整っています！</h2>
+<ul>
+<li>RStudioがプロジェクトをパッケージ作成仕様にしてくれる</li>
+<li>devtools,usethis,roxygen2など，パッケージを手助けしてくれるパッケージが
+<ul>
+<li><code>devtools</code>はスケルトン，チェック，ビルドなどを手助けしてくれる</li>
+<li><code>usethis</code>は初期設定などをカンタンにしてくれる</li>
+<li><code>roxygen2</code>はヘルプファイルを自動的に作ってくれる</li>
+</ul></li>
+<li>Githubと連携すれば公開サイトを作るのもカンタン</li>
+</ul>
+<p><img data-src="RStudio.png" style="width:24.0%"> <img data-src="devtools.png" style="width:24.0%"> <img data-src="usethis.png" style="width:24.0%"> <img data-src="roxygen2.png" style="width:24.0%"></p>
+</section>
+<section id="やってみようその1" class="slide level2">
+<h2>やってみよう(その1)</h2>
+<p>まずは新しいプロジェクトから</p>
+<div class="r-stack">
+<p><img data-src="step1.png" class="fragment" width="2000"></p>
+<p><img data-src="step2.png" class="fragment" width="1600"></p>
+<p><img data-src="step3.png" class="fragment" width="1200"></p>
+<p><img data-src="step4.png" class="fragment" width="1200"></p>
+</div>
+</section>
+<section id="やってみようその2" class="slide level2">
+<h2>やってみよう(その2)</h2>
+
+<img data-src="step5.png" class="r-stretch"><p>サンプルコード<code>hello.R</code>というのが表示されていると思います。 Filesタブを見ると，他にもNAMESPACE，DESCRIPTION，manフォルダ，Rフォルダがあるのがわかります。 (<code>.Rproj</code>はプロジェクトファイル，<code>.Rbuildignore</code>はプロジェクト関係なので一旦無視)</p>
+</section>
+<section id="やってみようその3しっておこう" class="slide level2">
+<h2>やってみよう(その3)；しっておこう</h2>
+<ul>
+<li>パッケージのフォルダは<code>R</code>,<code>man</code>,<code>data</code>,<code>inst</code>,<code>tests</code>からなる
+<ul>
+<li><code>R</code>フォルダにRのコードを書きます</li>
+<li><code>man</code>フォルダにヘルプファイルを入れますが，<code>roxygen2</code> が<strong>自動生成する</strong>ので気にする必要なし！</li>
+<li><code>data</code>フォルダにパッケージと共に共有するデータを入れます。</li>
+<li><code>inst</code>はその他のメタデータ，<code>tests</code>は検証テストコードなどを入れます。</li>
+<li>個人的には<code>develop</code>フォルダをつくって下書きのコードを入れておきます。</li>
+</ul></li>
+<li>フォルダの外にはDESCRIPTIONとNAMESPACEが
+<ul>
+<li>DESCRIPTIONはパッケージの説明(著者名，連絡先，ライセンス，依存パッケージなど)を書きます。あとで見てみましょう。</li>
+<li>NAMESPACEは<strong>自動生成されるので</strong> 手をつける必要なし！
+<ul>
+<li>名前空間といって，パッケージがもつ関数名のリストなどが入ります。同じ関数名があると上書きしちゃうよ，という警告を出すために必要。</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="やってみようその4" class="slide level2">
+<h2>やってみよう(その4)</h2>
+<p>BuildタブのConfigure Build Tools…をクリックし，<strong>自動生成</strong>(ラクチン！)してくれるための設定をしておこう。</p>
+<div class="r-stack">
+<p><img data-src="step6.png" class="fragment" width="1000"></p>
+<p><img data-src="step7.png" class="fragment" width="1000"></p>
+</div>
+</section>
+<section id="やってみようその5名前空間は大事" class="slide level2">
+<h2>やってみよう(その5)；名前空間は大事！</h2>
+<h3 id="名前空間をroxygen管理下に">名前空間をRoxygen管理下に</h3>
+<p>NAMESPACEはパッケージが使う関数名を書くところなので，自分で作らないのが基本。 でも<code>Roxygen</code>で自動生成するためには，すでに存在しているNAMESPACEが<code>Roxygen</code>で作られたものでなければならないので，最初のNAMESPACEは削除しておこう。</p>
+<p>あるいは， <code>usethis::use_namespace()</code>で上書きしても良い。</p>
+
+<img data-src="step8.png" class="r-stretch"><p>開いた時に「このドキュメントは読むの専門だぞ(書き込んじゃダメだぞ)」，<code>roxygen2</code>によって作られました，と書いてあればOK。以後自動的に書き加えられていきます。</p>
+</section>
+<section id="やってみようその6お品書きから" class="slide level2">
+<h2>やってみよう(その6)；お品書きから</h2>
+<p>次はDESCRIPTIONの編集。これは手書きで。</p>
+<ul>
+<li><code>Title</code>; パッケージ名</li>
+<li><code>Author</code>; 作者名</li>
+<li><code>Maintainer</code>；保全・管理する人。</li>
+<li><code>Description</code>; 説明書</li>
+</ul>
+<p>※英語です！chatGPT先生に翻訳してもらおう！</p>
+<p><img data-src="step9.png">{width = “200pt”}</p>
+</section>
+<section id="ほんまなんでもやってくれますな" class="slide level2">
+<h2>ほんまなんでもやってくれますな</h2>
+
+<img data-src="step10.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="やってみようその7usethisパッケージの力を借りて" class="slide level2">
+<h2>やってみよう(その7)；usethisパッケージの力を借りて</h2>
+<h3 id="ライセンスの追加">ライセンスの追加</h3>
+<p>パッケージを公開する時の権利関係を明記しておきましょう。 <code>usethis</code>パッケージにはいろいろなライセンスが用意されており，名前だけでうまくやってくれるようになっています。</p>
+<ul>
+<li><p><code>use_mit_license</code>；短くて理解しやすいライセンス。このライセンスでは，誰でもコードを変更し配布することを許可しているが，下のライセンスと著作権表示は保持されるというもの。</p></li>
+<li><p><code>use_gpl3_license</code>；GPLは「ソフトウェアを使う自由」「変更する自由」「ソフトウェアを共有する自由」「変更を共有する自由」をうたう<strong>フリーソフトウェア</strong>の精神。R自体がGPLに基づいています。</p></li>
+<li><p><code>use_apl2_licence</code>；アパッチ(Apache)ライセンスは，Apacheソフトウェア財団が公開し ているもので，商用利用や改変ができるライセンス。</p></li>
+<li><p><img data-src="step11.png"></p></li>
+</ul>
+</section>
+<section id="追加されたライセンス" class="slide level2">
+<h2>追加されたライセンス</h2>
+<p>LICENSE.mdファイルが自動的に追加される。</p>
+
+<img data-src="license.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="やってみようその8usethisパッケージの力を借りてpart2" class="slide level2">
+<h2>やってみよう(その8)；usethisパッケージの力を借りてpart2</h2>
+<p>Roxygenで自動生成してくれるのは，ヘルプだけでなくREADME.Rmdも。</p>
+
+<img data-src="step12.png" class="r-stretch"><p><strong>README</strong>とは，「まずこれを読んでね」という最初の説明書ファイル。Rmd書式で準備すると，Githubで公開する時の表紙になる。便利！</p>
+</section>
+<section id="readme.rmdより" class="slide level2">
+<h2>README.Rmdより</h2>
+<p>これが自動的に用意されます！ <img data-src="README.png" class="quarto-figure quarto-figure-center"></p>
+</section>
+<section id="コードを書きながらヘルプを書くroxygenの書き方" class="slide level2">
+<h2>コードを書きながらヘルプを書く；Roxygenの書き方</h2>
+<p>あとは関数をバリバリ書いていくだけ。ここでヘルプを自動的に作ってもらうために，関数の前に<code>Roxygenコメント</code>を用意しよう。</p>
+<p><code>Roxygenコメント</code>は<code>#'</code>から始めることでただのコメントアウトじゃないよ，ということを表現。続く<code>@XXX</code> でヘルプのどこに何を表示させるかを書きます。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co">#' @title 関数名</span></span>
+<span id="cb1-2"><a href=""></a><span class="co">#' @author 関数の作者名。必要なら。</span></span>
+<span id="cb1-3"><a href=""></a><span class="co">#' @description 関数の説明</span></span>
+<span id="cb1-4"><a href=""></a><span class="co">#' @details さらに詳しい説明</span></span>
+<span id="cb1-5"><a href=""></a><span class="co">#' @note descriptionに書くほどではないことを書くならこちら</span></span>
+<span id="cb1-6"><a href=""></a><span class="co">#' @importFrom 関数の中で他のパッケージから引用した関数を使うときは，全てここに書く</span></span>
+<span id="cb1-7"><a href=""></a><span class="co">#' @param この関数が取る引数を書く</span></span>
+<span id="cb1-8"><a href=""></a><span class="co">#' @return この関数が返す値を書く</span></span>
+<span id="cb1-9"><a href=""></a><span class="co">#' @export この関数をユーザが使ってほしい時は，必ずこのコマンドが必要</span></span>
+<span id="cb1-10"><a href=""></a><span class="co">#' @reference 参考資料や引用文献を\url{}などで記載</span></span>
+<span id="cb1-11"><a href=""></a><span class="co">#' @examples 関数の使用例を書く</span></span>
+<span id="cb1-12"><a href=""></a><span class="co">#' @seealso 他のドキュメントやウェブサイトへのリンクをかく。@seealso[function()]など</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>@title</code>,<code>@description</code>はまあ書きましょう。</li>
+<li><code>@importFrom</code>は忘れがち！でも忘れてたらコンパイル時にエラーで教えてくれるのでダイジョブ</li>
+<li><code>@export</code>を忘れると，コンパイルしても「ユーザが使えない関数」になっちゃう。そんなのいるの？と思うかもしれないけど，内部だけの処理で直接ユーザに触って欲しくない関数を書くこともあるので・・・</li>
+</ul>
 </section>
 <section id="check-and-build" class="slide level2">
 <h2>Check and Build</h2>
+<p>物は試し。やってみましょう。<code>R/hello.R</code>, <code>man/hello.Rd</code>を消して，関数を書きます！</p>
+<div class="r-stack">
+<p><img data-src="step13.png" class="fragment" width="1200"></p>
+<p><img data-src="step14.png" class="fragment" width="1200"></p>
+<p><img data-src="step15.png" class="fragment" width="1600"></p>
+<p><img data-src="step16.png" class="fragment" width="1200"></p>
+</div>
+</section>
+<section id="error-warning" class="slide level2">
+<h2>ERROR! WARNING!</h2>
+
+<img data-src="step17.png" class="r-stretch"><ul>
+<li><p>エラーや警告はつきもの！おそれないでね。むしろこれをひとつずつ潰していくのが快感・・・<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewbox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12m9.233-2.134l-3.464 2l-1-1.732l3.464-2zm4.536-1.732l3.464 2l-1 1.732l-3.464-2zm-5.869 5.5l.5.865C9.922 15.4 10.89 16 12 16s2.08-.601 2.6-1.5l.5-.866l1.731 1.001l-.5.866A4.998 4.998 0 0 1 12 18a4.998 4.998 0 0 1-4.33-2.5l-.501-.865z"></path></svg></p></li>
+<li><p>先ほどの関数，引数<code>x</code>をとっていたのに，<code>@param</code>の設定がなかったことが問題で警告が出ています。</p></li>
+</ul>
+</section>
+<section id="エラーも警告もない世界" class="slide level2">
+<h2>エラーも警告もない世界</h2>
+<ul>
+<li>ちゃんと<code>@param</code>を書きました。</li>
+<li>もちろん<code>@export</code>もね！</li>
+</ul>
+
+<img data-src="step18.png" class="r-stretch"></section>
+<section id="ヘルプができてる" class="slide level2">
+<h2>ヘルプができてる</h2>
+<div class="r-stack">
+<p><img data-src="step19.png" class="fragment" width="1600"></p>
+<p><img data-src="step20.png" class="fragment" width="1600"></p>
+</div>
+</section>
+<section id="俺たちの戦いはまだ始まったばかりだ完" class="slide level2">
+<h2>俺たちの戦いはまだ始まったばかりだ(完)</h2>
+<ul>
+<li>ここからはもう，地道な作業。コードを書いて，マニュアル書いて，チェックして，警告やエラーをつぶす，の繰り返し。隙間時間にちょこちょこ書き進めていこう。</li>
+</ul>
+<h3 id="落穂拾い">落穂拾い</h3>
+<ul>
+<li>パッケージに同梱するデータは<code>save</code>関数をつかって<code>.rda</code>形式にし，<code>data</code>フォルダに入れる。</li>
+<li>他のパッケージになるべく依存しないパッケージの方が美しい気がする。けどどうしても必要な場合は次の2点に注意
+<ul>
+<li><code>Roxygenコメント</code>で<code>@importFrom</code>を忘れずに。</li>
+<li><img data-src="importFrom.png"></li>
+<li>DESCRIPTIONに<code>Depends:</code> として外部からとってくるパッケージを書こう(手動)</li>
+<li><img data-src="depends.png"></li>
+</ul></li>
+</ul>
+</section>
+<section id="落穂拾い追加" class="slide level2">
+<h2>落穂拾い(追加)</h2>
+<ul>
+<li><code>DESCRIPTION</code>は手動で修正していく。<code>Version</code>はお気持ち次第。
+<ul>
+<li><a href="https://semver.org/lang/ja/">セマンティックバージョニング 2.0</a>では、ピリオドで区切られた数字はそれぞれメジャー、マイナー、パッチバージョンを表す。</li>
+<li>大きな機能の修正はメジャーリビジョン，関数の追加などはマイナーバージョン，バグ修正などはパッチバージョンかな。</li>
+</ul></li>
+<li><code>usethis::use_news_md()</code>をつかうと<code>NEWS.md</code>ファイルを作ることができる。要するにバージョンが上がった時に何が変わったか，を記録するところ。</li>
+<li><code>testthat</code>をつかうと検証用コードを書くことができて，「新しい環境にこのパッケージを入れたらちゃんと動くかな？」を確認できる。</li>
+<li><code>devtools::build()</code>で<code>.tar.gz</code>ファイルができるので，これでファイルとして共有できる。インストールは<code>install.packages(ファイル名, repos = NULL, type = "source")</code>で。RStudioのGUI経由のほうが楽かも。</li>
+<li><code>hexSticker</code>パッケージを使うと，六角形の例のかっこいいシールが作れたりします！</li>
+</ul>
 </section></section>
 <section id="enjoy" class="title-slide slide level1 center">
 <h1>Enjoy!</h1>
@@ -503,8 +833,6 @@
 </div>
 </div>
 </section>
-
-
     </div>
   </div>
 
