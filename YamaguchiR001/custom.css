@@ -1,0 +1,5 @@
+.reveal pre code {
+  font-size: 35px; /* サイズは適宜調整 */
+  max-height: 250px !important; /* コードチャンクの最大高さ */
+  overflow-y: auto; /* 縦方向のスクロールバーを有効にする */
+}

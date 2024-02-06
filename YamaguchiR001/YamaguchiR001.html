@@ -98,6 +98,7 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="YamaguchiR001_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="custom.css">
   <link href="YamaguchiR001_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="YamaguchiR001_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="YamaguchiR001_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -418,7 +419,7 @@
 <p>小杉考司（こすぎこうじ）</p>
 <p><a href="https://github.com/kosugitti"><i class="fa-brands fa-github" aria-label="github"></i></a> <a href=""><i class="fa-brands fa-discord" aria-label="discord"></i></a> <a href=""><i class="fa-brands fa-instagram" aria-label="instagram"></i></a> <a href="https://twitter.com/kosugitti"><i class="fa-brands fa-x-twitter" aria-label="x-twitter"></i></a><span class="citation" data-cites="kosugitti">@kosugitti</span></p>
 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewbox="0 0 24 24">
-<path fill="currentColor" d="M4.907 3.44c.709.12 1.533.501 2.576 1.247C9.28 5.97 10.769 7.739 12 9.564c1.231-1.825 2.72-3.593 4.517-4.877c1.043-.746 1.867-1.127 2.576-1.248c.767-.13 1.29.065 1.615.2C21.717 4.06 22 5.225 22 6.215c0 .201-.086 1.302-.185 2.36c-.052.546-.11 1.108-.166 1.577c-.053.428-.115.88-.19 1.133a4.331 4.331 0 0 1-1.951 2.517c.937.707 1.277 1.856.928 2.984c-.597 1.924-2.737 4.397-4.835 4.618c-1.773.186-2.935-1.325-3.601-2.76c-.666 1.435-1.828 2.946-3.6 2.76c-2.099-.22-4.24-2.694-4.836-4.618c-.35-1.128-.01-2.277.928-2.984a4.331 4.331 0 0 1-1.95-2.517c-.076-.253-.138-.705-.19-1.133a60.58 60.58 0 0 1-.167-1.577C2.085 7.517 2 6.416 2 6.215c0-.99.283-2.155 1.292-2.576c.326-.135.847-.33 1.615-.2M4.05 6.916c.064.818.18 2.108.288 2.992c.032.268.055.545.122.807c.397 1.34 1.929 2.082 3.686 1.887a1 1 0 0 1 .257 1.983c-.756.112-3.315.357-2.928 1.607c.357 1.151 1.848 3.087 3.134 3.222c.928.097 1.5-1.394 1.766-2.045c.275-.674.488-1.38.668-1.982a1 1 0 0 1 1.916 0c.18.602.393 1.308.668 1.982c.266.651.838 2.142 1.766 2.045c1.286-.135 2.777-2.07 3.134-3.222c.387-1.25-2.172-1.495-2.928-1.607a1 1 0 0 1 .257-1.983c1.757.195 3.289-.547 3.686-1.887c.069-.266.089-.536.122-.807a80.35 80.35 0 0 0 .288-2.992c.037-.468.247-1.637-.522-1.506c-.286.049-.823.241-1.749.903c-1.943 1.389-3.705 3.513-4.789 5.64a1 1 0 0 1-1.782 0c-1.084-2.127-2.846-4.251-4.789-5.64c-.926-.662-1.463-.854-1.749-.903c-.784-.134-.559 1.034-.522 1.506"></path></svg><span class="citation" data-cites="kosugitti.bsky.social">@kosugitti.bsky.social</span>
+</svg><p><path fill="currentColor" d="M4.907 3.44c.709.12 1.533.501 2.576 1.247C9.28 5.97 10.769 7.739 12 9.564c1.231-1.825 2.72-3.593 4.517-4.877c1.043-.746 1.867-1.127 2.576-1.248c.767-.13 1.29.065 1.615.2C21.717 4.06 22 5.225 22 6.215c0 .201-.086 1.302-.185 2.36c-.052.546-.11 1.108-.166 1.577c-.053.428-.115.88-.19 1.133a4.331 4.331 0 0 1-1.951 2.517c.937.707 1.277 1.856.928 2.984c-.597 1.924-2.737 4.397-4.835 4.618c-1.773.186-2.935-1.325-3.601-2.76c-.666 1.435-1.828 2.946-3.6 2.76c-2.099-.22-4.24-2.694-4.836-4.618c-.35-1.128-.01-2.277.928-2.984a4.331 4.331 0 0 1-1.95-2.517c-.076-.253-.138-.705-.19-1.133a60.58 60.58 0 0 1-.167-1.577C2.085 7.517 2 6.416 2 6.215c0-.99.283-2.155 1.292-2.576c.326-.135.847-.33 1.615-.2M4.05 6.916c.064.818.18 2.108.288 2.992c.032.268.055.545.122.807c.397 1.34 1.929 2.082 3.686 1.887a1 1 0 0 1 .257 1.983c-.756.112-3.315.357-2.928 1.607c.357 1.151 1.848 3.087 3.134 3.222c.928.097 1.5-1.394 1.766-2.045c.275-.674.488-1.38.668-1.982a1 1 0 0 1 1.916 0c.18.602.393 1.308.668 1.982c.266.651.838 2.142 1.766 2.045c1.286-.135 2.777-2.07 3.134-3.222c.387-1.25-2.172-1.495-2.928-1.607a1 1 0 0 1 .257-1.983c1.757.195 3.289-.547 3.686-1.887c.069-.266.089-.536.122-.807a80.35 80.35 0 0 0 .288-2.992c.037-.468.247-1.637-.522-1.506c-.286.049-.823.241-1.749.903c-1.943 1.389-3.705 3.513-4.789 5.64a1 1 0 0 1-1.782 0c-1.084-2.127-2.846-4.251-4.789-5.64c-.926-.662-1.463-.854-1.749-.903c-.784-.134-.559 1.034-.522 1.506"><span class="citation" data-cites="kosugitti.bsky.social">@kosugitti.bsky.social</span></path></p>
 
 <p><a href=""><i class="fa-brands fa-mastodon" aria-label="mastodon"></i>Kosugitti@mastdon.jp</a></p>
 <p><a href="https://orcid.org/0000-0001-5816-0099"><i class="fa-brands fa-orcid" aria-label="orcid"></i>0000-0001-5816-0099</a></p>
@@ -487,30 +488,229 @@
 </section>
 <section id="関数をつかう" class="slide level2">
 <h2>関数をつかう</h2>
+<p>関数を使うのは簡単ですね。たとえば平方根を求めたいときに，</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">sqrt</span>(<span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>のように使うわけです。このとき，</p>
+<ul>
+<li><code>sqrt</code>は関数名</li>
+<li>()で関数に渡す値は<strong>引数(ひきすう，argument)</strong></li>
+<li><code>16</code>という結果は<strong>戻り値(もどりち，value)</strong></li>
+</ul>
+<p>といいます。</p>
 </section>
 <section id="関数を作る1引数がひとつのばあい" class="slide level2">
 <h2>関数を作る1；引数がひとつのばあい</h2>
+<p>関数を作る関数，<code>function</code>をつかって次のように関数を作ることができます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>add2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb3-2"><a href=""></a>  tmp <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb3-3"><a href=""></a>  <span class="fu">return</span>(tmp)</span>
+<span id="cb3-4"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>関数名に<code>function</code>でつくるオブジェクトを代入します。</li>
+<li>function<code>後ろの</code>()`に，その関数がとる引数名を書きます。</li>
+<li>その後ろの<code>{}</code>に関数の計算・操作を書きます。複数行可。</li>
+<li><code>return</code>関数に戻り値にするものを渡します</li>
+</ol>
+<p>これで関数<code>add2</code>ができました。使い方は他の関数と同じです。</p>
+<div class="big-code">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">add2</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+</div>
+<p>この関数は与えられた数字に<code>2</code>を足して返すだけ挙動ですが，うまく動いてますね！</p>
 </section>
 <section id="関数を作る2引数がふたつのばあい" class="slide level2">
 <h2>関数を作る2；引数がふたつのばあい</h2>
+<p>さっきの関数は引数がひとつだけでした。複数指定するときは，<code>()</code>のなかに並べて書きます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>plus <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb6-2"><a href=""></a>  tmp <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
+<span id="cb6-3"><a href=""></a>  <span class="fu">return</span>(tmp)</span>
+<span id="cb6-4"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>この関数は2つの引数を取り，加えた値を返します。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">plus</span>(<span class="dv">2</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<ul>
+<li>引数を指定してやれば，順番を入れ替えてもOKです。逆にいうと，引数名の指定がなければ前から順に適用されていきます。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">plus</span>(<span class="at">y =</span> <span class="dv">3</span>, <span class="at">x =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
 </section>
 <section id="関数を作る3デフォルトの設定" class="slide level2">
 <h2>関数を作る3；デフォルトの設定</h2>
+<p>関数を作る時に，引数に値を渡しておくと，それがデフォルトの値になります。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>plus2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> <span class="dv">2</span>) {</span>
+<span id="cb11-2"><a href=""></a>  tmp <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
+<span id="cb11-3"><a href=""></a>  <span class="fu">return</span>(tmp)</span>
+<span id="cb11-4"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>デフォルトの値があると，指定しなくてもその値が利用されます。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">plus2</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">plus2</span>(<span class="at">x =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">plus2</span>(<span class="at">y =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<ul>
+<li>皆さんが今まで使っていた関数も，デフォルトで色々決まっていることがあります。</li>
+<li>ヘルプを見ると，どういう引数オプションがあるのかわかります。一度見ておくと，理解がいっそう深まりますよ〜<span class="emoji" data-emoji="smiley">😃</span></li>
+</ul>
 </section>
 <section id="関数を作る4注意点スコープ" class="slide level2">
 <h2>関数を作る4；注意点(スコープ)</h2>
+<p>関数の中で作った・使ったオブジェクトは，関数の外から参照できません。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>minus <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">y =</span> <span class="dv">2</span>) {</span>
+<span id="cb18-2"><a href=""></a>  tmp <span class="ot">&lt;-</span> x <span class="sc">-</span> y</span>
+<span id="cb18-3"><a href=""></a>  <span class="fu">return</span>(tmp)</span>
+<span id="cb18-4"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>これに続けて，関数の中でつかっていた一時オブジェクト<code>tmp</code>を参照してみましょう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>tmp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<pre><code>Error:
+
+!  オブジェクト 'tmp' がありません 
+
+ 実行が停止されました </code></pre>
+<p><br> Oh…! <span class="emoji" data-emoji="scream">😱</span></p>
 </section>
-<section id="hands-on" class="slide level2">
-<h2>Hands-on!</h2>
+<section id="スコープのひみつ" class="slide level2">
+<h2>スコープのひみつ</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li><p>関数の中で使った変数は関数の外で使えないというのは，不便に思えますが，実は親切設計。</p></li>
+<li><p>関数の中で閉じている・まとまっていることで，オブジェクトがあちこちで上書きされたりすることがなくなります</p></li>
+<li><p>変数がどこまで効いているかという概念を「スコープ」と言いますが，これができるまでのプログラミング言語(FortranとかBASICとか)は，長いコードの中で変数名がごっちゃになることがありました。</p></li>
+<li><p>歴史的経緯で，「どこからでも変数名が見える」状態から，「全体で利用できる変数(グローバル変数)と，関数の中だけて使える変数(ローカル変数)にわける」状態へ，そして「もう全部関数の中に閉じ込めちゃえよ」となってきています。</p></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="spa.png"></p>
+<figcaption>スパゲティコード by chatGPTv4</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="関数を作るメリット" class="slide level2">
-<h2>関数を作るメリット</h2>
-<h3 id="いつ作るのか">いつ作るのか</h3>
-<h3 id="カプセル化">カプセル化</h3>
+<section id="rは再利用する" class="slide level2">
+<h2>Rは再利用する</h2>
+<p>しかし，Rは関数の中で見つからない変数があれば，環境変数を再利用します！ちょっとコワイ。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="co"># 関数の前に用意する</span></span>
+<span id="cb21-2"><a href=""></a>pre_tmp <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb21-3"><a href=""></a><span class="co"># 関数を作る</span></span>
+<span id="cb21-4"><a href=""></a>myFunc <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb21-5"><a href=""></a>    tmp <span class="ot">&lt;-</span> x <span class="sc">+</span> pre_tmp</span>
+<span id="cb21-6"><a href=""></a>    pre_tmo <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb21-7"><a href=""></a>    <span class="fu">return</span>(tmp)</span>
+<span id="cb21-8"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>注目ポイントは，次の3点です。</p>
+<ul>
+<li><code>pre_tmp</code>はこの関数<code>myFunc</code>の引数ではない。</li>
+<li><code>pre_tmp</code>はこの関数の中で違う数字を割り当てられている。</li>
+<li>この関数が返すのは<code>tmp</code>だけである。</li>
+</ul>
+</section>
+<section id="これを使ってみるとおかしなことが起きるよ" class="slide level2">
+<h2>これを使ってみると，おかしなことが起きるよ。</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="co"># 関数を使う</span></span>
+<span id="cb22-2"><a href=""></a><span class="fu">myFunc</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="co"># 関数の中で加えられた変更は効いてない</span></span>
+<span id="cb24-2"><a href=""></a>pre_tmp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<p>Rはこのように「再利用癖」があるので，注意しましょう。</p>
+<p>関数を作るときは， <strong>関数の中で使う変数は全て引数に指定する</strong>ことを心がけた方が良いかも。</p>
+</section>
+<section id="関数を作る5複数の戻り値" class="slide level2">
+<h2>関数を作る5；複数の戻り値</h2>
+<p>Rの関数が返すオブジェクトは一つだけ。もし複数の値を返したいのなら，<code>list</code>でまとめよう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>calcs <span class="ot">&lt;-</span> <span class="cf">function</span>(x,y){</span>
+<span id="cb26-2"><a href=""></a>    pl <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
+<span id="cb26-3"><a href=""></a>    mi <span class="ot">&lt;-</span> x<span class="sc">-</span>y</span>
+<span id="cb26-4"><a href=""></a>    pr <span class="ot">&lt;-</span> x<span class="sc">*</span>y</span>
+<span id="cb26-5"><a href=""></a>    di <span class="ot">&lt;-</span> x<span class="sc">/</span>y</span>
+<span id="cb26-6"><a href=""></a>    tmp <span class="ot">&lt;-</span> <span class="fu">list</span>( <span class="at">plus =</span> pl, <span class="at">minus =</span> mi, <span class="at">prod =</span> pr, <span class="at">divide =</span> di )</span>
+<span id="cb26-7"><a href=""></a>    <span class="fu">return</span>(tmp)</span>
+<span id="cb26-8"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>使い方の例；</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>return <span class="ot">&lt;-</span> <span class="fu">calcs</span>(<span class="at">x=</span><span class="dv">10</span>,<span class="at">y=</span><span class="dv">2</span>)</span>
+<span id="cb27-2"><a href=""></a><span class="co"># </span></span>
+<span id="cb27-3"><a href=""></a>return<span class="sc">$</span>plus</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>return<span class="sc">$</span>divide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+</section>
+<section id="hands-on時間調整と休憩" class="slide level2">
+<h2>Hands-on!(時間調整と休憩)</h2>
+<p>こんな感じで関数が作れます！色々作ってみよう。</p>
+<ul>
+<li>Rには不偏分散を計算する<code>var</code>はあるけど標本分散を計算する関数はないよ。作ってみよう！</li>
+<li>同じコードを3回書いたら，関数化することを考えよう！</li>
+</ul>
+<h3 id="関数を作るメリット">関数を作るメリット</h3>
+<ul>
+<li>再利用性；同じ関数を他のプログラムでも再利用できます。</li>
+<li>モジュール性；プログラムを管理しやすい部分に分割できます。</li>
+<li>保全性；部分に分割できているので，バグが見つけやすく，メンテナンスしやすくなります。</li>
+</ul>
+<p>そしてたくさん関数を書いたら・・・・</p>
 </section></section>
 <section>
-<section id="パッケージを作る" class="title-slide slide level1 center">
-<h1>パッケージを作る</h1>
+<section id="パッケージを作ってみよう" class="title-slide slide level1 center">
+<h1>パッケージを作ってみよう！</h1>
 
 </section>
 <section id="パッケージを使う" class="slide level2">
@@ -545,9 +745,6 @@
 <h2>(余談)Githubって？</h2>
 <ul>
 <li>GithubはGitというシステムをインターネットをHubとして使うようにしたもの。</li>
-</ul>
-<h3 id="gitって">Gitって？</h3>
-<ul>
 <li>Gitはバージョン管理システムのこと <img data-src="branch.png"></li>
 <li>commitとは保存と同じような意味。ファイル構造やファイルの差分を記録していくこと。</li>
 <li>幹の部分をいきなり変更するのではなく，枝葉で修正を加えて，「よーしこれで！」という時に幹をアップデートする仕組み。</li>
@@ -591,7 +788,7 @@
 </section>
 <section id="宣伝" class="slide level2">
 <h2>宣伝</h2>
-<p><a href="https://kosugitti.github.io/Exametrika/">https://kosugitti.github.io/Exametrika/</a></p>
+<p><a href="https://kosugitti.github.io/Exametrika/" class="uri">https://kosugitti.github.io/Exametrika/</a></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Readme.mdが自動的にサイト化される <img data-src="Exametrika1.png" class="quarto-figure quarto-figure-center"></p>
@@ -601,7 +798,7 @@
 </div>
 <p><img data-src="Exametrika_install.png"></p>
 </section>
-<section id="パッケージを作ってみよう" class="slide level2">
+<section id="パッケージを作ってみよう-1" class="slide level2">
 <h2>パッケージを作ってみよう</h2>
 <p>パッケージには関数，データセット，ヘルプファイルが含まれますが・・・</p>
 <h3 id="パッケージを自作するメリット">パッケージを自作するメリット</h3>
@@ -742,18 +939,21 @@
 <h2>コードを書きながらヘルプを書く；Roxygenの書き方</h2>
 <p>あとは関数をバリバリ書いていくだけ。ここでヘルプを自動的に作ってもらうために，関数の前に<code>Roxygenコメント</code>を用意しよう。</p>
 <p><code>Roxygenコメント</code>は<code>#'</code>から始めることでただのコメントアウトじゃないよ，ということを表現。続く<code>@XXX</code> でヘルプのどこに何を表示させるかを書きます。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co">#' @title 関数名</span></span>
-<span id="cb1-2"><a href=""></a><span class="co">#' @author 関数の作者名。必要なら。</span></span>
-<span id="cb1-3"><a href=""></a><span class="co">#' @description 関数の説明</span></span>
-<span id="cb1-4"><a href=""></a><span class="co">#' @details さらに詳しい説明</span></span>
-<span id="cb1-5"><a href=""></a><span class="co">#' @note descriptionに書くほどではないことを書くならこちら</span></span>
-<span id="cb1-6"><a href=""></a><span class="co">#' @importFrom 関数の中で他のパッケージから引用した関数を使うときは，全てここに書く</span></span>
-<span id="cb1-7"><a href=""></a><span class="co">#' @param この関数が取る引数を書く</span></span>
-<span id="cb1-8"><a href=""></a><span class="co">#' @return この関数が返す値を書く</span></span>
-<span id="cb1-9"><a href=""></a><span class="co">#' @export この関数をユーザが使ってほしい時は，必ずこのコマンドが必要</span></span>
-<span id="cb1-10"><a href=""></a><span class="co">#' @reference 参考資料や引用文献を\url{}などで記載</span></span>
-<span id="cb1-11"><a href=""></a><span class="co">#' @examples 関数の使用例を書く</span></span>
-<span id="cb1-12"><a href=""></a><span class="co">#' @seealso 他のドキュメントやウェブサイトへのリンクをかく。@seealso[function()]など</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="co">#' @title 関数名</span></span>
+<span id="cb31-2"><a href=""></a><span class="co">#' @author 関数の作者名。必要なら。</span></span>
+<span id="cb31-3"><a href=""></a><span class="co">#' @description 関数の説明</span></span>
+<span id="cb31-4"><a href=""></a><span class="co">#' @details さらに詳しい説明</span></span>
+<span id="cb31-5"><a href=""></a><span class="co">#' @note descriptionに書くほどではないことを書くならこちら</span></span>
+<span id="cb31-6"><a href=""></a><span class="co">#' @importFrom 関数の中で他のパッケージから引用した関数を使うときは，全てここに書く</span></span>
+<span id="cb31-7"><a href=""></a><span class="co">#' @param この関数が取る引数を書く</span></span>
+<span id="cb31-8"><a href=""></a><span class="co">#' @return この関数が返す値を書く</span></span>
+<span id="cb31-9"><a href=""></a><span class="co">#' @export この関数をユーザが使ってほしい時は，必ずこのコマンドが必要</span></span>
+<span id="cb31-10"><a href=""></a><span class="co">#' @reference 参考資料や引用文献を\url{}などで記載</span></span>
+<span id="cb31-11"><a href=""></a><span class="co">#' @examples 関数の使用例を書く</span></span>
+<span id="cb31-12"><a href=""></a><span class="co">#' @seealso 他のドキュメントやウェブサイトへのリンクをかく。</span></span>
+<span id="cb31-13"><a href=""></a><span class="co">#' @seealso[function()]など</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li><code>@title</code>,<code>@description</code>はまあ書きましょう。</li>
 <li><code>@importFrom</code>は忘れがち！でも忘れてたらコンパイル時にエラーで教えてくれるのでダイジョブ</li>
@@ -1043,6 +1243,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
