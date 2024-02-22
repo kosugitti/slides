@@ -121,7 +121,7 @@ sqrt(16)
 
 -   `sqrt`は関数名
 -   ()で関数に渡す値は**引数(ひきすう，argument)**
--   `16`という結果は**戻り値(もどりち，value)**
+-   `4`という結果は**戻り値(もどりち，value)**
 
 といいます。
 
@@ -258,7 +258,7 @@ pre_tmp <- 10
 # 関数を作る
 myFunc <- function(x){
     tmp <- x + pre_tmp
-    pre_tmo <- 20
+    pre_tmp <- 20
     return(tmp)
 }
 ```
