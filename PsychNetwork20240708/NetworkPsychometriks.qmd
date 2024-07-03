@@ -1,6 +1,11 @@
 ---
-title: "心理ネットワークのサンプル"
-author: "小杉考司(専修大学)"
+title: "心理ネットワーク分析をやってみよう"
+author:
+  - name: "Koji Kosugi"
+    degrees: PhD
+    url: "https://kosugitti.github.io/kosugitti10/"
+    affiliations: Senshu University
+    email: kosugi@psy.senshu-u.ac.jp
 format: html
 ---
 
