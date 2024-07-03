@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.557">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="小杉考司(専修大学)">
+
+<title>心理ネットワークのサンプル</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="NetworkPsychometriks_files/libs/clipboard/clipboard.min.js"></script>
+<script src="NetworkPsychometriks_files/libs/quarto-html/quarto.js"></script>
+<script src="NetworkPsychometriks_files/libs/quarto-html/popper.min.js"></script>
+<script src="NetworkPsychometriks_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="NetworkPsychometriks_files/libs/quarto-html/anchor.min.js"></script>
+<link href="NetworkPsychometriks_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="NetworkPsychometriks_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="NetworkPsychometriks_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="NetworkPsychometriks_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="NetworkPsychometriks_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">心理ネットワークのサンプル</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>小杉考司(専修大学) </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ライブラリとサンプルデータの読み込み" class="level1">
+<h1>ライブラリとサンプルデータの読み込み</h1>
+<p>ネットワーク分析に<code>qgraph</code>パッケージ，やサンプルデータのある<code>psych</code>パッケージその他をご準備ください。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 必要なパッケージがなければインストールします</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"pacman"</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 読み込み</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tidyverse"</span>, <span class="st">"qgraph"</span>, <span class="st">"psychonetrics"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"psych"</span>, <span class="st">"GPArotation"</span>, <span class="st">"corrplot"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="データセットの確認" class="level1">
+<h1>データセットの確認</h1>
+<p><code>psych</code>パッケージに入っているサンプルデータ，<code>bfi</code>を利用します。これは25項目からなる性格検査のBigFiveについての，2800人分のデータセットです。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bfi <span class="ot">&lt;-</span> bfi[, <span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># データセットの一部確認</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bfi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      A1 A2 A3 A4 A5 C1 C2 C3 C4 C5 E1 E2 E3 E4 E5 N1 N2 N3 N4 N5 O1 O2 O3 O4
+61617  2  4  3  4  4  2  3  3  4  4  3  3  3  4  4  3  4  2  2  3  3  6  3  4
+61618  2  4  5  2  5  5  4  4  3  4  1  1  6  4  3  3  3  3  5  5  4  2  4  3
+61620  5  4  5  4  4  4  5  4  2  5  2  4  4  4  5  4  5  4  2  3  4  2  5  5
+61621  4  4  6  5  5  4  4  3  5  5  5  3  4  4  4  2  5  2  4  1  3  3  4  3
+61622  2  3  3  4  5  4  4  5  3  2  2  2  5  4  5  2  3  4  4  3  3  3  4  3
+61623  6  6  5  6  5  6  6  6  1  3  2  1  6  5  6  3  5  2  2  3  4  3  5  6
+      O5
+61617  3
+61618  3
+61620  2
+61621  5
+61622  3
+61623  1</code></pre>
+</div>
+</div>
+<p>項目の頭文字は性格の因子を表しています。</p>
+<ul>
+<li>N:情緒不安定性</li>
+<li>A:調和性</li>
+<li>E:外向性</li>
+<li>O:開放性</li>
+<li>C:誠実性</li>
+</ul>
+<p>個々の項目については，<code>?bfi</code>で確認してください。</p>
+</section>
+<section id="表線形" class="level1">
+<h1>表線形</h1>
+<section id="相関行列" class="level2">
+<h2 class="anchored" data-anchor-id="相関行列">相関行列</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(bfi, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cor_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             A1          A2           A3          A4           A5          C1
+A1  1.000000000 -0.35090545 -0.273636113 -0.15675358 -0.192697601  0.01469773
+A2 -0.350905455  1.00000000  0.503041094  0.35085621  0.397400236  0.10298310
+A3 -0.273636113  0.50304109  1.000000000  0.38491762  0.515678702  0.11421112
+A4 -0.156753579  0.35085621  0.384917618  1.00000000  0.325644217  0.09481253
+A5 -0.192697601  0.39740024  0.515678702  0.32564422  1.000000000  0.13469202
+C1  0.014697735  0.10298310  0.114211122  0.09481253  0.134692020  1.00000000
+C2  0.012918376  0.12957363  0.146510834  0.22645377  0.116862660  0.43822302
+C3 -0.020586716  0.18881795  0.129391202  0.13306473  0.130819762  0.31726974
+C4  0.115073752 -0.14629498 -0.121115599 -0.17227081 -0.125530600 -0.36249078
+C5  0.038292968 -0.12110614 -0.153811477 -0.24967547 -0.167036345 -0.26107942
+E1  0.107178488 -0.22228008 -0.210365517 -0.13359967 -0.252309951 -0.03050642
+E2  0.087922036 -0.24308357 -0.291862892 -0.20997945 -0.338485050 -0.10679699
+E3 -0.048913354  0.25506614  0.383130996  0.20437705  0.411830689  0.13476716
+E4 -0.069780964  0.29712540  0.387630420  0.31893523  0.482557818  0.15320755
+E5 -0.020182434  0.29419133  0.253463000  0.16887323  0.268616001  0.26782867
+N1  0.168279347 -0.09362722 -0.083265696 -0.10664505 -0.204765183 -0.07195403
+N2  0.139813502 -0.05047556 -0.092473360 -0.15528862 -0.198836202 -0.03818001
+N3  0.092365750 -0.04040745 -0.039157552 -0.07388746 -0.138472367 -0.02547614
+N4  0.042140154 -0.08673519 -0.127107342 -0.17122809 -0.215345668 -0.09803500
+N5  0.015180743  0.01968814 -0.040143010 -0.01513585 -0.081404209 -0.04796979
+O1  0.005781965  0.12563338  0.150086011  0.05707525  0.162596019  0.17924907
+O2  0.066176215  0.01395834  0.006587564  0.03776337 -0.006988449 -0.12926326
+O3 -0.063787791  0.16531869  0.226332713  0.07098289  0.238190802  0.19656247
+O4 -0.090511637  0.08260909  0.032266524 -0.04979323  0.011354000  0.10018941
+O5  0.099165512 -0.08083819 -0.041750429  0.02730770 -0.050449084 -0.13047140
+             C2           C3          C4          C5           E1          E2
+A1  0.012918376 -0.020586716  0.11507375  0.03829297  0.107178488  0.08792204
+A2  0.129573630  0.188817947 -0.14629498 -0.12110614 -0.222280083 -0.24308357
+A3  0.146510834  0.129391202 -0.12111560 -0.15381148 -0.210365517 -0.29186289
+A4  0.226453772  0.133064728 -0.17227081 -0.24967547 -0.133599675 -0.20997945
+A5  0.116862660  0.130819762 -0.12553060 -0.16703635 -0.252309951 -0.33848505
+C1  0.438223025  0.317269740 -0.36249078 -0.26107942 -0.030506421 -0.10679699
+C2  1.000000000  0.362825692 -0.39608951 -0.30381966  0.017052480 -0.07523236
+C3  0.362825692  1.000000000 -0.35782361 -0.35094914 -0.009045174 -0.08924428
+C4 -0.396089510 -0.357823612  1.00000000  0.48755084  0.098480418  0.20782320
+C5 -0.303819663 -0.350949143  0.48755084  1.00000000  0.067669081  0.26636135
+E1  0.017052480 -0.009045174  0.09848042  0.06766908  1.000000000  0.46903799
+E2 -0.075232364 -0.089244279  0.20782320  0.26636135  0.469037986  1.00000000
+E3  0.152957166  0.092564181 -0.08454537 -0.16325814 -0.322501793 -0.38556317
+E4  0.122900865  0.099536711 -0.11254171 -0.20721737 -0.419657784 -0.52708823
+E5  0.257836034  0.207487587 -0.23501224 -0.23483372 -0.307265311 -0.38340568
+N1 -0.019950594 -0.079093074  0.21585150  0.21641411  0.014867489  0.17619373
+N2 -0.005585878 -0.066880125  0.15834618  0.24629848  0.020180822  0.20652670
+N3  0.003188906 -0.077415626  0.20190507  0.24159858  0.054724978  0.19349661
+N4 -0.044340563 -0.122175201  0.27063293  0.35466401  0.235032508  0.35130176
+N5  0.051211825 -0.023508083  0.19706212  0.17900900  0.054037239  0.25937933
+O1  0.161041744  0.091141442 -0.09356107 -0.08563030 -0.104509885 -0.15847590
+O2 -0.057346667 -0.029603757  0.20807220  0.12259588  0.049377911  0.07940195
+O3  0.192681367  0.058879557 -0.08302689 -0.07412888 -0.217140060 -0.23778309
+O4  0.047426919  0.011360009  0.05301435  0.13548192  0.094332724  0.17192270
+O5 -0.066589993 -0.002809094  0.18954330  0.05580361  0.088860025  0.08143927
+            E3          E4            E5          N1           N2           N3
+A1 -0.04891335 -0.06978096 -0.0201824341  0.16827935  0.139813502  0.092365750
+A2  0.25506614  0.29712540  0.2941913292 -0.09362722 -0.050475559 -0.040407455
+A3  0.38313100  0.38763042  0.2534629997 -0.08326570 -0.092473360 -0.039157552
+A4  0.20437705  0.31893523  0.1688732263 -0.10664505 -0.155288621 -0.073887455
+A5  0.41183069  0.48255782  0.2686160010 -0.20476518 -0.198836202 -0.138472367
+C1  0.13476716  0.15320755  0.2678286711 -0.07195403 -0.038180013 -0.025476140
+C2  0.15295717  0.12290087  0.2578360337 -0.01995059 -0.005585878  0.003188906
+C3  0.09256418  0.09953671  0.2074875871 -0.07909307 -0.066880125 -0.077415626
+C4 -0.08454537 -0.11254171 -0.2350122409  0.21585150  0.158346176  0.201905071
+C5 -0.16325814 -0.20721737 -0.2348337239  0.21641411  0.246298485  0.241598580
+E1 -0.32250179 -0.41965778 -0.3072653114  0.01486749  0.020180822  0.054724978
+E2 -0.38556317 -0.52708823 -0.3834056779  0.17619373  0.206526704  0.193496607
+E3  1.00000000  0.41718307  0.3907755201 -0.04667988 -0.059905970 -0.016663738
+E4  0.41718307  1.00000000  0.3233694036 -0.14352427 -0.152191891 -0.122642452
+E5  0.39077552  0.32336940  1.0000000000  0.03405402  0.038920900 -0.065329937
+N1 -0.04667988 -0.14352427  0.0340540152  1.00000000  0.718259801  0.567346002
+N2 -0.05990597 -0.15219189  0.0389209002  0.71825980  1.000000000  0.550060188
+N3 -0.01666374 -0.12264245 -0.0653299372  0.56734600  0.550060188  1.000000000
+N4 -0.14658000 -0.30649436 -0.2071715794  0.40986867  0.394837868  0.523270106
+N5 -0.07954856 -0.10352107 -0.1419184433  0.38059500  0.350794658  0.430629534
+O1  0.32815183  0.13776391  0.2909555220 -0.05126887 -0.043020670 -0.039684304
+O2 -0.07394857  0.04993550 -0.0846278063  0.13522676  0.117041228  0.104222899
+O3  0.40637715  0.21528614  0.3055853342 -0.03921508 -0.029635468 -0.028228466
+O4  0.05274937 -0.09938134 -0.0009925295  0.07879589  0.130926782  0.165739291
+O5 -0.12303249  0.04737504 -0.1132110767  0.10613188  0.024446298  0.056516936
+            N4          N5           O1           O2          O3            O4
+A1  0.04214015  0.01518074  0.005781965  0.066176215 -0.06378779 -0.0905116369
+A2 -0.08673519  0.01968814  0.125633375  0.013958341  0.16531869  0.0826090856
+A3 -0.12710734 -0.04014301  0.150086011  0.006587564  0.22633271  0.0322665238
+A4 -0.17122809 -0.01513585  0.057075249  0.037763366  0.07098289 -0.0497932348
+A5 -0.21534567 -0.08140421  0.162596019 -0.006988449  0.23819080  0.0113539996
+C1 -0.09803500 -0.04796979  0.179249069 -0.129263264  0.19656247  0.1001894079
+C2 -0.04434056  0.05121182  0.161041744 -0.057346667  0.19268137  0.0474269187
+C3 -0.12217520 -0.02350808  0.091141442 -0.029603757  0.05887956  0.0113600087
+C4  0.27063293  0.19706212 -0.093561071  0.208072200 -0.08302689  0.0530143468
+C5  0.35466401  0.17900900 -0.085630303  0.122595878 -0.07412888  0.1354819207
+E1  0.23503251  0.05403724 -0.104509885  0.049377911 -0.21714006  0.0943327244
+E2  0.35130176  0.25937933 -0.158475897  0.079401946 -0.23778309  0.1719226997
+E3 -0.14658000 -0.07954856  0.328151828 -0.073948573  0.40637715  0.0527493692
+E4 -0.30649436 -0.10352107  0.137763908  0.049935504  0.21528614 -0.0993813383
+E5 -0.20717158 -0.14191844  0.290955522 -0.084627806  0.30558533 -0.0009925295
+N1  0.40986867  0.38059500 -0.051268870  0.135226759 -0.03921508  0.0787958911
+N2  0.39483787  0.35079466 -0.043020670  0.117041228 -0.02963547  0.1309267823
+N3  0.52327011  0.43062953 -0.039684304  0.104222899 -0.02822847  0.1657392913
+N4  1.00000000  0.40292283 -0.048703050  0.074037609 -0.06291501  0.2201276070
+N5  0.40292283  1.00000000 -0.129128547  0.186831263 -0.08049365  0.1114697296
+O1 -0.04870305 -0.12912855  1.000000000 -0.230459374  0.39294203  0.1768736389
+O2  0.07403761  0.18683126 -0.230459374  1.000000000 -0.28360839 -0.0747808982
+O3 -0.06291501 -0.08049365  0.392942029 -0.283608390  1.00000000  0.1838899899
+O4  0.22012761  0.11146973  0.176873639 -0.074780898  0.18388999  1.0000000000
+O5  0.03574382  0.13828802 -0.246470270  0.327783074 -0.31007177 -0.1821524006
+             O5
+A1  0.099165512
+A2 -0.080838194
+A3 -0.041750429
+A4  0.027307698
+A5 -0.050449084
+C1 -0.130471396
+C2 -0.066589993
+C3 -0.002809094
+C4  0.189543299
+C5  0.055803610
+E1  0.088860025
+E2  0.081439267
+E3 -0.123032494
+E4  0.047375038
+E5 -0.113211077
+N1  0.106131882
+N2  0.024446298
+N3  0.056516936
+N4  0.035743824
+N5  0.138288023
+O1 -0.246470270
+O2  0.327783074
+O3 -0.310071773
+O4 -0.182152401
+O5  1.000000000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(cor_matrix, <span class="at">method =</span> <span class="st">"color"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="因子分析法" class="level2">
+<h2 class="anchored" data-anchor-id="因子分析法">因子分析法</h2>
+<p>因子分析法は，ここから「相関の高いところ」を因子として抜き出す。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 平行分析</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">fa.parallel</span>(bfi, <span class="at">fa =</span> <span class="st">"fa"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parallel analysis suggests that the number of factors =  6  and the number of components =  NA </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 因子分析を実行</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>result.fa <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa</span>(bfi, <span class="at">nfactors =</span> <span class="dv">5</span>, <span class="at">fm =</span> <span class="st">"ML"</span>, <span class="at">rotate =</span> <span class="st">"geominQ"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result.fa, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">cut =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Factor Analysis using method =  ml
+Call: psych::fa(r = bfi, nfactors = 5, rotate = "geominQ", fm = "ML")
+Standardized loadings (pattern matrix) based upon correlation matrix
+   item   ML2   ML1   ML5   ML3   ML4   h2   u2 com
+N1   16  0.83                         0.71 0.29 1.2
+N2   17  0.80                         0.66 0.34 1.2
+N3   18  0.68                         0.53 0.47 1.1
+N5   20  0.48                         0.34 0.66 1.9
+N4   19  0.46  0.43                   0.48 0.52 2.2
+E2   12        0.69                   0.55 0.45 1.1
+E1   11        0.58                   0.37 0.63 1.2
+E4   14       -0.55  0.33             0.52 0.48 1.7
+E5   15       -0.43                   0.40 0.60 2.4
+E3   13       -0.38                   0.44 0.56 2.8
+A3    3              0.65             0.51 0.49 1.1
+A2    2              0.59             0.40 0.60 1.1
+A5    5              0.58             0.48 0.52 1.3
+A4    4              0.45             0.29 0.71 1.7
+A1    1             -0.39             0.15 0.85 1.6
+C2    7                    0.63       0.43 0.57 1.2
+C4    9                   -0.62       0.47 0.53 1.2
+C3    8                    0.56       0.32 0.68 1.1
+C5   10                   -0.55       0.43 0.57 1.5
+C1    6                    0.52       0.32 0.68 1.2
+O3   23                          0.62 0.47 0.53 1.1
+O1   21                          0.53 0.32 0.68 1.1
+O5   25                         -0.52 0.27 0.73 1.2
+O2   22                         -0.44 0.24 0.76 1.8
+O4   24        0.33              0.39 0.26 0.74 2.4
+
+                       ML2  ML1  ML5  ML3  ML4
+SS loadings           2.50 2.24 2.05 1.95 1.61
+Proportion Var        0.10 0.09 0.08 0.08 0.06
+Cumulative Var        0.10 0.19 0.27 0.35 0.41
+Proportion Explained  0.24 0.22 0.20 0.19 0.16
+Cumulative Proportion 0.24 0.46 0.66 0.84 1.00
+
+ With factor correlations of 
+      ML2   ML1   ML5   ML3   ML4
+ML2  1.00  0.11  0.06 -0.12  0.06
+ML1  0.11  1.00 -0.34 -0.22 -0.16
+ML5  0.06 -0.34  1.00  0.18  0.23
+ML3 -0.12 -0.22  0.18  1.00  0.17
+ML4  0.06 -0.16  0.23  0.17  1.00
+
+Mean item complexity =  1.5
+Test of the hypothesis that 5 factors are sufficient.
+
+df null model =  300  with the objective function =  7.23 with Chi Square =  20163.79
+df of  the model are 185  and the objective function was  0.63 
+
+The root mean square of the residuals (RMSR) is  0.03 
+The df corrected root mean square of the residuals is  0.04 
+
+The harmonic n.obs is  2762 with the empirical chi square  1474.7  with prob &lt;  1.3e-199 
+The total n.obs was  2800  with Likelihood Chi Square =  1749.88  with prob &lt;  1.4e-252 
+
+Tucker Lewis Index of factoring reliability =  0.872
+RMSEA index =  0.055  and the 90 % confidence intervals are  0.053 0.057
+BIC =  281.47
+Fit based upon off diagonal values = 0.98
+Measures of factor score adequacy             
+                                                   ML2  ML1  ML5  ML3  ML4
+Correlation of (regression) scores with factors   0.93 0.89 0.88 0.87 0.84
+Multiple R square of scores with factors          0.86 0.79 0.77 0.76 0.71
+Minimum correlation of possible factor scores     0.71 0.58 0.54 0.52 0.43</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="因子分析モデルでネットワーク" class="level1">
+<h1>因子分析モデルでネットワーク</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qgraph</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  result.fa<span class="sc">$</span>loadings,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Big 5 FA"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ネットワーク表現" class="level1">
+<h1>ネットワーク表現</h1>
+<p><code>qgraph</code>パッケージを使うと，分析とグラフの描画を同時にやってくれます。 グラフは相関係数から描くこともできます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>BICgraph <span class="ot">&lt;-</span> <span class="fu">qgraph</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  cor_matrix,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> <span class="st">"glasso"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sampleSize =</span> <span class="fu">nrow</span>(bfi),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tuning =</span> <span class="dv">0</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">layout =</span> <span class="st">"spring"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"BIC"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">details =</span> <span class="cn">TRUE</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in EBICglassoCore(S = S, n = n, gamma = gamma, penalize.diagonal =
+penalize.diagonal, : A dense regularized network was selected (lambda &lt; 0.1 *
+lambda.max). Recent work indicates a possible drop in specificity. Interpret
+the presence of the smallest edges with care. Setting threshold = TRUE will
+enforce higher specificity, at the cost of sensitivity.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute graph with tuning = 0.5 (EBIC)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>EBICgraph <span class="ot">&lt;-</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qgraph</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    cor_matrix,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph =</span> <span class="st">"glasso"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sampleSize =</span> <span class="fu">nrow</span>(bfi),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">tuning =</span> <span class="fl">0.5</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">layout =</span> <span class="st">"spring"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"EBIC"</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">details =</span> <span class="cn">TRUE</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in EBICglassoCore(S = S, n = n, gamma = gamma, penalize.diagonal =
+penalize.diagonal, : A dense regularized network was selected (lambda &lt; 0.1 *
+lambda.max). Recent work indicates a possible drop in specificity. Interpret
+the presence of the smallest edges with care. Setting threshold = TRUE will
+enforce higher specificity, at the cost of sensitivity.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="裏線形" class="level1">
+<h1>裏線形</h1>
+<p>偏相関から考えるのがネットワーク分析の真髄です。偏相関行列を計算してみましょう。</p>
+<section id="偏相関係数の推定" class="level2">
+<h2 class="anchored" data-anchor-id="偏相関係数の推定">偏相関係数の推定</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>partial_cor <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">partial.r</span>(bfi)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(partial_cor, <span class="at">method =</span> <span class="st">"color"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="偏相関係数でのグラフ化" class="level2">
+<h2 class="anchored" data-anchor-id="偏相関係数でのグラフ化">偏相関係数でのグラフ化</h2>
+<p>偏相関係数でのグラフ化をしてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>BICgraph <span class="ot">&lt;-</span> <span class="fu">qgraph</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  partial_cor,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> <span class="st">"glasso"</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sampleSize =</span> <span class="fu">nrow</span>(bfi),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tuning =</span> <span class="dv">0</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">layout =</span> <span class="st">"spring"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"BIC"</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">details =</span> <span class="cn">TRUE</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in EBICglassoCore(S = S, n = n, gamma = gamma, penalize.diagonal =
+penalize.diagonal, : A dense regularized network was selected (lambda &lt; 0.1 *
+lambda.max). Recent work indicates a possible drop in specificity. Interpret
+the presence of the smallest edges with care. Setting threshold = TRUE will
+enforce higher specificity, at the cost of sensitivity.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute graph with tuning = 0.5 (EBIC):</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>BICgraph <span class="ot">&lt;-</span> <span class="fu">qgraph</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  partial_cor,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> <span class="st">"glasso"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sampleSize =</span> <span class="fu">nrow</span>(bfi),</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">tuning =</span> <span class="fl">0.5</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">layout =</span> <span class="st">"spring"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"EBIC"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">details =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in EBICglassoCore(S = S, n = n, gamma = gamma, penalize.diagonal =
+penalize.diagonal, : A dense regularized network was selected (lambda &lt; 0.1 *
+lambda.max). Recent work indicates a possible drop in specificity. Interpret
+the presence of the smallest edges with care. Setting threshold = TRUE will
+enforce higher specificity, at the cost of sensitivity.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ネットワークの指標" class="level2">
+<h2 class="anchored" data-anchor-id="ネットワークの指標">ネットワークの指標</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare centrality and clustering:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">centralityPlot</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">BIC =</span> BICgraph, <span class="at">EBIC =</span> EBICgraph),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">include =</span> <span class="st">"all"</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 3 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="psychonetricsパッケージのご紹介" class="level1">
+<h1>Psychonetricsパッケージのご紹介</h1>
+<p><code>psychonetrics</code>パッケージを使うと，モダンな書き方で分析が可能です。</p>
+<section id="グラフの描画" class="level2">
+<h2 class="anchored" data-anchor-id="グラフの描画">グラフの描画</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## フルモデル</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggm</span>(bfi, <span class="at">omega =</span> <span class="st">"full"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">runmodel</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getmatrix</span>(<span class="st">"omega"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qgraph</span>(<span class="at">theme =</span> <span class="st">"colorblind"</span>, <span class="at">layout =</span> <span class="st">"spring"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ヌルモデル</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggm</span>(bfi, <span class="at">omega =</span> <span class="st">"empty"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">runmodel</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getmatrix</span>(<span class="st">"omega"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qgraph</span>(<span class="at">theme =</span> <span class="st">"colorblind"</span>, <span class="at">layout =</span> <span class="st">"spring"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in fixAdj(omega, nGroup, nNode, equal, diag0 = TRUE): Using 'empty' for
+matrix specification is deprecated. Please use 'full', 'diag', or 'zero'
+instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## フルモデル</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggm</span>(bfi, <span class="at">estimator =</span> <span class="st">"ML"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">runmodel</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getmatrix</span>(<span class="st">"omega"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qgraph</span>(<span class="at">theme =</span> <span class="st">"colorblind"</span>, <span class="at">layout =</span> <span class="st">"spring"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="各種指標の表示" class="level2">
+<h2 class="anchored" data-anchor-id="各種指標の表示">各種指標の表示</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggm</span>(bfi) <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">runmodel</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getmatrix</span>(<span class="st">"omega"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">centralityPlot</span>(<span class="at">include =</span> <span class="fu">c</span>(<span class="st">"Strength"</span>, <span class="st">"Betweenness"</span>, <span class="st">"Closeness"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="枝刈り" class="level2">
+<h2 class="anchored" data-anchor-id="枝刈り">枝刈り</h2>
+<p>ボンフェロー二の補正もできる</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggm</span>(bfi) <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">runmodel</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prune</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getmatrix</span>(<span class="st">"omega"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qgraph</span>(<span class="at">theme =</span> <span class="st">"colorblind"</span>, <span class="at">layout =</span> <span class="st">"spring"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggm</span>(bfi) <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">runmodel</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prune</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getmatrix</span>(<span class="st">"omega"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qgraph</span>(<span class="at">theme =</span> <span class="st">"colorblind"</span>, <span class="at">layout =</span> <span class="st">"spring"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in runmodel(., verbose = verbose, ...): One or more parameters were
+estimated to be near its bounds. This may be indicative of, for example, a
+Heywood case, but also of an optimization problem. Interpret results and fit
+with great care. For unconstrained estimation, set bounded = FALSE.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in addSEs_cpp(x, verbose = verbose, approximate_SEs = approximate_SEs):
+Standard errors could not be obtained because the Fischer information matrix
+could not be inverted. This may be a symptom of a non-identified model or due
+to convergence issues. You can try to approximate standard errors by setting
+approximate_SEs = TRUE at own risk.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in runmodel(., verbose = verbose, ...): Model might not have converged
+properly: mean(abs(gradient)) &gt; 1.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="NetworkPsychometriks_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="モデル選択" class="level2">
+<h2 class="anchored" data-anchor-id="モデル選択">モデル選択</h2>
+<p>時間がかかるので実行しませんが，こんな感じで書きます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggm</span>(bfi, <span class="at">verbose =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">runmodel</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modelsearch</span>(<span class="at">criterion =</span> <span class="st">"bic"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getmatrix</span>(<span class="st">"omega"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qgraph</span>(<span class="at">theme =</span> <span class="st">"colorblind"</span>, <span class="at">layout =</span> <span class="st">"spring"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="ご参考glassoをするためのstanコード" class="level1">
+<h1>ご参考；GlassoをするためのStanコード</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>data {</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  int<span class="sc">&lt;</span>lower<span class="ot">=</span><span class="dv">0</span><span class="sc">&gt;</span> N;  <span class="sc">/</span><span class="er">/</span> サンプルサイズ</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  int<span class="sc">&lt;</span>lower<span class="ot">=</span><span class="dv">0</span><span class="sc">&gt;</span> P;  <span class="sc">/</span><span class="er">/</span> 変数の数（ノードの数）</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  matrix[N, P] X;  <span class="sc">/</span><span class="er">/</span> 観測データ</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  real<span class="sc">&lt;</span>lower<span class="ot">=</span><span class="dv">0</span><span class="sc">&gt;</span> lambda;      <span class="sc">/</span><span class="er">/</span> L1正則化の強度</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>parameters {</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  cholesky_factor_cov[P] L;  <span class="sc">/</span><span class="er">/</span> 精度行列のコレスキー因子</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>transformed parameters {</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  cov_matrix[P] Precision;  <span class="sc">/</span><span class="er">/</span> 精度行列</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> 精度行列を計算</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  Precision <span class="ot">=</span> <span class="fu">multiply_lower_tri_self_transpose</span>(L);</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>model {</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> 精度行列の要素にラプラス分布の事前分布を適用</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>P) {</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>P) {</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>       target <span class="sc">+</span><span class="er">=</span> <span class="fu">double_exponential_lpdf</span>(Precision[i, j] <span class="sc">|</span> <span class="dv">0</span>, <span class="fu">inv</span>(lambda));</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> 尤度</span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>    X[n] <span class="sc">~</span> <span class="fu">multi_normal_cholesky</span>(<span class="fu">rep_vector</span>(<span class="dv">0</span>, P), L);</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>generated quantities {</span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>  matrix[P, P] Sigma;  <span class="sc">/</span><span class="er">/</span> 共分散行列</span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>  matrix[P, P] Omega;      <span class="sc">/</span><span class="er">/</span> 偏相関行列</span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> 共分散行列を計算</span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>  Sigma <span class="ot">=</span> <span class="fu">inverse</span>(Precision);</span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> 偏相関行列を計算</span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>P) {</span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>P) {</span>
+<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (i <span class="sc">!=</span> j) {</span>
+<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a>        Omega[i, j] <span class="ot">=</span> <span class="sc">-</span>Precision[i, j] <span class="sc">/</span> <span class="fu">sqrt</span>(Precision[i, i] <span class="sc">*</span> Precision[j, j]);</span>
+<span id="cb34-45"><a href="#cb34-45" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb34-46"><a href="#cb34-46" aria-hidden="true" tabindex="-1"></a>        Omega[i, j] <span class="ot">=</span> <span class="dv">1</span>;</span>
+<span id="cb34-47"><a href="#cb34-47" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb34-48"><a href="#cb34-48" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb34-49"><a href="#cb34-49" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-50"><a href="#cb34-50" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

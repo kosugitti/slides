@@ -1,0 +1,284 @@
+---
+title: "心理ネットワークのサンプル"
+author: "小杉考司(専修大学)"
+format: html
+---
+
+# ライブラリとサンプルデータの読み込み
+
+ネットワーク分析に`qgraph`パッケージ，やサンプルデータのある`psych`パッケージその他をご準備ください。
+
+```{r}
+#| echo: TRUE
+#| message: false
+
+# 必要なパッケージがなければインストールします
+if (!require("pacman")) {
+  install.packages("pacman", dependencies = TRUE)
+}
+
+# 読み込み
+pacman::p_load(
+  "tidyverse", "qgraph", "psychonetrics",
+  "psych", "GPArotation", "corrplot"
+)
+```
+
+# データセットの確認
+
+`psych`パッケージに入っているサンプルデータ，`bfi`を利用します。これは25項目からなる性格検査のBigFiveについての，2800人分のデータセットです。
+
+```{r}
+bfi <- bfi[, 1:25]
+# データセットの一部確認
+head(bfi)
+```
+
+項目の頭文字は性格の因子を表しています。
+
+-   N:情緒不安定性
+-   A:調和性
+-   E:外向性
+-   O:開放性
+-   C:誠実性
+
+個々の項目については，`?bfi`で確認してください。
+
+# 表線形
+
+## 相関行列
+
+```{r}
+cor_matrix <- cor(bfi, use = "complete.obs")
+cor_matrix
+corrplot::corrplot(cor_matrix, method = "color")
+```
+
+## 因子分析法
+
+因子分析法は，ここから「相関の高いところ」を因子として抜き出す。
+
+```{r}
+## 平行分析
+psych::fa.parallel(bfi, fa = "fa")
+## 因子分析を実行
+result.fa <- psych::fa(bfi, nfactors = 5, fm = "ML", rotate = "geominQ")
+print(result.fa, sort = TRUE, cut = 0.3)
+```
+
+# 因子分析モデルでネットワーク
+
+```{r}
+qgraph(
+  result.fa$loadings,
+  title = "Big 5 FA"
+)
+```
+
+# ネットワーク表現
+
+`qgraph`パッケージを使うと，分析とグラフの描画を同時にやってくれます。
+グラフは相関係数から描くこともできます。
+
+```{r}
+BICgraph <- qgraph(
+  cor_matrix,
+  graph = "glasso",
+  sampleSize = nrow(bfi),
+  tuning = 0,
+  layout = "spring",
+  title = "BIC",
+  details = TRUE
+)
+```
+
+
+
+```{r}
+# Compute graph with tuning = 0.5 (EBIC)
+EBICgraph <-
+  qgraph(
+    cor_matrix,
+    graph = "glasso",
+    sampleSize = nrow(bfi),
+    tuning = 0.5,
+    layout = "spring",
+    title = "EBIC",
+    details = TRUE
+  )
+```
+
+# 裏線形
+
+偏相関から考えるのがネットワーク分析の真髄です。偏相関行列を計算してみましょう。
+
+## 偏相関係数の推定
+
+```{r}
+partial_cor <- psych::partial.r(bfi)
+corrplot::corrplot(partial_cor, method = "color")
+```
+
+## 偏相関係数でのグラフ化
+
+偏相関係数でのグラフ化をしてみます。
+
+```{r}
+BICgraph <- qgraph(
+  partial_cor,
+  graph = "glasso",
+  sampleSize = nrow(bfi),
+  tuning = 0,
+  layout = "spring",
+  title = "BIC",
+  details = TRUE
+)
+```
+
+```{r}
+# Compute graph with tuning = 0.5 (EBIC):
+BICgraph <- qgraph(
+  partial_cor,
+  graph = "glasso",
+  sampleSize = nrow(bfi),
+  tuning = 0.5,
+  layout = "spring",
+  title = "EBIC",
+  details = TRUE
+)
+```
+
+## ネットワークの指標
+
+```{r}
+# Compare centrality and clustering:
+centralityPlot(
+  list(BIC = BICgraph, EBIC = EBICgraph),
+  include = "all"
+)
+```
+
+# Psychonetricsパッケージのご紹介
+
+`psychonetrics`パッケージを使うと，モダンな書き方で分析が可能です。
+
+## グラフの描画
+
+```{r}
+## フルモデル
+ggm(bfi, omega = "full") %>%
+  runmodel() %>%
+  getmatrix("omega") %>%
+  qgraph(theme = "colorblind", layout = "spring")
+## ヌルモデル
+ggm(bfi, omega = "empty") %>%
+  runmodel() %>%
+  getmatrix("omega") %>%
+  qgraph(theme = "colorblind", layout = "spring")
+## フルモデル
+ggm(bfi, estimator = "ML") %>%
+  runmodel() %>%
+  getmatrix("omega") %>%
+  qgraph(theme = "colorblind", layout = "spring")
+```
+
+## 各種指標の表示
+
+```{r}
+ggm(bfi) %>%
+  runmodel() %>%
+  getmatrix("omega") %>%
+  centralityPlot(include = c("Strength", "Betweenness", "Closeness"))
+```
+
+## 枝刈り
+
+ボンフェロー二の補正もできる
+```{r}
+ggm(bfi) %>%
+  runmodel() %>%
+  prune(alpha = 0.05) %>%
+  getmatrix("omega") %>%
+  qgraph(theme = "colorblind", layout = "spring")
+```
+
+```{r}
+ggm(bfi) %>%
+  runmodel() %>%
+  prune(alpha = 0.05, adjust = "bonferroni") %>%
+  getmatrix("omega") %>%
+  qgraph(theme = "colorblind", layout = "spring")
+```
+
+## モデル選択
+
+時間がかかるので実行しませんが，こんな感じで書きます。
+
+```{r}
+#| eval: FALSE
+
+ggm(bfi, verbose = TRUE) %>%
+  runmodel() %>%
+  modelsearch(criterion = "bic") %>%
+  getmatrix("omega") %>%
+  qgraph(theme = "colorblind", layout = "spring")
+```
+
+
+# ご参考；GlassoをするためのStanコード
+
+```{r}
+#| eval: FALSE
+
+data {
+  int<lower=0> N;  // サンプルサイズ
+  int<lower=0> P;  // 変数の数（ノードの数）
+  matrix[N, P] X;  // 観測データ
+  real<lower=0> lambda;      // L1正則化の強度
+}
+
+parameters {
+  cholesky_factor_cov[P] L;  // 精度行列のコレスキー因子
+}
+
+transformed parameters {
+  cov_matrix[P] Precision;  // 精度行列
+  
+  // 精度行列を計算
+  Precision = multiply_lower_tri_self_transpose(L);
+}
+
+model {
+  // 精度行列の要素にラプラス分布の事前分布を適用
+  for (i in 1:P) {
+    for (j in 1:P) {
+       target += double_exponential_lpdf(Precision[i, j] | 0, inv(lambda));
+    }
+  }
+  
+  // 尤度
+  for (n in 1:N) {
+    X[n] ~ multi_normal_cholesky(rep_vector(0, P), L);
+  }
+}
+
+generated quantities {
+  matrix[P, P] Sigma;  // 共分散行列
+  matrix[P, P] Omega;      // 偏相関行列
+  
+  // 共分散行列を計算
+  Sigma = inverse(Precision);
+  
+  // 偏相関行列を計算
+  for (i in 1:P) {
+    for (j in 1:P) {
+      if (i != j) {
+        Omega[i, j] = -Precision[i, j] / sqrt(Precision[i, i] * Precision[j, j]);
+      } else {
+        Omega[i, j] = 1;
+      }
+    }
+  }
+}
+
+```
