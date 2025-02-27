@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<script src="chap0_introduction_files/libs/clipboard/clipboard.min.js"></script>
+<script src="chap0_introduction_files/libs/quarto-html/tabby.min.js"></script>
+<script src="chap0_introduction_files/libs/quarto-html/popper.min.js"></script>
+<script src="chap0_introduction_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="chap0_introduction_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="chap0_introduction_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="chap0_introduction_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.42">
+
+  <meta name="author" content="Kosugitti">
+  <title>Rとexametrikaパッケージの導入</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="chap0_introduction_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="chap0_introduction_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="chap0_introduction_files/libs/revealjs/dist/theme/quarto-c420fe4d3d4acb1149aa44dc873c7d5a.css">
+  <link href="chap0_introduction_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="chap0_introduction_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="chap0_introduction_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="chap0_introduction_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Rとexametrikaパッケージの導入</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<a href="https://kosugitti.github.io/kosugitti10/">Kosugitti</a> 
+</div>
+        <p class="quarto-title-affiliation">
+            Senshu University
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="自己紹介" class="title-slide slide level1 center">
+<h1>自己紹介</h1>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>小杉考司（こすぎこうじ）</li>
+<li>専修大学人間科学部　教授　博士（社会学）</li>
+<li>担当講義；心理学データ解析基礎，心理学データ解析応用</li>
+<li>専門分野
+<ul>
+<li>心理尺度の作り方，使い方</li>
+<li>多変量解析（因子分析，多次元尺度構成法），統計モデリング</li>
+<li>統計パッケージ開発；exametrika</li>
+</ul></li>
+<li>関わった書籍
+<ul>
+<li><a href="https://amzn.to/3XlA5Gq">数値シミュレーションで読み解く統計のしくみ〜Rでためしてわかる心理統計</a></li>
+<li><a href="https://amzn.to/3EWhLNY">研究論文を読み解くための多変量解析入門 基礎篇: 重回帰分析からメタ分析まで</a></li>
+<li><a href="https://amzn.to/4gYB32u">言葉と数式で理解する多変量解析入門</a> など</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<p><img data-src="exametrika.png"></p>
+</div></div>
+</section>
+
+<section id="rの紹介" class="title-slide slide level1 center">
+<h1>Rの紹介</h1>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li><strong>R言語</strong>はオープンソースの統計解析環境
+<ul>
+<li>豊富な統計手法とグラフィックス機能</li>
+<li>無料で利用可能で継続的に発展中</li>
+<li>拡張パッケージが充実（CRAN, Bioconductor等）</li>
+<li>データサイエンス・統計分析の標準ツールの一つ</li>
+</ul></li>
+<li><strong>RStudio</strong>はRをより使いやすくする統合開発環境（IDE）
+<ul>
+<li>コード編集、実行、可視化が一画面で完結</li>
+<li>プロジェクト管理機能で作業を整理</li>
+<li>Rmarkdown/Quartoによる再現可能な分析レポート作成</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<p><img data-src="https://www.r-project.org/logo/Rlogo.png"></p>
+</div></div>
+</section>
+
+<section>
+<section id="rのはじめかた" class="title-slide slide level1 center">
+<h1>Rのはじめかた</h1>
+<p><del>0. SPSSやSASなどの統計ソフトをアンインストールします</del></p>
+<ol type="1">
+<li><code>CRAN</code>（しーらん）と検索します。<code>The Comprehensive R Archive Network</code>というサイトが出てくるはずです。</li>
+<li>自分のOS/CPUに合ったページから，最新版をダウンロードします。現在はR4.4.2になります。</li>
+<li>指示に従ってインストール！「次へ」を連打するだけでいいです。簡単ですね！</li>
+</ol>
+
+<img data-src="cran.png" class="r-stretch quarto-figure-center"><p class="caption">cranのページ</p></section>
+<section id="rstudioも使いましょう" class="slide level2">
+<h2>RStudioも使いましょう</h2>
+<ol type="1">
+<li><code>RStudio</code>で検索します。<code>RStudio Desktop</code>あるいはPosit社が出てきます。</li>
+<li><code>Install RStudio</code>からRStudio Desktopをダウンロードしてインストールしましょう。</li>
+</ol>
+<p><i class="far fa-lightbulb"></i> RStudioはServer版もあります。サーバを用意すればブラウザ経由で簡単に使える利点があります。</p>
+
+<img data-src="RStudio.png" class="r-stretch"></section>
+<section id="rstudioの起動画面" class="slide level2">
+<h2>RStudioの起動画面</h2>
+
+<img data-src="RStudioStartup.png" class="r-stretch quarto-figure-center"><p class="caption">RStudi起動画面</p><ul>
+<li>大きく4分割して使います。</li>
+<li>起動して最初にやるのが「<strong>環境設定</strong>」です。</li>
+<li>メニューバーから，Tools &gt; Global Optionsと進みます。</li>
+</ul>
+</section>
+<section id="オススメ設定" class="slide level2">
+<h2>オススメ設定</h2>
+
+<img data-src="RStudioGlobalOptions.png" class="r-stretch quarto-figure-center"><p class="caption">環境設定画面</p><ul>
+<li>General &gt; Basic のWrokspace，<code>Save Workspace to .RData on exit:</code>を<strong>never</strong>に</li>
+<li>General &gt; Graphics &gt; Graphics Deviceの<code>Backend</code>を<strong>AGG</strong>に</li>
+<li>Appearance の <code>Editor Font</code>を見やすいフォントにしましょう</li>
+<li>Appearance の <code>Editor Font size</code>を見やすい大きさにしましょう</li>
+</ul>
+<p><i class="far fa-lightbulb"></i>おすすめフォント</p>
+<ul>
+<li><a href="https://github.com/yuru7/bizin-gothic">Bizin Gothic</a></li>
+<li><a href="https://github.com/yuru7/HackGen">HackGen</a></li>
+</ul>
+</section>
+<section id="オススメ設定つづき" class="slide level2">
+<h2>オススメ設定(つづき)</h2>
+
+<img data-src="RStudioPaneLayout.png" class="r-stretch quarto-figure-center"><p class="caption">環境設定画面その2</p><ul>
+<li>Pane Layoutを
+<ul>
+<li><strong>Source</strong>と<strong>Cosole</strong>を横並びに</li>
+<li>かなりワイドな画面をお使いの方は，<code>Add Column</code>で3列にしてsource paneを一列増やそう</li>
+</ul></li>
+<li>設定が終わったら <strong>Apply(適用)</strong> ボタンをおして，<strong>OK</strong> で閉じる</li>
+</ul>
+</section>
+<section id="rstudioの4つの窓" class="slide level2">
+<h2>RStudioの4つの窓</h2>
+
+<img data-src="RStudioStartup.png" class="r-stretch quarto-figure-center"><p class="caption">4つのペイン</p><ul>
+<li><code>Source</code>ペインはエディタ領域で，Rスクリプトを書く場所。</li>
+<li><code>Console</code>ペインはRエンジン。直接Rコードを書いてもいいし，<code>Source</code>から一行ずつ，あるいは<code>Source</code>全体を流し込んで計算を実行する。</li>
+</ul>
+</section>
+<section id="rstudioの4つの窓-1" class="slide level2">
+<h2>RStudioの4つの窓</h2>
+
+<img data-src="RStudioStartup.png" class="r-stretch quarto-figure-center"><p class="caption">ペインの確認1</p><ul>
+<li><code>Environment</code>はメモリに入っている変数・オブジェクトを表示</li>
+<li><code>Files</code>はワーキングディレクトリの表示，簡単な操作</li>
+<li><code>Package</code>はパッケージ管理(後述)</li>
+<li><code>Plots</code>,<code>Viewer</code>は出力表示</li>
+</ul>
+</section>
+<section id="rはプロジェクト管理が基本" class="slide level2">
+<h2>Rはプロジェクト管理が基本</h2>
+<ul>
+<li>プロジェクト＝フォルダに紐づいた作業環境を作ろう
+<ul>
+<li>File &gt; New ProjectからNew Directory/Existing Directory/Version Controlを選ぶ
+<ul>
+<li>New Directory; 新しいフォルダで作業開始</li>
+<li>Existing Directory; 既存のフォルダをプロジェクトと紐付け</li>
+<li>Version Control; Githubレポジトリとプロジェクトを紐付け</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><i class="fas fa-heart"></i> プロジェクトにしておくと，作業フォルダの設定も自動でなされるから，ファイルの読み込みなどでパスの指定が楽になります。</p>
+<ul>
+<li>今回の春セミ用にプロジェクトフォルダを作りましょう！
+<ul>
+<li>すでにフォルダに色々まとめている人は，Existing Directoryから</li>
+<li>まだフォルダがない人は，New Directoryから</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="rをさわってみましょう" class="title-slide slide level1 center">
+<h1>Rをさわってみましょう</h1>
+
+</section>
+<section id="はじめの1歩" class="slide level2">
+<h2>はじめの1歩</h2>
+<ul>
+<li>Rはインタプリタ言語＝一問一答
+<ul>
+<li>Consoleに<code>&gt;</code>が出ていたら聞く準備ができています。</li>
+<li>Consoleに<code>+</code>が出ていたら前の入力が終わってません。</li>
+</ul></li>
+<li>直接Consoleに書き込むのではなく，スクリプトに書きましょう。
+<ul>
+<li>File &gt; New File &gt; R Script と進むと無名のスクリプトファイルが開きます</li>
+</ul></li>
+<li>スクリプトファイルが開いたら，まず次のように書きます。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>一行目は呪文のようなものだと思ってください。
+<ul>
+<li><code>rm</code>という関数はremoveを意味していて，現在Rのメモリにある変数やオブジェクトを除外します。</li>
+<li><code>list=ls()</code>は「メモリのすべてのオブジェクトリスト」を意味するので，これで環境の初期化になります。</li>
+</ul></li>
+</ul>
+</section>
+<section id="パッケージ" class="slide level2">
+<h2>パッケージ</h2>
+<ul>
+<li>パッケージは関数のセット。元のRに追加するだけで機能が増えます。</li>
+<li>パッケージはCRANを通じて公開され，ペインの<code>Packages</code>タブで管理できます。</li>
+</ul>
+
+<img data-src="packages_tab.png" class="r-stretch"><ul>
+<li>デフォルトではCRANから取ってくることになります。(要ネット環境)
+<ul>
+<li>Packagesのところで<code>exametrika</code>と入力してインストールしちゃいましょう。</li>
+<li>あるパッケージが他のパッケージを必要とすることもあります。これを<strong>依存パッケージ</strong>といいます。</li>
+<li>RStudioのPackagesタブでは<code>install dependencies</code>にチェックがあるのがデフォルトです。
+<ul>
+<li>依存パッケージがあれば自動的にインストールされます。</li>
+<li><code>exametrika</code>は<code>igraph</code>などに依存していますので，それらが同時に導入されます</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="パッケージの使い方" class="slide level2">
+<h2>パッケージの使い方</h2>
+<ul>
+<li>パッケージを使うには<code>library</code>と書きます。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(exametrika)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>これで<code>exametrika</code>パッケージの持つ関数が実行できるようになりました！他のパッケージも同様です。</p></li>
+<li><p>パッケージのインストールを毎回する必要はありません。インストールは「手に入れる」ということだからです。</p></li>
+<li><p>パッケージの実装(<code>library</code>)はセッション毎に行う必要があります。これは「そうびする」ようなものです。</p></li>
+<li><p>Rスクリプトの冒頭で<code>rm(list=ls())</code>としましたが，分析に必要なパッケージはスクリプトの最上部にまとめて書いておきましょう。</p>
+<ul>
+<li>Rはインタプリタなので，逐次的に処理が進みますが，行ったり来たりしていると「パッケージを読み込んだっけ？」とか「今は何の数字で何の計算をしてるんだっけ？」となってしまいます。</li>
+<li>細かいことですが，パッケージは読み込む順番に影響されることがあります。
+<ul>
+<li>同じ関数名を異なるパッケージが使っている場合，後で読み込まれた方が上書きされます。</li>
+<li>混同しないように<code>PackageName::function</code>のように<code>::</code>で明示することがあります。</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="数値計算の基礎" class="slide level2">
+<h2>数値計算の基礎</h2>
+<ul>
+<li>スクリプトに四則演算を書いて，Cmd+Enterでコンソールに送ります。</li>
+<li>複数行選択/Runボタン/Sourceボタンをつかってもいいでしょう。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="dv">3</span> <span class="sc">-</span> <span class="dv">4</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="dv">5</span> <span class="sc">*</span> <span class="dv">6</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 30</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="dv">7</span> <span class="sc">/</span> <span class="dv">3</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.333333</code></pre>
+</div>
+</div>
+<ul>
+<li>出力に<code>[1]</code>とあるのは気にしないでください。
+<ul>
+<li>Rはベクトルで処理します。今回の演算も，要素が1つのベクトルとして考えて処理しています。</li>
+</ul></li>
+</ul>
+</section>
+<section id="数値計算の基礎-1" class="slide level2">
+<h2>数値計算の基礎</h2>
+<ul>
+<li>計算結果を保持する，あるいは名前をつけて管理することができます。</li>
+<li>Rは「名前をつけて管理する対象」をすべて<strong>オブジェクト</strong>といいます。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb11-2"><a href=""></a>b <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">-</span> <span class="dv">4</span></span>
+<span id="cb11-3"><a href=""></a><span class="fu">print</span>(a)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">print</span>(b)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">print</span>(a <span class="sc">+</span> b)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<ul>
+<li><code>&lt;-</code>で代入を意味します。ショートカット(ALTと-,optionと-)も覚えておこう</li>
+<li>RStudioの<code>Environment</code>タブに保存されているオブジェクトが表示されています。ダブルクリックで確認できます。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb17-2"><a href=""></a>a <span class="sc">+</span> b</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p><i class="far fa-lightbulb"></i>同じオブジェクト名なら上書きされることに注意</p>
+</section>
+<section id="ベクトル行列リストデータフレーム" class="slide level2">
+<h2>ベクトル，行列，リスト，データフレーム</h2>
+<ul>
+<li>複数の数字のセット，<strong>ベクトル</strong>は<code>c()</code>でくくることで表現します。
+<ul>
+<li>連続した数字はコロン<code>:</code>で表現します。</li>
+</ul></li>
+<li>2次元に並ぶ数字のセット，<strong>行列</strong>は<code>matrix()</code>でつくります。
+<ul>
+<li><code>matrix</code>関数にベクトルを与えるなどします。</li>
+</ul></li>
+<li>3次元以上の数字のセット，<strong>配列</strong>は<code>array()</code>で，<code>dim</code>オプションで各次元の大きさを指定します。</li>
+<li>数字，文字，論理値(T/F)などが混在するもののセット，<strong>リスト</strong>は<code>list()</code>でつくります。</li>
+<li>リストの中でも矩形に整っている<strong>データフレーム</strong>は，<code>data.frame()</code>でつくります。</li>
+</ul>
+<p><i class="fas fa-check"></i> 分析するときはデータフレームがもっともよく使われます</p>
+<p><i class="fas fa-check"></i> データフレームの上位互換，<code>tibble</code>という型もあります。これは<code>tibble</code>パッケージを読み込むことで使えるようになります。</p>
+</section>
+<section id="ベクトルvectorの例" class="slide level2">
+<h2>ベクトル（Vector）の例</h2>
+<h3 id="数値ベクトル">数値ベクトル</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb19-2"><a href=""></a><span class="fu">print</span>(x)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div>
+<h3 id="文字列ベクトル">文字列ベクトル</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"りんご"</span>, <span class="st">"みかん"</span>, <span class="st">"バナナ"</span>)</span>
+<span id="cb21-2"><a href=""></a><span class="fu">print</span>(y)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "りんご" "みかん" "バナナ"</code></pre>
+</div>
+</div>
+<h3 id="論理値ベクトル">論理値ベクトル</h3>
+<ul>
+<li>Rには文字，数字以外に論理値というのがあります。真/TRUEか偽/FALSEか，を表します。</li>
+<li>使い方としては，論理判断の条件で使ったり，オプションの「スイッチオン・オフ」を表す時につかいます。</li>
+<li>大文字の<code>T</code>や<code>F</code>は論理値を表す特別な用語(予約語)です。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb23-2"><a href=""></a><span class="fu">print</span>(z)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE FALSE  TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="行列matrix" class="slide level2">
+<h2>行列（Matrix）</h2>
+<ul>
+<li>1から9までの数字で3×3行列を作成</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>m1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb25-2"><a href=""></a><span class="fu">print</span>(m1)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9</code></pre>
+</div>
+</div>
+<ul>
+<li>行名と列名を付ける</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>m2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,</span>
+<span id="cb27-2"><a href=""></a>    <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>,</span>
+<span id="cb27-3"><a href=""></a>    <span class="at">dimnames =</span> <span class="fu">list</span>(</span>
+<span id="cb27-4"><a href=""></a>        <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>),</span>
+<span id="cb27-5"><a href=""></a>        <span class="fu">c</span>(<span class="st">"X"</span>, <span class="st">"Y"</span>, <span class="st">"Z"</span>)</span>
+<span id="cb27-6"><a href=""></a>    )</span>
+<span id="cb27-7"><a href=""></a>)</span>
+<span id="cb27-8"><a href=""></a><span class="fu">print</span>(m2)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X Y Z
+A 1 4 7
+B 2 5 8
+C 3 6 9</code></pre>
+</div>
+</div>
+</section>
+<section id="配列array" class="slide level2">
+<h2>配列（Array）</h2>
+<ul>
+<li>2×3×2の3次元配列を作成</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>arr <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>))</span>
+<span id="cb29-2"><a href=""></a><span class="fu">print</span>(arr)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, , 1
+
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+
+, , 2
+
+     [,1] [,2] [,3]
+[1,]    7    9   11
+[2,]    8   10   12</code></pre>
+</div>
+</div>
+</section>
+<section id="リストlist" class="slide level2">
+<h2>リスト（List）</h2>
+<ul>
+<li>様々な型のデータを含むリストを作成</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb31-2"><a href=""></a>    <span class="at">numbers =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb31-3"><a href=""></a>    <span class="at">text =</span> <span class="st">"Hello"</span>,</span>
+<span id="cb31-4"><a href=""></a>    <span class="at">logical =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb31-5"><a href=""></a>    <span class="at">matrix =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb31-6"><a href=""></a>)</span>
+<span id="cb31-7"><a href=""></a><span class="fu">print</span>(my_list)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$numbers
+[1] 1 2 3
+
+$text
+[1] "Hello"
+
+$logical
+[1] TRUE
+
+$matrix
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4</code></pre>
+</div>
+</div>
+</section>
+<section id="リストlist-1" class="slide level2">
+<h2>リスト（List）</h2>
+<ul>
+<li>リストの要素へのアクセス
+<ul>
+<li>名前付きリストなら<code>$</code>マークで呼び出せます</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a>my_list<span class="sc">$</span>numbers</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a>my_list<span class="sc">$</span>numbers[<span class="dv">3</span>]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a>my_list<span class="sc">$</span>matrix[, <span class="dv">2</span>]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a>my_list<span class="sc">$</span>matrix</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    1    3
+[2,]    2    4</code></pre>
+</div>
+</div>
+</section>
+<section id="データフレームdata-frame" class="slide level2">
+<h2>データフレーム（Data Frame）</h2>
+<ul>
+<li>データフレームの作成例
+<ul>
+<li>データフレームはリストの特殊な型なので，リストを<code>as.data.frame</code>関数で変換してもOK</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb41-2"><a href=""></a>    <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"田中"</span>, <span class="st">"鈴木"</span>, <span class="st">"佐藤"</span>),</span>
+<span id="cb41-3"><a href=""></a>    <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">28</span>),</span>
+<span id="cb41-4"><a href=""></a>    <span class="at">gender =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>, <span class="st">"M"</span>),</span>
+<span id="cb41-5"><a href=""></a>    <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">170</span>, <span class="dv">160</span>, <span class="dv">175</span>)</span>
+<span id="cb41-6"><a href=""></a>)</span>
+<span id="cb41-7"><a href=""></a></span>
+<span id="cb41-8"><a href=""></a><span class="fu">print</span>(df)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  name age gender height
+1 田中  25      M    170
+2 鈴木  30      F    160
+3 佐藤  28      M    175</code></pre>
+</div>
+</div>
+<ul>
+<li>要素へのアクセスの仕方はリストと同じです</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a>df<span class="sc">$</span>age</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25 30 28</code></pre>
+</div>
+</div>
+</section>
+<section id="データ構造の比較" class="slide level2">
+<h2>データ構造の比較</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 22%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>特徴</th>
+<th>ベクトル</th>
+<th>行列</th>
+<th>配列</th>
+<th>リスト</th>
+<th>df</th>
+<th>Tibble</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>次元</td>
+<td>1次元</td>
+<td>2次元</td>
+<td>n次元</td>
+<td>階層構造</td>
+<td>2次元</td>
+<td>2次元</td>
+</tr>
+<tr class="even">
+<td>型の統一</td>
+<td>必要</td>
+<td>必要</td>
+<td>必要</td>
+<td>不要</td>
+<td>列ごと</td>
+<td>列ごと</td>
+</tr>
+<tr class="odd">
+<td>データ型</td>
+<td>単一</td>
+<td>単一</td>
+<td>単一</td>
+<td>複数可</td>
+<td>複数可</td>
+<td>複数可</td>
+</tr>
+<tr class="even">
+<td>主な用途</td>
+<td>単純な数列</td>
+<td>数値計算</td>
+<td>多次元データ</td>
+<td>複雑なデータ</td>
+<td>データ分析</td>
+<td>データ分析</td>
+</tr>
+</tbody>
+</table>
+<p><i class="far fa-lightbulb"></i>tibble型はデータフレームの上位互換で，<code>tibble</code>パッケージを使うことで導入できます。主な特徴は次のとおりです。</p>
+<ul>
+<li>型情報の表示</li>
+<li>行数と列数の表示</li>
+<li>データの一部のみ表示（大きなデータセット時に便利）</li>
+</ul>
+</section>
+<section id="パイプ演算子を活用しよう" class="slide level2">
+<h2>パイプ演算子を活用しよう</h2>
+<ul>
+<li>パイプ演算子は、データの処理を順番に繋げてくれる記号</li>
+<li>左から右へ、データが流れていくイメージ！コードが読みやすく、理解しやすくなる</li>
+</ul>
+<h3 id="基本的な使い方">基本的な使い方</h3>
+<ul>
+<li>パイプ演算子を使わないでいると？</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href=""></a>result <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">sqrt</span>(<span class="fu">abs</span>(<span class="fu">log</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)))))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>パイプ演算子を使ってみると？</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href=""></a>result <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href=""></a>    <span class="fu">log</span>() <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href=""></a>    <span class="fu">abs</span>() <span class="sc">|&gt;</span></span>
+<span id="cb46-4"><a href=""></a>    <span class="fu">sqrt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb46-5"><a href=""></a>    <span class="fu">sum</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>パイプ演算子はショートカット<code>Ctrl/Cmd + Shift + M</code>で入力できます
+<ul>
+<li><code>|&gt;</code>はR4.1以降使えるようになった，Rのもってるパイプ演算子</li>
+<li><code>%&gt;%</code>は<code>magrittr</code>パッケージや，それを含んだ<code>tidyverse</code>パッケージで以前から使われていたもの</li>
+</ul></li>
+</ul>
+</section>
+<section id="余談tidyな世界" class="slide level2">
+<h2>(余談)tidyな世界</h2>
+<ul>
+<li><code>tidyverse</code>パッケージは，データハンドリングを画期的に簡単にしたパッケージで，これでRのユーザが一気に広がったと言っても過言ではありません。</li>
+<li><code>tidyverse</code>パッケージはパッケージのパッケージ。
+<ul>
+<li>大規模データ用のデータフレーム，<code>tibble</code></li>
+<li>パイプ演算子のパッケージ<code>magrittr</code></li>
+<li>描画を綺麗にしてくれるパッケージ<code>ggplot2</code>などが含まれます</li>
+</ul></li>
+<li>専門の書籍も出ています <i class="fa-solid fa-book"></i><code>tidyverse</code>パッケージを基本にした<a href="https://amzn.to/4bisTkc">改訂2版RユーザのためのRStudio[実践]入門〜tidyverseによるモダンな分析フローの世界</a></li>
+</ul>
+</section>
+<section id="余談チートシートを活用しよう" class="slide level2">
+<h2>(余談)チートシートを活用しよう</h2>
+<ul>
+<li>RStudioのメニューバー，Help&gt; Cheat Sheetsと進んでください</li>
+<li>PDFファイル1，2枚分で基本的な使い方を始めとした，様々なチートシートが現れます！</li>
+</ul>
+
+<img data-src="cheetSheet.png" class="r-stretch"></section></section>
+<section>
+<section id="具体的にデータを扱ってみよう" class="title-slide slide level1 center">
+<h1>具体的にデータを扱ってみよう</h1>
+
+</section>
+<section id="データの読み込みと操作" class="slide level2">
+<h2>データの読み込みと操作</h2>
+<h3 id="csvファイルの読み込み">CSVファイルの読み込み</h3>
+<ul>
+<li>CSVファイルはRでもっとも一般的なデータ形式の一つです</li>
+<li>エクセルファイルなどと違って，アプリケーションに依存せず，メモ帳で開くこともできますので，あらゆるOSに対応できます。</li>
+<li>基本的な読み込み方法は <code>read.csv()</code> 関数を使います</li>
+<li><code>tidyverse</code>パッケージを使っている人は，<code>read_csv()</code>関数のほうが細かな調整が効いていいかも</li>
+</ul>
+</section>
+<section id="基本的なcsv読み込み" class="slide level2">
+<h2>基本的なCSV読み込み</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data.csv"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<h3 id="日本語を含むcsvファイルの場合">日本語を含むCSVファイルの場合</h3>
+<ul>
+<li>Windowsユーザ/Excelユーザは文字化けを起こす可能性があります。</li>
+<li>世界標準である<code>UTF-8</code>という文字コードでファイルを管理しましょう</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data.csv"</span>, <span class="at">fileEncoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Rstudioの<code>Files</code> タブからファイルを選んで<code>Import Dataset</code>とするとGUIでも操作できます。
+<ul>
+<li>Excelファイルを読み込みたい場合は，そちらを使うのもいいでしょう</li>
+</ul></li>
+</ul>
+
+<img data-src="importDataset.png" class="r-stretch"></section>
+<section id="import-dataset" class="slide level2">
+<h2>Import Dataset</h2>
+
+<img data-src="importDatasetWindow.png" class="r-stretch"></section>
+<section id="サンプルコードを読み込んでみよう" class="slide level2">
+<h2>サンプルコードを読み込んでみよう</h2>
+<ul>
+<li>インターネットから読み込むこともできます！</li>
+<li>次のコードでサンプルデータを読み込んでみましょう。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href=""></a>baseball <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://shorturl.at/X4ctc"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>ショートURLの参照先は怪しいところではありません。
+<ul>
+<li>https://kosugitti.github.io/psychometrics_syllabus/codes/SampleData/BaseballDecade.csv</li>
+<li>私の<a href="https://kosugitti.github.io/psychometrics_syllabus/">心理統計教育教材</a>サイトに置いてあるサンプルデータです</li>
+<li>野球選手の基本情報など，10年分のデータがあります。</li>
+</ul></li>
+<li>データの一部(冒頭)を<code>head</code>関数で確認してみましょう</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href=""></a><span class="fu">head</span>(baseball)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Year       Name team salary bloodType height weight UniformNum position
+1 2011年度 永川　勝浩 Carp  12000       O型    188     97         20     投手
+2 2011年度 前田　健太 Carp  12000       A型    182     73         18     投手
+3 2011年度 栗原　健太 Carp  12000       O型    183     95          5   内野手
+4 2011年度 東出　輝裕 Carp  10000       A型    171     73          2   内野手
+5 2011年度   シュルツ Carp   9000      不明    201    100         70     投手
+6 2011年度   大竹　寛 Carp   8000       B型    183     90         17     投手
+  Games AtBats Hit HR Win Lose Save Hold
+1    19     NA  NA NA   1    2    0    0
+2    31     NA  NA NA  10   12    0    0
+3   144    536 157 17  NA   NA   NA   NA
+4   137    543 151  0  NA   NA   NA   NA
+5    19     NA  NA NA   0    0    0    9
+6     6     NA  NA NA   1    1    0    0</code></pre>
+</div>
+</div>
+</section>
+<section id="オブジェクトの基本情報" class="slide level2">
+<h2>オブジェクトの基本情報</h2>
+<ul>
+<li><code>str</code>関数，あるいは<code>Environment</code>タブにあるオブジェクト名を開くと，基本情報が確認できます。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href=""></a><span class="fu">str</span>(baseball)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   6546 obs. of  17 variables:
+ $ Year      : chr  "2011年度" "2011年度" "2011年度" "2011年度" ...
+ $ Name      : chr  "永川　勝浩" "前田　健太" "栗原　健太" "東出　輝裕" ...
+ $ team      : chr  "Carp" "Carp" "Carp" "Carp" ...
+ $ salary    : int  12000 12000 12000 10000 9000 8000 8000 7500 7000 6600 ...
+ $ bloodType : chr  "O型" "A型" "O型" "A型" ...
+ $ height    : int  188 182 183 171 201 183 177 173 176 188 ...
+ $ weight    : int  97 73 95 73 100 90 82 73 80 97 ...
+ $ UniformNum: int  20 18 5 2 70 17 31 6 1 43 ...
+ $ position  : chr  "投手" "投手" "内野手" "内野手" ...
+ $ Games     : int  19 31 144 137 19 6 110 52 52 40 ...
+ $ AtBats    : int  NA NA 536 543 NA NA 299 192 44 149 ...
+ $ Hit       : int  NA NA 157 151 NA NA 60 41 11 35 ...
+ $ HR        : int  NA NA 17 0 NA NA 4 2 0 1 ...
+ $ Win       : int  1 10 NA NA 0 1 NA NA NA NA ...
+ $ Lose      : int  2 12 NA NA 0 1 NA NA NA NA ...
+ $ Save      : int  0 0 NA NA 0 0 NA NA NA NA ...
+ $ Hold      : int  0 0 NA NA 9 0 NA NA NA NA ...</code></pre>
+</div>
+</div>
+<ul>
+<li>何年度のデータか(<code>Year</code>)，選手名(<code>Name</code>)，どのチーム所属か(<code>team</code>)，年俸(<code>salary</code>)などがあります。</li>
+<li>データの型もわかります
+<ul>
+<li><code>chr</code>は文字列型です。四則演算の対象ではありません。</li>
+<li><code>int</code>,<code>num</code>は数字です(整数と実数)</li>
+<li><code>NA</code>は欠損値を表しています。</li>
+</ul></li>
+<li><code>read.csv</code>関数は読み込んだデータを自動的にデータフレーム型にします。</li>
+</ul>
+</section>
+<section id="記述統計量" class="slide level2">
+<h2>記述統計量</h2>
+<ul>
+<li><code>summary</code>関数で要約統計量を算出できます</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href=""></a><span class="fu">summary</span>(baseball)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Year               Name               team               salary     
+ Length:6546        Length:6546        Length:6546        Min.   :  200  
+ Class :character   Class :character   Class :character   1st Qu.: 1000  
+ Mode  :character   Mode  :character   Mode  :character   Median : 2000  
+                                                          Mean   : 5178  
+                                                          3rd Qu.: 5700  
+                                                          Max.   :65000  
+                                                                         
+  bloodType             height          weight      UniformNum   
+ Length:6546        Min.   :163.0   Min.   : 60   Min.   : 0.00  
+ Class :character   1st Qu.:177.0   1st Qu.: 78   1st Qu.:16.00  
+ Mode  :character   Median :180.0   Median : 83   Median :33.00  
+                    Mean   :180.7   Mean   : 84   Mean   :34.93  
+                    3rd Qu.:184.0   3rd Qu.: 89   3rd Qu.:52.00  
+                    Max.   :216.0   Max.   :135   Max.   :99.00  
+                                                                 
+   position             Games            AtBats           Hit        
+ Length:6546        Min.   :  1.00   Min.   :  0.0   Min.   :  0.00  
+ Class :character   1st Qu.:  9.00   1st Qu.: 23.0   1st Qu.:  4.00  
+ Mode  :character   Median : 25.00   Median : 95.0   Median : 21.00  
+                    Mean   : 40.67   Mean   :165.1   Mean   : 42.53  
+                    3rd Qu.: 61.00   3rd Qu.:271.0   3rd Qu.: 69.00  
+                    Max.   :144.00   Max.   :603.0   Max.   :216.00  
+                                     NA's   :3233    NA's   :3233    
+       HR              Win              Lose             Save      
+ Min.   : 0.000   Min.   : 0.000   Min.   : 0.000   Min.   : 0.00  
+ 1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.: 0.00  
+ Median : 1.000   Median : 1.000   Median : 1.000   Median : 0.00  
+ Mean   : 3.967   Mean   : 2.517   Mean   : 2.509   Mean   : 1.27  
+ 3rd Qu.: 4.000   3rd Qu.: 4.000   3rd Qu.: 4.000   3rd Qu.: 0.00  
+ Max.   :60.000   Max.   :24.000   Max.   :15.000   Max.   :54.00  
+ NA's   :3233     NA's   :3307     NA's   :3307     NA's   :3307   
+      Hold       
+ Min.   : 0.000  
+ 1st Qu.: 0.000  
+ Median : 0.000  
+ Mean   : 3.511  
+ 3rd Qu.: 3.000  
+ Max.   :45.000  
+ NA's   :3307    </code></pre>
+</div>
+</div>
+<ul>
+<li>行数，列数を確認して，データのサイズを見ておきましょう</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href=""></a><span class="fu">NROW</span>(baseball)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6546</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href=""></a><span class="fu">NCOL</span>(baseball)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17</code></pre>
+</div>
+</div>
+</section>
+<section id="変数毎の要約統計量" class="slide level2">
+<h2>変数毎の要約統計量</h2>
+<ul>
+<li>変数に<code>$</code>でアクセスして，要約統計量を計算してみましょう。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href=""></a><span class="fu">mean</span>(baseball<span class="sc">$</span>height)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 180.7177</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href=""></a><span class="fu">sd</span>(baseball<span class="sc">$</span>height)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.613504</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href=""></a><span class="fu">median</span>(baseball<span class="sc">$</span>weight)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 83</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href=""></a><span class="fu">max</span>(baseball<span class="sc">$</span>salary)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 65000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href=""></a><span class="fu">min</span>(baseball<span class="sc">$</span>salary)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href=""></a><span class="fu">quantile</span>(baseball<span class="sc">$</span>salary)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   0%   25%   50%   75%  100% 
+  200  1000  2000  5700 65000 </code></pre>
+</div>
+</div>
+</section>
+<section id="因子型をつくってみましょう" class="slide level2">
+<h2>因子型をつくってみましょう</h2>
+<ul>
+<li>チーム名はたかだか12種類です。名義尺度水準＋ラベルの数値であるFactor型にしてみましょう。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href=""></a>baseball<span class="sc">$</span>team <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(baseball<span class="sc">$</span>team)</span>
+<span id="cb72-2"><a href=""></a><span class="fu">summary</span>(baseball<span class="sc">$</span>team)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Carp     DeNA  Dragons   Eagles Fighters   Giants    Lions    Lotte 
+     517      550      573      569      533      524      528      538 
+    Orix Softbank Swallows   Tigers 
+     579      525      556      554 </code></pre>
+</div>
+</div>
+<ul>
+<li>一行目で，同じ変数に「上書き」していることに注意</li>
+<li><code>as.factor</code>関数は変数をFactor型に変換するものです
+<ul>
+<li>クラス名，実験の水準などグループ化変数として扱うのに便利です</li>
+</ul></li>
+</ul>
+</section>
+<section id="可視化してみましょう" class="slide level2">
+<h2>可視化してみましょう</h2>
+<ul>
+<li><strong>データは図にする</strong>のが基本です。Rの基本関数でも十分綺麗な図が描けます。
+<ul>
+<li>ヒットの数をヒストグラムにしてみましょう</li>
+<li>ヒストグラムの関数は<code>hist</code>です</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href=""></a><span class="fu">hist</span>(baseball<span class="sc">$</span>Hit)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="chap0_introduction_files/figure-revealjs/plot1-1.png" width="960" class="r-stretch"></section>
+<section id="可視化してみましょう-1" class="slide level2">
+<h2>可視化してみましょう</h2>
+<ul>
+<li><strong>データは図にする</strong>のが基本です。
+<ul>
+<li>チーム毎のヒット数の違いを見てみましょう</li>
+<li>ボックスプロット(箱ひげ図)の関数は<code>boxplot</code>です
+<ul>
+<li>x軸がFactor型になっています</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href=""></a><span class="fu">boxplot</span>(Hit <span class="sc">~</span> team, <span class="at">data =</span> baseball)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="chap0_introduction_files/figure-revealjs/plot2-1.png" width="960" class="r-stretch"></section>
+<section id="可視化してみましょう-2" class="slide level2">
+<h2>可視化してみましょう</h2>
+<ul>
+<li><strong>データは図にする</strong>のが基本です。
+<ul>
+<li>散布図を書いてみましょう</li>
+<li>散布図は<code>plot</code>関数にx軸とy軸変数を指定します</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href=""></a><span class="fu">plot</span>(baseball<span class="sc">$</span>height, baseball<span class="sc">$</span>weight)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="chap0_introduction_files/figure-revealjs/plot3-1.png" width="960" class="r-stretch"></section>
+<section id="余談ggplotによる出力はより綺麗です" class="slide level2">
+<h2>(余談)ggplotによる出力は，より綺麗です</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb77-2"><a href=""></a>baseball <span class="sc">|&gt;</span></span>
+<span id="cb77-3"><a href=""></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> height, <span class="at">color =</span> team)) <span class="sc">+</span></span>
+<span id="cb77-4"><a href=""></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb77-5"><a href=""></a>    <span class="fu">geom_smooth</span>(<span class="at">formula =</span> <span class="st">"y ~ x"</span>, <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb77-6"><a href=""></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>team)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="chap0_introduction_files/figure-revealjs/ggplot1-1.png" width="960" class="r-stretch"></section></section>
+<section id="enjoy" class="title-slide slide level1 center">
+<h1>Enjoy!</h1>
+<ul>
+<li>以上で入門コースは終了です</li>
+<li>この講義では<code>exametrika</code>パッケージの他は，基本的にRの基本関数だけで分析できるようにご案内します。</li>
+<li>実は<code>ggexametrika</code>パッケージというのもあります→<a href="https://github.com/kosugitti/ggExametrika">こちら</a></li>
+</ul>
+</section>
+
+<section>
+<section id="advanced-topics" class="title-slide slide level1 center">
+<h1>Advanced Topics</h1>
+
+</section>
+<section id="quartormarkdown文芸的プログラミング" class="slide level2">
+<h2>Quarto/Rmarkdown：文芸的プログラミング</h2>
+<h3 id="rmarkdownとは">Rmarkdownとは</h3>
+<ul>
+<li><p>Markdown書式というプレーンな文書作成文法 + チャンクと呼ばれるRコードの結合</p></li>
+<li><p>文書を作成(レンダリング)するときは，Rの計算を実行してその結果を文書内に反映させる</p></li>
+<li><p>コピペ汚染がなく，RStudioで執筆と分析が統合，これだけで完結できます。</p></li>
+</ul>
+<h3 id="quartoとは">Quartoとは</h3>
+<ul>
+<li>次世代のR Markdownです。私のスライドもQuartoで作られています</li>
+<li>マルチ言語対応（R, Python, Julia等）</li>
+<li>ePub, PDFなど出力も多様</li>
+</ul>
+</section>
+<section id="quartormarkdown文芸的プログラミング-1" class="slide level2">
+<h2>Quarto/Rmarkdown：文芸的プログラミング</h2>
+<h3 id="基本的な使い方-1">基本的な使い方</h3>
+<ol type="1">
+<li>File → New FileでQuarto Document / R Markdownを選択</li>
+<li>TitleやAuthorを入力，出力書式(HTML,PDF,Word)などを選ぶ画面が出ます</li>
+<li>サンプル文書・コードが書いてあるファイルが生成されます</li>
+</ol>
+<p>これをRneder/Knitすることでファイルが出力されます。</p>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>行動計量学会27th春の合宿セミナー</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="chap0_introduction_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="chap0_introduction_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="chap0_introduction_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="chap0_introduction_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="chap0_introduction_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="chap0_introduction_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="chap0_introduction_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="chap0_introduction_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="chap0_introduction_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="chap0_introduction_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 1200,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "コピーしました");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "コピーしました");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

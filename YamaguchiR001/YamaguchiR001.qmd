@@ -10,8 +10,7 @@ author:
 format: 
     revealjs:
         theme: serif
-        footer: "Yamaguchi.R Advanced Session"
-        logo: logo.png
+        footer: "行動計量学会27th春の合宿セミナー"
         height: 1200
         width:  1600
         transition: slide
@@ -131,8 +130,8 @@ sqrt(16)
 
 ```{r}
 add2 <- function(x) {
-  tmp <- x + 2
-  return(tmp)
+    tmp <- x + 2
+    return(tmp)
 }
 ```
 
@@ -158,8 +157,8 @@ add2(4)
 
 ```{r}
 plus <- function(x, y) {
-  tmp <- x + y
-  return(tmp)
+    tmp <- x + y
+    return(tmp)
 }
 ```
 
@@ -181,8 +180,8 @@ plus(y = 3, x = 2)
 
 ```{r}
 plus2 <- function(x = 1, y = 2) {
-  tmp <- x + y
-  return(tmp)
+    tmp <- x + y
+    return(tmp)
 }
 ```
 
@@ -203,8 +202,8 @@ plus2(y = 2)
 
 ```{r}
 minus <- function(x = 3, y = 2) {
-  tmp <- x - y
-  return(tmp)
+    tmp <- x - y
+    return(tmp)
 }
 ```
 
@@ -256,7 +255,7 @@ Error:
 # 関数の前に用意する
 pre_tmp <- 10
 # 関数を作る
-myFunc <- function(x){
+myFunc <- function(x) {
     tmp <- x + pre_tmp
     pre_tmp <- 20
     return(tmp)
@@ -287,12 +286,12 @@ Rはこのように「再利用癖」があるので，注意しましょう。
 Rの関数が返すオブジェクトは一つだけ。もし複数の値を返したいのなら，`list`でまとめよう。
 
 ```{r}
-calcs <- function(x,y){
+calcs <- function(x, y) {
     pl <- x + y
-    mi <- x-y
-    pr <- x*y
-    di <- x/y
-    tmp <- list( plus = pl, minus = mi, prod = pr, divide = di )
+    mi <- x - y
+    pr <- x * y
+    di <- x / y
+    tmp <- list(plus = pl, minus = mi, prod = pr, divide = di)
     return(tmp)
 }
 ```
@@ -300,8 +299,8 @@ calcs <- function(x,y){
 使い方の例；
 
 ```{r}
-return <- calcs(x=10,y=2)
-# 
+return <- calcs(x = 10, y = 2)
+#
 return$plus
 return$divide
 ```
