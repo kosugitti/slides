@@ -50,7 +50,7 @@ cat("EPUB形式のレンダリングを開始...\n")
 quarto_render(output_format = "epub")
 
 # 方法2: システムコマンドを直接使用
-system2("quarto", c("render", "--to", "html", "--to", "pdf", "--to", "epub"))
+qsystem2("quarto", c("render", "--to", "html", "--to", "pdf", "--to", "epub"))
 
 # 特定の形式のみをレンダリングしたい場合はコメントを外して使用
 # HTML形式のみ
