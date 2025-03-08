@@ -1,0 +1,45 @@
+project:
+  type: book
+  output-dir: docs
+
+cls: apa-6th-edition.cls
+
+book:
+  title: "exametrikaパッケージによるテスト理論の実践"
+  subtitle: "第27回行動計量学会春の合宿セミナー・資料"
+  author:
+  - name: "Koji Kosugi"
+    orcid: 0000-0001-5816-0099
+    email: kosugitti@gmail.com
+  page-navigation: true
+  search: true
+  downloads: [pdf, epub]
+  cover-image: exametrika.png
+  date: ""
+  chapters:
+    - index.qmd
+    - chap0_introduction.qmd
+    - chap2_ItemTest.qmd
+    - chap4_IRT.qmd
+    - chap6_LRA.qmd
+    - chap8_Biclustering.qmd
+
+format:
+  html:
+    theme: cosmo
+    dev: ragg_png
+  pdf:
+    documentclass: ltjsbook
+    pdf-engine: lualatex
+    papersize: a4
+    geometry:
+      - top=30mm
+      - left=20mm
+      - heightrounded
+    colorlinks: true
+    fig-width: 10
+    fig-height: 8
+  epub:
+    toc: true
+    lang: ja-JP
+

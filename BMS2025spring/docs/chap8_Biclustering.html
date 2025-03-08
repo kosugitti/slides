@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.6.42" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+
+<title>6  Rをつかったバイクラスタリング分析の実習 – exametrikaパッケージによるテスト理論の実践</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<!-- htmldependencies:E3FAD763 -->
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn"
+      data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <h1 class="quarto-secondary-nav-title no-breadcrumbs"></h1>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" role="link"
+        aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+        onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="/">
+      exametrikaパッケージによるテスト理論の実践
+      </a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="/exametrikaパッケージによるテスト理論の実践.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="/exametrikaパッケージによるテスト理論の実践.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>1</span>  <span class='chapter-title'>はじめに</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/chap0_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>2</span>  <span class='chapter-title'>Rとexametrikaパッケージの導入</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/chap2_ItemTest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>3</span>  <span class='chapter-title'>Rをつかった項目分析の実習</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/chap4_IRT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>4</span>  <span class='chapter-title'>Rをつかった項目反応理論の実習</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/chap6_LRA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>5</span>  <span class='chapter-title'>Rをつかった潜在クラス/ランク分析の実習</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/chap8_Biclustering.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class='chapter-number'>6</span>  <span class='chapter-title'>Rをつかったバイクラスタリング分析の実習</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" ></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <div id="quarto-toc-target"></div>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>  <span class="chapter-title">Rをつかったバイクラスタリング分析の実習</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#準備しましょう" id="toc-準備しましょう"><span class="header-section-number">6.1</span> 準備しましょう</a>
+  <ul>
+  <li><a href="#サンプルデータを用います" id="toc-サンプルデータを用います"><span class="header-section-number">6.1.1</span> サンプルデータを用います</a></li>
+  </ul></li>
+  <li><a href="#バイクラスタリングの実行" id="toc-バイクラスタリングの実行"><span class="header-section-number">6.2</span> バイクラスタリングの実行</a>
+  <ul>
+  <li><a href="#アレイプロット" id="toc-アレイプロット"><span class="header-section-number">6.2.1</span> アレイプロット</a></li>
+  <li><a href="#フィールド参照プロファイル" id="toc-フィールド参照プロファイル"><span class="header-section-number">6.2.2</span> フィールド参照プロファイル</a></li>
+  <li><a href="#テスト参照プロファイルと潜在ランク分布" id="toc-テスト参照プロファイルと潜在ランク分布"><span class="header-section-number">6.2.3</span> テスト参照プロファイルと潜在ランク分布</a></li>
+  <li><a href="#クラス参照ベクトル" id="toc-クラス参照ベクトル"><span class="header-section-number">6.2.4</span> クラス参照ベクトル</a></li>
+  <li><a href="#フィールドメンバーシッププロファイル" id="toc-フィールドメンバーシッププロファイル"><span class="header-section-number">6.2.5</span> フィールドメンバーシップ・プロファイル</a></li>
+  <li><a href="#クラスメンバーシッププロファイル" id="toc-クラスメンバーシッププロファイル"><span class="header-section-number">6.2.6</span> クラスメンバーシップ・プロファイル</a></li>
+  <li><a href="#クラスの分布" id="toc-クラスの分布"><span class="header-section-number">6.2.7</span> クラスの分布</a></li>
+  </ul></li>
+  <li><a href="#ランクラスタリングの実行" id="toc-ランクラスタリングの実行"><span class="header-section-number">6.3</span> ランクラスタリングの実行</a>
+  <ul>
+  <li><a href="#アレイプロット-1" id="toc-アレイプロット-1"><span class="header-section-number">6.3.1</span> アレイプロット</a></li>
+  <li><a href="#フィールド参照プロファイル-1" id="toc-フィールド参照プロファイル-1"><span class="header-section-number">6.3.2</span> フィールド参照プロファイル</a></li>
+  <li><a href="#テスト参照プロファイルと潜在ランク分布-1" id="toc-テスト参照プロファイルと潜在ランク分布-1"><span class="header-section-number">6.3.3</span> テスト参照プロファイルと潜在ランク分布</a></li>
+  <li><a href="#ランク参照ベクトル" id="toc-ランク参照ベクトル"><span class="header-section-number">6.3.4</span> ランク参照ベクトル</a></li>
+  <li><a href="#フィールドメンバーシッププロファイル-1" id="toc-フィールドメンバーシッププロファイル-1"><span class="header-section-number">6.3.5</span> フィールドメンバーシップ・プロファイル</a></li>
+  <li><a href="#ランクメンバーシッププロファイル" id="toc-ランクメンバーシッププロファイル"><span class="header-section-number">6.3.6</span> ランクメンバーシップ・プロファイル</a></li>
+  <li><a href="#ランクの分布" id="toc-ランクの分布"><span class="header-section-number">6.3.7</span> ランクの分布</a></li>
+  </ul></li>
+  <li><a href="#confirmatory-analysis" id="toc-confirmatory-analysis"><span class="header-section-number">6.4</span> Confirmatory Analysis</a></li>
+  <li><a href="#exploratory-analysis" id="toc-exploratory-analysis"><span class="header-section-number">6.5</span> Exploratory Analysis</a></li>
+  <li><a href="#多値への展開" id="toc-多値への展開"><span class="header-section-number">6.6</span> 多値への展開</a>
+  <ul>
+  <li><a href="#これができると何が嬉しいか" id="toc-これができると何が嬉しいか"><span class="header-section-number">6.6.1</span> これができると何が嬉しいか</a></li>
+  </ul></li>
+  </ul>
+</nav>
+<section id="準備しましょう" class="level2" data-number="6.1">
+<h2 data-number="6.1"><span class="header-section-number">6.1</span> 準備しましょう</h2>
+<section id="サンプルデータを用います" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1"><span class="header-section-number">6.1.1</span> サンプルデータを用います</h3>
+<ul>
+<li>RStudioでプロジェクトを開いているか確認してくださいね</li>
+<li><code>exametrika</code>が持っている<code>J35S515</code>を例に</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(exametrika)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: mvtnorm</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: igraph</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: &#39;igraph&#39;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from &#39;package:stats&#39;:
+
+    decompose, spectrum</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from &#39;package:base&#39;:
+
+    union</code></pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> J35S515</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>U <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+[1,]      0      0      0      0      0      0      0      1      1      0
+[2,]      1      1      0      0      0      0      1      0      1      1
+[3,]      1      0      0      0      0      0      1      1      0      1
+[4,]      0      0      1      0      0      0      0      1      1      0
+[5,]      1      0      0      0      0      0      1      0      0      0
+[6,]      1      0      0      0      0      0      0      0      0      0
+     Item11 Item12 Item13 Item14 Item15 Item16 Item17 Item18 Item19 Item20
+[1,]      0      0      0      0      0      1      0      0      0      0
+[2,]      1      1      1      1      0      0      1      0      0      0
+[3,]      0      0      0      0      0      0      0      0      1      1
+[4,]      0      0      0      0      0      0      0      0      0      0
+[5,]      0      0      0      0      0      0      0      0      0      0
+[6,]      0      0      0      0      0      0      0      0      0      0
+     Item21 Item22 Item23 Item24 Item25 Item26 Item27 Item28 Item29 Item30
+[1,]      0      0      0      0      0      0      0      0      0      0
+[2,]      1      1      1      1      1      1      1      0      0      0
+[3,]      0      0      0      0      0      0      0      0      0      0
+[4,]      1      0      1      1      1      1      1      1      0      0
+[5,]      0      0      0      0      0      0      0      0      0      0
+[6,]      1      1      0      0      0      0      1      0      0      0
+     Item31 Item32 Item33 Item34 Item35
+[1,]      1      1      1      0      0
+[2,]      1      1      0      0      0
+[3,]      1      0      0      0      0
+[4,]      1      1      0      1      0
+[5,]      1      1      1      0      1
+[6,]      1      1      0      0      1</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="バイクラスタリングの実行" class="level2" data-number="6.2">
+<h2 data-number="6.2"><span class="header-section-number">6.2</span> バイクラスタリングの実行</h2>
+<ul>
+<li>何やら色々出てきますので，順次解説していきます</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">Biclustering</span>(dat, <span class="at">nfld =</span> <span class="dv">5</span>, <span class="at">ncls =</span> <span class="dv">6</span>, <span class="at">method =</span> <span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Biclustering is chosen.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+iter 1 logLik -7966.66 
+iter 2 logLik -7442.38 
+iter 3 logLik -7266.35 
+iter 4
+logLik -7151.01 
+iter 5 logLik -7023.94 
+iter 6 logLik -6984.82 
+iter 7 logLik
+-6950.27 
+iter 8 logLik -6939.34 
+iter 9 logLik -6930.89 
+iter 10 logLik -6923.5
+
+iter 11 logLik -6914.56 
+iter 12 logLik -6908.89 
+iter 13 logLik -6906.84 
+iter 14
+logLik -6905.39 
+iter 15 logLik -6904.24 
+iter 16 logLik -6903.28 
+iter 17 logLik
+-6902.41 
+iter 18 logLik -6901.58 
+iter 19 logLik -6900.74 
+iter 20 logLik
+-6899.86 
+iter 21 logLik -6898.9 
+iter 22 logLik -6897.84 
+iter 23 logLik -6896.66
+
+iter 24 logLik -6895.35 
+iter 25 logLik -6893.92 
+iter 26 logLik -6892.4 
+iter 27
+logLik -6890.85 
+iter 28 logLik -6889.32 
+iter 29 logLik -6887.9 
+iter 30 logLik
+-6886.66 
+iter 31 logLik -6885.67 
+iter 32 logLik -6884.98 
+iter 33 logLik
+-6884.58</code></pre>
+</div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bicluster Matrix Profile
+       Class1 Class2 Class3 Class4 Class5 Class6
+Field1 0.6236 0.8636 0.8718  0.898  0.952  1.000
+Field2 0.0627 0.3332 0.4255  0.919  0.990  1.000
+Field3 0.2008 0.5431 0.2281  0.475  0.706  1.000
+Field4 0.0495 0.2455 0.0782  0.233  0.648  0.983
+Field5 0.0225 0.0545 0.0284  0.043  0.160  0.983
+
+Field Reference Profile Indices
+       Alpha     A Beta     B Gamma       C
+Field1     1 0.240    1 0.624   0.0  0.0000
+Field2     3 0.493    3 0.426   0.0  0.0000
+Field3     1 0.342    4 0.475   0.2 -0.3149
+Field4     4 0.415    5 0.648   0.2 -0.1673
+Field5     5 0.823    5 0.160   0.2 -0.0261
+
+                              Class 1 Class 2 Class 3 Class 4 Class 5 Class 6
+Test Reference Profile          4.431  11.894   8.598  16.002  23.326  34.713
+Latent Class Ditribution      157.000  64.000  82.000 106.000  89.000  17.000
+Class Membership Distribution 146.105  73.232  85.753 106.414  86.529  16.968
+
+Field Membership Profile
+         CRR   LFE Field1 Field2 Field3 Field4 Field5
+Item01 0.850 1.000  1.000  0.000  0.000  0.000  0.000
+Item31 0.812 1.000  1.000  0.000  0.000  0.000  0.000
+Item32 0.808 1.000  1.000  0.000  0.000  0.000  0.000
+Item21 0.616 2.000  0.000  1.000  0.000  0.000  0.000
+Item23 0.600 2.000  0.000  1.000  0.000  0.000  0.000
+Item22 0.586 2.000  0.000  1.000  0.000  0.000  0.000
+Item24 0.567 2.000  0.000  1.000  0.000  0.000  0.000
+Item25 0.491 2.000  0.000  1.000  0.000  0.000  0.000
+Item11 0.476 2.000  0.000  1.000  0.000  0.000  0.000
+Item26 0.452 2.000  0.000  1.000  0.000  0.000  0.000
+Item27 0.414 2.000  0.000  1.000  0.000  0.000  0.000
+Item07 0.573 3.000  0.000  0.000  1.000  0.000  0.000
+Item03 0.458 3.000  0.000  0.000  1.000  0.000  0.000
+Item33 0.437 3.000  0.000  0.000  1.000  0.000  0.000
+Item02 0.392 3.000  0.000  0.000  1.000  0.000  0.000
+Item09 0.390 3.000  0.000  0.000  1.000  0.000  0.000
+Item10 0.353 3.000  0.000  0.000  1.000  0.000  0.000
+Item08 0.350 3.000  0.000  0.000  1.000  0.000  0.000
+Item12 0.340 4.000  0.000  0.000  0.000  1.000  0.000
+Item04 0.303 4.000  0.000  0.000  0.000  1.000  0.000
+Item17 0.276 4.000  0.000  0.000  0.000  1.000  0.000
+Item05 0.250 4.000  0.000  0.000  0.000  1.000  0.000
+Item13 0.237 4.000  0.000  0.000  0.000  1.000  0.000
+Item34 0.229 4.000  0.000  0.000  0.000  1.000  0.000
+Item29 0.227 4.000  0.000  0.000  0.000  1.000  0.000
+Item28 0.221 4.000  0.000  0.000  0.000  1.000  0.000
+Item06 0.216 4.000  0.000  0.000  0.000  1.000  0.000
+Item16 0.216 4.000  0.000  0.000  0.000  1.000  0.000
+Item35 0.155 5.000  0.000  0.000  0.000  0.000  1.000
+Item14 0.126 5.000  0.000  0.000  0.000  0.000  1.000
+Item15 0.087 5.000  0.000  0.000  0.000  0.000  1.000
+Item30 0.085 5.000  0.000  0.000  0.000  0.000  1.000
+Item20 0.054 5.000  0.000  0.000  0.000  0.000  1.000
+Item19 0.052 5.000  0.000  0.000  0.000  0.000  1.000
+Item18 0.049 5.000  0.000  0.000  0.000  0.000  1.000
+Latent Field Distribution
+           Field 1 Field 2 Field 3 Field 4 Field 5
+N of Items       3       8       7      10       7
+
+Model Fit Indices
+Number of Latent Class : 6
+Number of Latent Field: 5
+Number of EM cycle: 33 
+                   value
+model_log_like -6884.582
+bench_log_like -5891.314
+null_log_like  -9862.114
+model_Chi_sq    1986.535
+null_Chi_sq     7941.601
+model_df        1160.000
+null_df         1155.000
+NFI                0.750
+RFI                0.751
+IFI                0.878
+TLI                0.879
+CFI                0.878
+RMSEA              0.037
+AIC             -333.465
+CAIC           -5258.949
+BIC            -5256.699</code></pre>
+</div>
+</div>
+<section id="アレイプロット" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1"><span class="header-section-number">6.2.1</span> アレイプロット</h3>
+<ul>
+<li>うまく分類できたかどうかをアレイプロットで確認できます。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;Array&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="フィールド参照プロファイル" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2"><span class="header-section-number">6.2.2</span> フィールド参照プロファイル</h3>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>FRP</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Class1     Class2     Class3     Class4    Class5    Class6
+Field1 0.62358989 0.86362311 0.87179729 0.89818946 0.9515799 1.0000000
+Field2 0.06270755 0.33323234 0.42554990 0.91879529 0.9904507 1.0000000
+Field3 0.20081642 0.54305218 0.22811379 0.47498694 0.7061406 1.0000000
+Field4 0.04954076 0.24549999 0.07824042 0.23310794 0.6482247 0.9828854
+Field5 0.02254831 0.05446897 0.02836654 0.04301178 0.1603798 0.9834310</code></pre>
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;FRP&quot;</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="テスト参照プロファイルと潜在ランク分布" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3"><span class="header-section-number">6.2.3</span> テスト参照プロファイルと潜在ランク分布</h3>
+<ul>
+<li>クラスの分布をプロットします
+<ul>
+<li>棒グラフで表現されているのがTest Reference Distribution</li>
+<li>折れ線グラフで表現されているのがLatent Class Distribution</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;TRP&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="クラス参照ベクトル" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4"><span class="header-section-number">6.2.4</span> クラス参照ベクトル</h3>
+<ul>
+<li>クラスごと・フィールドごとの正答率をプロットします</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;CRV&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="フィールドメンバーシッププロファイル" class="level3" data-number="6.2.5">
+<h3 data-number="6.2.5"><span class="header-section-number">6.2.5</span> フィールドメンバーシップ・プロファイル</h3>
+<ul>
+<li>項目がどのフィールドに対応するのかを出力します</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;FRP&quot;</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="クラスメンバーシッププロファイル" class="level3" data-number="6.2.6">
+<h3 data-number="6.2.6"><span class="header-section-number">6.2.6</span> クラスメンバーシップ・プロファイル</h3>
+<ul>
+<li>受検者がどのクラスに対応するのかを出力します</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;CMP&quot;</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="クラスの分布" class="level3" data-number="6.2.7">
+<h3 data-number="6.2.7"><span class="header-section-number">6.2.7</span> クラスの分布</h3>
+<ul>
+<li>推定されたクラスの分布を棒グラフで表現</li>
+<li>クラスメンバーシップの分布を折れ線グラフで表現</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;LCD&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ランクラスタリングの実行" class="level2" data-number="6.3">
+<h2 data-number="6.3"><span class="header-section-number">6.3</span> ランクラスタリングの実行</h2>
+<ul>
+<li>推定方法をRに変えると，潜在クラスが潜在ランクになります
+<ul>
+<li>アルゴリズムとしては，<code>LRA</code>の時と同じ順序性を保ったフィルタ行列を通しているだけです</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>result.R <span class="ot">&lt;-</span> <span class="fu">Biclustering</span>(dat, <span class="at">nfld =</span> <span class="dv">5</span>, <span class="at">ncls =</span> <span class="dv">6</span>, <span class="at">method =</span> <span class="st">&quot;R&quot;</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Ranklustering is chosen.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+iter 1 logLik -8097.56                                                          
+iter 2 logLik -7669.21                                                          
+iter 3 logLik -7586.72                                                          
+iter 4 logLik -7568.24                                                          
+iter 5 logLik -7561.02                                                          
+iter 6 logLik -7557.34                                                          
+iter 7 logLik -7557.36                                                          Strongly ordinal alignment condition was satisfied.</code></pre>
+</div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>result.R</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rankluster Matrix Profile
+        Rank1  Rank2  Rank3 Rank4 Rank5 Rank6
+Field1 0.6495 0.7920 0.8809 0.914 0.938 0.970
+Field2 0.0936 0.2775 0.6175 0.904 0.984 0.998
+Field3 0.2247 0.3208 0.4403 0.616 0.751 0.899
+Field4 0.1039 0.1860 0.2810 0.361 0.603 0.841
+Field5 0.0329 0.0547 0.0934 0.130 0.262 0.598
+
+Field Reference Profile Indices
+       Alpha     A Beta     B Gamma C
+Field1     1 0.142    1 0.650     0 0
+Field2     2 0.340    3 0.617     0 0
+Field3     3 0.176    3 0.440     0 0
+Field4     4 0.242    5 0.603     0 0
+Field5     5 0.336    6 0.598     0 0
+
+                              Rank 1 Rank 2 Rank 3 Rank 4 Rank 5 Rank 6
+Test Reference Profile         4.834  7.932 12.376 16.345 21.272 28.239
+Latent Rank Ditribution      143.000 88.000 77.000 90.000 76.000 41.000
+Rank Membership Distribution 133.892 96.100 83.688 84.373 73.955 42.992
+
+Field Membership Profile
+         CRR   LFE Field1 Field2 Field3 Field4 Field5
+Item01 0.850 1.000  1.000  0.000  0.000  0.000  0.000
+Item31 0.812 1.000  1.000  0.000  0.000  0.000  0.000
+Item32 0.808 1.000  1.000  0.000  0.000  0.000  0.000
+Item21 0.616 2.000  0.000  1.000  0.000  0.000  0.000
+Item23 0.600 2.000  0.000  1.000  0.000  0.000  0.000
+Item22 0.586 2.000  0.000  1.000  0.000  0.000  0.000
+Item24 0.567 2.000  0.000  1.000  0.000  0.000  0.000
+Item25 0.491 2.000  0.000  1.000  0.000  0.000  0.000
+Item11 0.476 2.000  0.000  1.000  0.000  0.000  0.000
+Item26 0.452 2.000  0.000  1.000  0.000  0.000  0.000
+Item07 0.573 3.000  0.000  0.000  1.000  0.000  0.000
+Item03 0.458 3.000  0.000  0.000  1.000  0.000  0.000
+Item33 0.437 3.000  0.000  0.000  1.000  0.000  0.000
+Item27 0.414 3.000  0.000  0.000  0.999  0.001  0.000
+Item02 0.392 4.000  0.000  0.000  0.005  0.995  0.000
+Item09 0.390 4.000  0.000  0.000  0.024  0.976  0.000
+Item10 0.353 4.000  0.000  0.000  0.000  1.000  0.000
+Item08 0.350 4.000  0.000  0.000  0.000  1.000  0.000
+Item12 0.340 4.000  0.000  0.000  0.000  1.000  0.000
+Item04 0.303 4.000  0.000  0.000  0.000  1.000  0.000
+Item17 0.276 4.000  0.000  0.000  0.000  1.000  0.000
+Item05 0.250 4.000  0.000  0.000  0.000  1.000  0.000
+Item13 0.237 4.000  0.000  0.000  0.000  0.997  0.003
+Item34 0.229 5.000  0.000  0.000  0.000  0.094  0.906
+Item29 0.227 5.000  0.000  0.000  0.000  0.273  0.727
+Item28 0.221 5.000  0.000  0.000  0.000  0.017  0.983
+Item06 0.216 5.000  0.000  0.000  0.000  0.000  1.000
+Item16 0.216 5.000  0.000  0.000  0.000  0.000  1.000
+Item35 0.155 5.000  0.000  0.000  0.000  0.000  1.000
+Item14 0.126 5.000  0.000  0.000  0.000  0.000  1.000
+Item15 0.087 5.000  0.000  0.000  0.000  0.000  1.000
+Item30 0.085 5.000  0.000  0.000  0.000  0.000  1.000
+Item20 0.054 5.000  0.000  0.000  0.000  0.000  1.000
+Item19 0.052 5.000  0.000  0.000  0.000  0.000  1.000
+Item18 0.049 5.000  0.000  0.000  0.000  0.000  1.000
+Latent Field Distribution
+           Field 1 Field 2 Field 3 Field 4 Field 5
+N of Items       3       7       4       9      12
+
+Model Fit Indices
+Number of Latent Rank : 6
+Number of Latent Field: 5
+Number of EM cycle: 7 
+                   value
+model_log_like -7273.063
+bench_log_like -5891.314
+null_log_like  -9862.114
+model_Chi_sq    2763.498
+null_Chi_sq     7941.601
+model_df        1166.164
+null_df         1155.000
+NFI                0.652
+RFI                0.655
+IFI                0.764
+TLI                0.767
+CFI                0.765
+RMSEA              0.052
+AIC              431.170
+CAIC           -4520.485
+BIC            -4518.223
+Strongly Ordinal Alignment Condition is Satisfied.
+Weakly Ordinal Alignment Condition is Satisfied.</code></pre>
+</div>
+</div>
+<section id="アレイプロット-1" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1"><span class="header-section-number">6.3.1</span> アレイプロット</h3>
+<ul>
+<li>うまく分類できたかどうかをアレイプロットで確認できます。</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;Array&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="フィールド参照プロファイル-1" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2"><span class="header-section-number">6.3.2</span> フィールド参照プロファイル</h3>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>result.R<span class="sc">$</span>FRP</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Rank1      Rank2      Rank3     Rank4     Rank5     Rank6
+Field1 0.64951141 0.79197342 0.88093148 0.9140316 0.9381373 0.9701273
+Field2 0.09362918 0.27752126 0.61746787 0.9036746 0.9835653 0.9979939
+Field3 0.22472428 0.32079306 0.44027355 0.6163989 0.7507110 0.8988009
+Field4 0.10394873 0.18598451 0.28100007 0.3614656 0.6030432 0.8411943
+Field5 0.03293073 0.05469207 0.09344104 0.1298351 0.2618470 0.5980969</code></pre>
+</div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.R, <span class="at">type =</span> <span class="st">&quot;FRP&quot;</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/frp-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="テスト参照プロファイルと潜在ランク分布-1" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3"><span class="header-section-number">6.3.3</span> テスト参照プロファイルと潜在ランク分布</h3>
+<ul>
+<li>クラスの分布をプロットします
+<ul>
+<li>棒グラフで表現されているのがTest Reference Distribution</li>
+<li>折れ線グラフで表現されているのがLatent Class Distribution</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.R, <span class="at">type =</span> <span class="st">&quot;TRP&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ランク参照ベクトル" class="level3" data-number="6.3.4">
+<h3 data-number="6.3.4"><span class="header-section-number">6.3.4</span> ランク参照ベクトル</h3>
+<ul>
+<li>ランクごと・フィールドごとの正答率をプロットします</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.R, <span class="at">type =</span> <span class="st">&quot;RRV&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="フィールドメンバーシッププロファイル-1" class="level3" data-number="6.3.5">
+<h3 data-number="6.3.5"><span class="header-section-number">6.3.5</span> フィールドメンバーシップ・プロファイル</h3>
+<ul>
+<li>項目がどのフィールドに対応するのかを出力します</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb34"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;FRP&quot;</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ランクメンバーシッププロファイル" class="level3" data-number="6.3.6">
+<h3 data-number="6.3.6"><span class="header-section-number">6.3.6</span> ランクメンバーシップ・プロファイル</h3>
+<ul>
+<li>受検者がどのクラスに対応するのかを出力します</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;RMP&quot;</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ランクの分布" class="level3" data-number="6.3.7">
+<h3 data-number="6.3.7"><span class="header-section-number">6.3.7</span> ランクの分布</h3>
+<ul>
+<li>推定されたランクの分布を棒グラフで表現</li>
+<li>ランクメンバーシップの分布を折れ線グラフで表現</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">&quot;LRD&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="confirmatory-analysis" class="level2" data-number="6.4">
+<h2 data-number="6.4"><span class="header-section-number">6.4</span> Confirmatory Analysis</h2>
+<ul>
+<li>どの項目がどのフィールドに入るかを外挿的に決めることができます。
+<ul>
+<li><code>conf</code>オプションに項目とフィールドの対応を記したベクトル，あるいは行列をあたえると，強制的にその割り振りで推定します。</li>
+<li>項目がテストの領域などに対応している仮説がある場合に便利です。</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>result.R.conf <span class="ot">&lt;-</span> <span class="fu">Biclustering</span>(dat,</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">nfld =</span> <span class="dv">5</span>, <span class="at">ncls =</span> <span class="dv">6</span>, <span class="at">method =</span> <span class="st">&quot;R&quot;</span>,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf =</span> <span class="fu">c</span>(</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Ranklustering is chosen.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Confirmatory Clustering is chosen.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+iter 1 logLik -9468.24                                                          
+iter 2 logLik -9272.71                                                          
+iter 3 logLik -9258.44                                                          
+iter 4 logLik -9250.23                                                          
+iter 5 logLik -9244.67                                                          
+iter 6 logLik -9242.74                                                          
+iter 7 logLik -9243.17                                                          Strongly ordinal alignment condition was satisfied.</code></pre>
+</div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.R.conf, <span class="at">type =</span> <span class="st">&quot;RRV&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.R.conf, <span class="at">type =</span> <span class="st">&quot;TRP&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exploratory-analysis" class="level2" data-number="6.5">
+<h2 data-number="6.5"><span class="header-section-number">6.5</span> Exploratory Analysis</h2>
+<ul>
+<li>最適なフィールド数，クラス数がわからない場合は探索的なアプローチも可能です
+<ul>
+<li>計算自体はそこまで遅くないので，適合度指標などを参考にグリッドサーチ(総当たり！)も悪くないアプローチです</li>
+<li>IRMはノンパラメトリックな手法で潜在的なクラスを自動探索しますが，時間がかかります。</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb43"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>result.IRM <span class="ot">&lt;-</span> <span class="fu">IRM</span>(dat, <span class="at">gamma_c =</span> <span class="dv">1</span>, <span class="at">gamma_f =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+iter 1 Exact match count of field elements. 0 nfld 15 ncls 30                   
+iter 2 Exact match count of field elements. 0 nfld 12 ncls 27                   
+iter 3 Exact match count of field elements. 1 nfld 12 ncls 24                   
+iter 4 Exact match count of field elements. 2 nfld 12 ncls 23                   
+iter 5 Exact match count of field elements. 3 nfld 12 ncls 23                   
+iter 6 Exact match count of field elements. 0 nfld 12 ncls 23                   
+iter 7 Exact match count of field elements. 1 nfld 12 ncls 23                   
+iter 8 Exact match count of field elements. 2 nfld 12 ncls 23                   
+iter 9 Exact match count of field elements. 3 nfld 12 ncls 21                   
+iter 10 Exact match count of field elements. 4 nfld 12 ncls 21                  
+iter 11 Exact match count of field elements. 5 nfld 12 ncls 21                  The minimum class member count is under the setting value.
+bic -99592.5 nclass 21
+The minimum class member count is under the setting value.
+bic -99980.4 nclass 20
+The minimum class member count is under the setting value.
+bic -99959.7 nclass 19
+The minimum class member count is under the setting value.
+bic -99988.3 nclass 18
+The minimum class member count is under the setting value.
+bic -100001 nclass 17</code></pre>
+</div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>result.IRM</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bicluster Reference Matrix
+         Class 1 Class 2 Class 3 Class 4 Class 5 Class 6 Class 8 Class 7
+Field 1        0  0.5000 0.61988  0.9722  0.8384  0.7619  0.9231  0.9697
+Field 2        0  0.0303 0.00000  0.0417  0.8485  0.8333  0.7500  0.7045
+Field 3        0  0.0379 0.43860  0.0729  0.2273  0.9048  0.1731  0.9091
+Field 4        0  0.0152 0.10526  0.0903  0.1717  0.4127  0.0000  0.1364
+Field 5        0  0.0871 0.00877  0.1302  0.1061  0.0833  0.5865  0.3068
+Field 6        0  0.2636 0.26316  0.2375  0.4000  0.0762  0.5692  0.3364
+Field 7        0  0.0947 0.07895  0.0469  0.0379  0.0714  0.3750  0.2045
+Field 8        0  0.0000 0.00877  0.0208  0.0000  0.0000  0.0000  0.1136
+Field 9        0  0.0379 0.00877  0.0000  0.0455  0.0000  0.0000  0.1818
+Field 10       0  0.0152 0.20175  0.1875  0.2879  0.1429  0.0962  0.1136
+Field 11       0  0.0152 0.01170  0.0000  0.0000  0.0000  0.0641  0.0152
+Field 12       0  0.0455 0.00000  0.0208  0.0808  0.0000  0.0000  0.0000
+         Class 9 Class 10 Class 11 Class 14 Class 13 Class 12 Class 15 Class 16
+Field 1   0.8116   0.9259   0.8667   0.8571    0.949    0.971    0.963        1
+Field 2   0.6957   0.9306   0.9500   0.8857    1.000    1.000    1.000        1
+Field 3   0.2174   1.0000   1.0000   0.9286    0.985    1.000    0.989        1
+Field 4   0.0580   0.8796   0.9889   0.8000    0.960    0.971    0.993        1
+Field 5   0.8587   0.3958   0.2667   0.8929    0.492    1.000    0.944        1
+Field 6   0.4261   0.5056   0.4000   0.4800    0.594    0.557    0.702        1
+Field 7   0.1413   0.1389   0.1750   0.2500    0.848    0.413    0.728        1
+Field 8   0.9348   0.0000   0.0000   0.9429    0.000    0.130    0.967        1
+Field 9   0.0652   0.0000   0.7833   0.0571    0.621    0.500    0.733        1
+Field 10  0.2174   0.1806   0.1167   0.1714    0.227    0.174    0.278        1
+Field 11  0.0000   0.0648   0.0556   0.0762    0.253    0.174    0.304        1
+Field 12  0.0000   0.0000   0.0000   0.0000    0.000    0.217    0.000        1
+                         class 1 class 2 class 3 class 4 class 5 class 6
+Test Reference Profile         0   4.015   5.193   5.792   8.667   8.286
+Latent class Ditribution       2  66.000  57.000  48.000  33.000  21.000
+                         class 7 class 8 class 9 class 10 class 11 class 12
+Test Reference Profile    11.692  11.136      13     14.5     15.2   18.143
+Latent class Ditribution  26.000  22.000      23     36.0     30.0   35.000
+                         class 13 class 14 class 15 class 16
+Test Reference Profile     20.485   21.043   24.911       35
+Latent class Ditribution   33.000   23.000   45.000       15
+Latent Field Distribution
+           Field 1 Field 2 Field 3 Field 4 Field 5 Field 6 Field 7 Field 8
+N of Items       3       2       2       3       4       5       4       2
+           Field 9 Field 10 Field 11 Field 12
+N of Items       2        2        3        3
+
+Model Fit Indices
+Number of Latent Class : 16
+Number of Latent Field: 12
+Number of EM cycle:  
+                   value
+model_log_like -5664.270
+bench_log_like -5891.314
+null_log_like  -9862.114
+model_Chi_sq    -454.089
+null_Chi_sq     7941.601
+model_df         998.000
+null_df         1155.000
+NFI                1.000
+RFI                1.000
+IFI                1.000
+TLI                1.000
+CFI                1.000
+RMSEA              0.000
+AIC            -2450.089
+CAIC           -6687.704
+BIC            -6685.768</code></pre>
+</div>
+</div>
+</section>
+<section id="多値への展開" class="level2" data-number="6.6">
+<h2 data-number="6.6"><span class="header-section-number">6.6</span> 多値への展開</h2>
+<ul>
+<li>多値モデル(名義尺度)への展開も可能です。近日中に実装する予定です
+<ul>
+<li><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="PolyBiclustering.png" class="img-fluid" /></p>
+<figcaption>Biclustering for Polydata</figcaption>
+</figure>
+</div></li>
+</ul></li>
+<li>多値モデル(順序尺度)への展開も可能なはずです。出来次第，実装する予定です</li>
+</ul>
+<section id="これができると何が嬉しいか" class="level3" data-number="6.6.1">
+<h3 data-number="6.6.1"><span class="header-section-number">6.6.1</span> これができると何が嬉しいか</h3>
+<ul>
+<li>表面上の類似性に基づく分類なので，データ生成メカニズムを仮定しません
+<ul>
+<li>個人間比較を必要としないので，社会的態度のような家庭を満たさない心理的データの分析ができます</li>
+<li>スコアではなく反応パターンで項目や受検者を分類します；生態学的妥当性の高い心理尺度の作成，利用ができます。</li>
+</ul></li>
+</ul>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl">exametrikaパッケージによるテスト理論の実践</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXItdGl0bGU=">exametrikaパッケージによるテスト理論の実践</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1wcmV2"><span class="chapter-number">5</span>  <span class="chapter-title">Rをつかった潜在クラス/ランク分析の実習</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi9pbmRleC5odG1sPHNwYW4tY2xhc3M9J2NoYXB0ZXItbnVtYmVyJz4xPC9zcGFuPi0tPHNwYW4tY2xhc3M9J2NoYXB0ZXItdGl0bGUnPuOBr+OBmOOCgeOBqzwvc3Bhbj4="><span class="chapter-number">1</span>  <span class="chapter-title">はじめに</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi9jaGFwMF9pbnRyb2R1Y3Rpb24uaHRtbDxzcGFuLWNsYXNzPSdjaGFwdGVyLW51bWJlcic+Mjwvc3Bhbj4tLTxzcGFuLWNsYXNzPSdjaGFwdGVyLXRpdGxlJz5S44GoZXhhbWV0cmlrYeODkeODg+OCseODvOOCuOOBruWwjuWFpTwvc3Bhbj4="><span class="chapter-number">2</span>  <span class="chapter-title">Rとexametrikaパッケージの導入</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi9jaGFwMl9JdGVtVGVzdC5odG1sPHNwYW4tY2xhc3M9J2NoYXB0ZXItbnVtYmVyJz4zPC9zcGFuPi0tPHNwYW4tY2xhc3M9J2NoYXB0ZXItdGl0bGUnPlLjgpLjgaTjgYvjgaPjgZ/poIXnm67liIbmnpDjga7lrp/nv5I8L3NwYW4+"><span class="chapter-number">3</span>  <span class="chapter-title">Rをつかった項目分析の実習</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi9jaGFwNF9JUlQuaHRtbDxzcGFuLWNsYXNzPSdjaGFwdGVyLW51bWJlcic+NDwvc3Bhbj4tLTxzcGFuLWNsYXNzPSdjaGFwdGVyLXRpdGxlJz5S44KS44Gk44GL44Gj44Gf6aCF55uu5Y+N5b+c55CG6KuW44Gu5a6f57+SPC9zcGFuPg=="><span class="chapter-number">4</span>  <span class="chapter-title">Rをつかった項目反応理論の実習</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi9jaGFwNl9MUkEuaHRtbDxzcGFuLWNsYXNzPSdjaGFwdGVyLW51bWJlcic+NTwvc3Bhbj4tLTxzcGFuLWNsYXNzPSdjaGFwdGVyLXRpdGxlJz5S44KS44Gk44GL44Gj44Gf5r2c5Zyo44Kv44Op44K5L+ODqeODs+OCr+WIhuaekOOBruWun+e/kjwvc3Bhbj4="><span class="chapter-number">5</span>  <span class="chapter-title">Rをつかった潜在クラス/ランク分析の実習</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi9jaGFwOF9CaWNsdXN0ZXJpbmcuaHRtbDxzcGFuLWNsYXNzPSdjaGFwdGVyLW51bWJlcic+Njwvc3Bhbj4tLTxzcGFuLWNsYXNzPSdjaGFwdGVyLXRpdGxlJz5S44KS44Gk44GL44Gj44Gf44OQ44Kk44Kv44Op44K544K/44Oq44Oz44Kw5YiG5p6Q44Gu5a6f57+SPC9zcGFuPg=="><span class="chapter-number">6</span>  <span class="chapter-title">Rをつかったバイクラスタリング分析の実習</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWJyZWFkY3J1bWJzLTxzcGFuLWNsYXNzPSdjaGFwdGVyLW51bWJlcic+Njwvc3Bhbj4tLTxzcGFuLWNsYXNzPSdjaGFwdGVyLXRpdGxlJz5S44KS44Gk44GL44Gj44Gf44OQ44Kk44Kv44Op44K544K/44Oq44Oz44Kw5YiG5p6Q44Gu5a6f57+SPC9zcGFuPg=="><span class="chapter-number">6</span>  <span class="chapter-title">Rをつかったバイクラスタリング分析の実習</span></span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGF0aXRsZQ=="><span class="chapter-number">6</span>  <span class="chapter-title">Rをつかったバイクラスタリング分析の実習</span> – exametrikaパッケージによるテスト理論の実践</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU="><span class="chapter-number">6</span>  <span class="chapter-title">Rをつかったバイクラスタリング分析の実習</span> – exametrikaパッケージによるテスト理論の実践</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZHRpdGxl"><span class="chapter-number">6</span>  <span class="chapter-title">Rをつかったバイクラスタリング分析の実習</span> – exametrikaパッケージによるテスト理論の実践</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGFzaXRlbmFtZQ==">exametrikaパッケージによるテスト理論の実践</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw=="></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZGRkZXNj"></span></p>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a  href="/chap6_LRA.html" class="pagination-link" aria-label="Rをつかった潜在クラス/ランク分析の実習">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class='chapter-number'>5</span>  <span class='chapter-title'>Rをつかった潜在クラス/ランク分析の実習</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+</body>
+
+</html>

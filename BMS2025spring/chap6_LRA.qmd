@@ -1,0 +1,246 @@
+---
+title: "Rをつかった潜在クラス/ランク分析の実習"
+---
+
+## 準備しましょう
+
+### サンプルデータを用います
+
++ RStudioでプロジェクトを開いているか確認してくださいね
++ `exametrika`が持っている`J15S500`を例にします
+
+```{r}
+library(exametrika)
+dat <- J15S500
+TestStatistics(dat)
+```
+
+
+### 潜在クラス分析をやってみよう
+
++ 潜在クラス(Latent Class Analysis)分析は，受検者を潜在的なグループに分類するモデルです
++ `LCA`関数で実行できます
+
+```{r irt}
+result.LCA <- LCA(dat, ncls = 6)
+result.LCA
+```
+
+
+### 項目参照プロファイル
+
++ 項目参照プロファイル(Item Reference Profile)は，項目と潜在クラスの関係を表しています
+    + 項目ごと・クラスごとの正答率を返します
+
+```{r}
+result.LCA$IRP
+```
+
+
+```{r}
+plot(result.LCA, type = "IRP", items = 1:4, nr = 2, nc = 2)
+```
+
+### クラスメンバーシッププロファイル
+
++ 受検者がどのクラスに所属しやすいかの確率を表します
+
+```{R}
+result.LCA$Students |> head()
+```
+
++ `CMP`もプロットできます(しましょう)
+
+```{R}
+plot(result.LCA, type = "CMP", students = 1:6, nr = 2, nc = 3)
+```
+
+## テスト参照プロファイル
+
++ テストの得点とクラスの分類を可視化します
+
+```{r}
+plot(result.LCA, type = "TRP")
+```
+
+## 潜在クラス分布
+
++ クラスの分布をプロットします
+    + 棒グラフで表現されているのがLatent Class Distribution
+    + 折れ線グラフで表現されているのがClass Membership Distribution
+
+```{r}
+plot(result.LCA, type = "LCD")
+```
+
+## クラスからランクへ
+
+### クラスからランクへ
+
++ `LCA`の潜在クラスに序列性を持たせたものが潜在ランク分析(Latent Rank Analysis)です
+    + オプションが`nrank`になることに注意
+    + mic(単調増加オプションmonotonic increasing option)を`TRUE`にすると単調増加の制約を課します
+
+```{r}
+result.LRA <- LRA(dat, nrank = 6, mic = TRUE)
+result.LRA
+```
+
+### 項目参照プロファイル
+
++ 項目参照プロファイル(Item Reference Profile)は，項目と潜在クラスの関係を表しています
+    + 項目ごと・クラスごとの正答率を返します
+
+```{r}
+result.LRA$IRP
+```
+
+
+```{r}
+plot(result.LRA, type = "IRP", items = 1:4, nr = 2, nc = 2)
+```
+
+### ランクメンバーシッププロファイル
+
++ 受検者がどのクラスに所属しやすいかの確率を表します
+    + `Rank-Up Odds`や`Rank-Down Odds`が表示されています
+    + 上のランクへの上がりやすさ，下のランクへの落ちやすさの指標です
+
+```{R}
+result.LRA$Students |> head()
+```
+
+### ランクメンバーシッププロファイル
+
++ `CMP`のランク版，`RMP`もプロットできます(しましょう)
+
+```{R}
+plot(result.LRA, type = "RMP", students = 1:6, nr = 2, nc = 3)
+```
+
+### テスト参照プロファイル
+
++ テストの得点とクラスの分類を可視化します
+
+```{r}
+plot(result.LRA, type = "TRP")
+```
+
+### 潜在ランク分布
+
++ クラスの分布をプロットします
+    + 棒グラフで表現されているのがLatent Rank Distribution
+    + 折れ線グラフで表現されているのがRank Membership Distribution
+
+```{r}
+plot(result.LRA, type = "LRD")
+```
+
+
+### 潜在ランク分布
+
++ クラスの分布をプロットします
+
+```{r}
+plot(result.LRA, type = "LRD")
+```
+
+
+### その他の出力
+
++ `IRP index`を表示することができます
+    + A；Item Slope Index.識別力に相当する指標
+        + $\alpha$；Aの最大値が出たランク
+        + ![Test Data Enginieering,P.224](ItemLocationIndex.png)
+    + B；Item Location Index.困難度に相当する指標
+        + $\beta$；0.5に最も近い値が出たランク
+        + ![Test Data Enginieering,P.226](ItemSlopeIndex.png)
+    + C；Item Monotonicity Index.単調増加しているかどうかの指標
+        + $\gamma$；ランクの上昇に応じて増加しなかった大きさの総和
+        + ![Test Data Enginieering,P.227](MonotonicityIndex.png)
+
+```{r}
+result.LRA$IRPIndex
+```
+
+## 2種類の推定法があります
+
++ デフォルトでは生成トポグラフィックマッピングGenerative Topographic Mappingの手法
+    + 項目とランクとの関係を表す行列$\Pi_R$(サイズは$J \times R)$に，緩やかな順序制約をつけたフィルタ行列$S$(サイズは$R\times R)$を乗算しながらEMアルゴリズムで推定
+    + データサイズが大きくなっても安定的に推定が進む
++ 自己組織化マップSelf Organization Mappingの方法もオプションとして選択可能
+    + 最初ランダムに生成した行列$\Pi_R$に対し，データ行列に近い勝者ベクトルがその周囲の重みをアップデートしていく
+    + ![Test Data Enginieering,P.202](LRA_SOM.png)
+    + 乱数による近似なので，再現性のためにはシード値などを設定する必要があります。
+
+### SOMによる推定の例
+
+```{r}
+result.SOM <- LRA(dat,
+    nrank = 6, method = "SOM", seed = 12345
+)
+result.SOM
+```
+
+
+### 結果の比較
+```{r}
+result.LRA$TestFitIndices
+result.SOM$TestFitIndices
+```
+
+## 名義モデル
+
++ 名義モデル(Rated data)も実行できます。
+    + サンプルデータ`J35S5000`で見てみましょう
+    
+```{r}
+result.LRArated <- LRA(J35S5000, nrank = 10, mic = TRUE)
+result.LRArated
+```
+
+### バイナリモデルにない出力も
+
++ `type = "ScoreFreq"`でスコアの分布とランクの閾値を表示します
++ `type = "ScoreRank"`でスコアと推定されたランクとの関係をプロットします
++ `type = "ICRP"`はItem Category Reference Profile，すなわち項目参照プロファイルです
++ `RMP`すなわちランクメンバーシッププロファイルも表示します
+
+```{r}
+plot(result.LRArated, type = "ScoreFreq")
+plot(result.LRArated, type = "ScoreRank")
+# plot ICBR/ICRP
+plot(result.LRArated, type = "ICRP", items = 1:6, nc = 3, nr = 2)
+# plot Rank membership profile
+plot(result.LRArated,
+    type = "RMP", students = 1:6,
+    nc = 3, nr = 2
+)
+```
+
+
+## 順序モデル
+
++ 順序モデル(Ordered data)も実行できます。
+    + サンプルデータ`J15S3810`で見てみましょう
+    
+    
+```{r}
+result.LRAord <- LRA(J15S3810, nrank = 3, mic = TRUE)
+result.LRAord
+```
+
+### 出力は名義モデルと同様です
+
+```{r}
+plot(result.LRAord, type = "ScoreFreq")
+plot(result.LRAord, type = "ScoreRank")
+# plot ICBR/ICRP
+plot(result.LRAord, type = "ICBR", items = 1:6, nc = 3, nr = 2)
+plot(result.LRAord, type = "ICRP", items = 1:6, nc = 3, nr = 2)
+# plot Rank membership profile
+plot(result.LRAord,
+    type = "RMP", students = 1:6,
+    nc = 3, nr = 2
+)
+```

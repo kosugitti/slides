@@ -1,0 +1,131 @@
+\contentsline {chapter}{\numberline {第1章}はじめに}{7}{chapter.1}%
+\contentsline {chapter}{\numberline {第2章}本書について}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}内容の概要}{9}{section.2.1}%
+\contentsline {chapter}{\numberline {第3章}Rとexametrikaパッケージの導入}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}自己紹介}{11}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Rの紹介}{12}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Rのはじめかた}{13}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}RStudioも使いましょう}{14}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}RStudioの起動画面}{16}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}オススメ設定}{17}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}オススメ設定(つづき)}{18}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}RStudioの4つの窓}{19}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}RStudioの4つの窓}{20}{subsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.3.7}Rはプロジェクト管理が基本}{20}{subsection.3.3.7}%
+\contentsline {section}{\numberline {3.4}Rをさわってみましょう}{21}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}はじめの1歩}{21}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}パッケージ}{21}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}パッケージの使い方}{22}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}数値計算の基礎}{22}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}数値計算の基礎}{23}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.6}ベクトル，行列，リスト，データフレーム}{24}{subsection.3.4.6}%
+\contentsline {subsection}{\numberline {3.4.7}ベクトル（Vector）の例}{24}{subsection.3.4.7}%
+\contentsline {subsubsection}{\numberline {3.4.7.1}数値ベクトル}{24}{subsubsection.3.4.7.1}%
+\contentsline {subsubsection}{\numberline {3.4.7.2}文字列ベクトル}{24}{subsubsection.3.4.7.2}%
+\contentsline {subsubsection}{\numberline {3.4.7.3}論理値ベクトル}{24}{subsubsection.3.4.7.3}%
+\contentsline {subsection}{\numberline {3.4.8}行列（Matrix）}{25}{subsection.3.4.8}%
+\contentsline {subsection}{\numberline {3.4.9}配列（Array）}{25}{subsection.3.4.9}%
+\contentsline {subsection}{\numberline {3.4.10}リスト（List）}{26}{subsection.3.4.10}%
+\contentsline {subsection}{\numberline {3.4.11}リスト（List）}{26}{subsection.3.4.11}%
+\contentsline {subsection}{\numberline {3.4.12}データフレーム（Data Frame）}{27}{subsection.3.4.12}%
+\contentsline {subsection}{\numberline {3.4.13}データ構造の比較}{27}{subsection.3.4.13}%
+\contentsline {subsection}{\numberline {3.4.14}パイプ演算子を活用しよう}{28}{subsection.3.4.14}%
+\contentsline {subsubsection}{\numberline {3.4.14.1}基本的な使い方}{28}{subsubsection.3.4.14.1}%
+\contentsline {subsection}{\numberline {3.4.15}(余談)tidyな世界}{28}{subsection.3.4.15}%
+\contentsline {subsection}{\numberline {3.4.16}(余談)チートシートを活用しよう}{29}{subsection.3.4.16}%
+\contentsline {section}{\numberline {3.5}具体的にデータを扱ってみよう}{29}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}データの読み込みと操作}{29}{subsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.1.1}CSVファイルの読み込み}{29}{subsubsection.3.5.1.1}%
+\contentsline {subsection}{\numberline {3.5.2}基本的なCSV読み込み}{30}{subsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.2.1}日本語を含むCSVファイルの場合}{30}{subsubsection.3.5.2.1}%
+\contentsline {subsection}{\numberline {3.5.3}Import Dataset}{31}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}サンプルコードを読み込んでみよう}{31}{subsection.3.5.4}%
+\contentsline {subsection}{\numberline {3.5.5}オブジェクトの基本情報}{32}{subsection.3.5.5}%
+\contentsline {subsection}{\numberline {3.5.6}記述統計量}{33}{subsection.3.5.6}%
+\contentsline {subsection}{\numberline {3.5.7}変数毎の要約統計量}{34}{subsection.3.5.7}%
+\contentsline {subsection}{\numberline {3.5.8}因子型をつくってみましょう}{35}{subsection.3.5.8}%
+\contentsline {subsection}{\numberline {3.5.9}可視化してみましょう}{35}{subsection.3.5.9}%
+\contentsline {subsection}{\numberline {3.5.10}可視化してみましょう}{36}{subsection.3.5.10}%
+\contentsline {subsection}{\numberline {3.5.11}可視化してみましょう}{37}{subsection.3.5.11}%
+\contentsline {subsection}{\numberline {3.5.12}(余談)ggplotによる出力は，より綺麗です}{38}{subsection.3.5.12}%
+\contentsline {section}{\numberline {3.6}Enjoy!}{39}{section.3.6}%
+\contentsline {section}{\numberline {3.7}あなうんすめんと}{39}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}\texttt {exametrika} Web site}{39}{subsection.3.7.1}%
+\contentsline {subsubsection}{\numberline {3.7.1.1}問題の報告}{39}{subsubsection.3.7.1.1}%
+\contentsline {subsubsection}{\numberline {3.7.1.2}ディスカッションとコミュニティ}{40}{subsubsection.3.7.1.2}%
+\contentsline {section}{\numberline {3.8}Advanced Topics}{40}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Quarto/Rmarkdown：文芸的プログラミング}{40}{subsection.3.8.1}%
+\contentsline {subsubsection}{\numberline {3.8.1.1}Rmarkdownとは}{40}{subsubsection.3.8.1.1}%
+\contentsline {subsubsection}{\numberline {3.8.1.2}Quartoとは}{40}{subsubsection.3.8.1.2}%
+\contentsline {subsection}{\numberline {3.8.2}Quarto/Rmarkdown：文芸的プログラミング}{40}{subsection.3.8.2}%
+\contentsline {subsubsection}{\numberline {3.8.2.1}基本的な使い方}{40}{subsubsection.3.8.2.1}%
+\contentsline {chapter}{\numberline {第4章}Rをつかった項目分析の実習}{41}{chapter.4}%
+\contentsline {section}{\numberline {4.1}準備しましょう}{41}{section.4.1}%
+\contentsline {section}{\numberline {4.2}CSVファイルから読み込む場合(1/2)}{41}{section.4.2}%
+\contentsline {section}{\numberline {4.3}CSVファイルから読み込む場合(2/2)}{42}{section.4.3}%
+\contentsline {section}{\numberline {4.4}exametrikaの中ではデータが変換されます}{43}{section.4.4}%
+\contentsline {section}{\numberline {4.5}exametrikaクラスのデータ}{44}{section.4.5}%
+\contentsline {section}{\numberline {4.6}exametrikaクラスのデータ}{46}{section.4.6}%
+\contentsline {section}{\numberline {4.7}exametrikaクラスのデータの例}{46}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}数値のID列を持つデータ}{46}{subsection.4.7.1}%
+\contentsline {section}{\numberline {4.8}exametrikaクラスのデータの例}{47}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}文字列のID列を持つデータ}{47}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}項目分析をしよう}{48}{subsection.4.8.2}%
+\contentsline {subsubsection}{\numberline {4.8.2.1}正当数}{48}{subsubsection.4.8.2.1}%
+\contentsline {subsubsection}{\numberline {4.8.2.2}標準化スコア}{48}{subsubsection.4.8.2.2}%
+\contentsline {subsubsection}{\numberline {4.8.2.3}stanine}{48}{subsubsection.4.8.2.3}%
+\contentsline {subsection}{\numberline {4.8.3}まとめて分析(項目分析)}{49}{subsection.4.8.3}%
+\contentsline {subsection}{\numberline {4.8.4}まとめて分析(項目間分析)}{50}{subsection.4.8.4}%
+\contentsline {subsubsection}{\numberline {4.8.4.1}同時正答率}{50}{subsubsection.4.8.4.1}%
+\contentsline {subsubsection}{\numberline {4.8.4.2}条件付き正答率}{57}{subsubsection.4.8.4.2}%
+\contentsline {subsubsection}{\numberline {4.8.4.3}項目リフト}{63}{subsubsection.4.8.4.3}%
+\contentsline {subsubsection}{\numberline {4.8.4.4}項目情報量}{69}{subsubsection.4.8.4.4}%
+\contentsline {subsubsection}{\numberline {4.8.4.5}点双列相関係数(Phi coefficient)}{78}{subsubsection.4.8.4.5}%
+\contentsline {subsubsection}{\numberline {4.8.4.6}四分相関係数(tetrachoric coefficient)}{87}{subsubsection.4.8.4.6}%
+\contentsline {subsection}{\numberline {4.8.5}項目合計相関}{96}{subsection.4.8.5}%
+\contentsline {subsection}{\numberline {4.8.6}まとめて分析(テスト分析)}{96}{subsection.4.8.6}%
+\contentsline {subsection}{\numberline {4.8.7}次元性分析}{97}{subsection.4.8.7}%
+\contentsline {section}{\numberline {4.9}多値への展開}{99}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}\texttt {exametrika}における多値データ}{99}{subsection.4.9.1}%
+\contentsline {subsubsection}{\numberline {4.9.1.1}\texttt {ordinal}なデータ}{99}{subsubsection.4.9.1.1}%
+\contentsline {subsubsection}{\numberline {4.9.1.2}\texttt {rated}なデータ}{99}{subsubsection.4.9.1.2}%
+\contentsline {subsection}{\numberline {4.9.2}項目分析をしよう(多値データの場合)}{103}{subsection.4.9.2}%
+\contentsline {subsection}{\numberline {4.9.3}まとめて分析(項目分析・多値データの場合)}{103}{subsection.4.9.3}%
+\contentsline {subsection}{\numberline {4.9.4}まとめて分析(項目間分析・多値データの場合)}{104}{subsection.4.9.4}%
+\contentsline {subsubsection}{\numberline {4.9.4.1}同時選択率(Joint Selection Ratio)}{104}{subsubsection.4.9.4.1}%
+\contentsline {subsubsection}{\numberline {4.9.4.2}条件付き選択率(Conditional Selection Ratio)}{104}{subsubsection.4.9.4.2}%
+\contentsline {subsubsection}{\numberline {4.9.4.3}項目情報量}{104}{subsubsection.4.9.4.3}%
+\contentsline {subsection}{\numberline {4.9.5}多分相関係数(Polychoric correlation)}{105}{subsection.4.9.5}%
+\contentsline {subsection}{\numberline {4.9.6}次元性分析(多分相関係数の固有値分解)}{105}{subsection.4.9.6}%
+\contentsline {chapter}{\numberline {第5章}Rをつかった項目反応理論の実習}{107}{chapter.5}%
+\contentsline {section}{\numberline {5.1}準備しましょう}{107}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}サンプルデータを用います}{107}{subsection.5.1.1}%
+\contentsline {section}{\numberline {5.2}実行しちゃいましょう}{108}{section.5.2}%
+\contentsline {section}{\numberline {5.3}モデル適合度}{111}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}モデルの評価}{111}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}改めて確認してみましょう}{114}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}可視化しましょう}{116}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}受検者の情報も含まれています}{121}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Q3行列}{122}{subsection.5.3.5}%
+\contentsline {section}{\numberline {5.4}多値への展開}{123}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}段階反応モデル}{123}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}可視化しましょう}{124}{subsection.5.4.2}%
+\contentsline {section}{\numberline {5.5}コラム：GRMと他のモデル}{131}{section.5.5}%
+\contentsline {section}{\numberline {5.6}コラム：態度測定論}{131}{section.5.6}%
+\contentsline {chapter}{\numberline {第6章}Rをつかった潜在クラス/ランク分析の実習}{133}{chapter.6}%
+\contentsline {section}{\numberline {6.1}準備しましょう}{133}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}サンプルデータを用います}{133}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}潜在クラス分析をやってみよう}{134}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}項目参照プロファイル}{137}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}クラスメンバーシッププロファイル}{138}{subsection.6.1.4}%
+\contentsline {section}{\numberline {6.2}テスト参照プロファイル}{139}{section.6.2}%
+\contentsline {section}{\numberline {6.3}潜在クラス分布}{140}{section.6.3}%
+\contentsline {section}{\numberline {6.4}クラスからランクへ}{141}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}クラスからランクへ}{141}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}項目参照プロファイル}{144}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}ランクメンバーシッププロファイル}{145}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}ランクメンバーシッププロファイル}{146}{subsection.6.4.4}%
+\contentsline {subsection}{\numberline {6.4.5}テスト参照プロファイル}{147}{subsection.6.4.5}%
+\contentsline {subsection}{\numberline {6.4.6}潜在ランク分布}{148}{subsection.6.4.6}%
+\contentsline {subsection}{\numberline {6.4.7}その他の出力}{149}{subsection.6.4.7}%
+\contentsline {section}{\numberline {6.5}2種類の推定法があります}{150}{section.6.5}%
