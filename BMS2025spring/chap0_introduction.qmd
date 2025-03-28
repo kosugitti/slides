@@ -460,11 +460,10 @@ data <- read.csv("data.csv", fileEncoding = "UTF-8")
 + 次のコードでサンプルデータを読み込んでみましょう。
 
 ```{r}
-baseball <- read.csv("https://shorturl.at/X4ctc")
+baseball <- read.csv("https://kosugitti.github.io/psychometrics_syllabus/codes/SampleData/BaseballDecade.csv")
 ```
 
-+ ショートURLの参照先は怪しいところではありません。
-    + https://kosugitti.github.io/psychometrics_syllabus/codes/SampleData/BaseballDecade.csv
++ URLの参照先は私のサイトです
     + 私の[心理統計教育教材](https://kosugitti.github.io/psychometrics_syllabus/)サイトに置いてあるサンプルデータです
     + 野球選手の基本情報など，10年分のデータがあります。
 
