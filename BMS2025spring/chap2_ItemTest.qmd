@@ -32,7 +32,10 @@ rawData <- read.csv("J50S100.csv")
 head(rawData)
 ```
 
-## exametrikaの中ではデータが変換されます
+
+## exametrikaクラスのデータ
+
+### exametrikaの中ではデータが変換されます(1/2)
 
 + `exametrika`では，データを読み込んだ後，`dataFormat`関数を使って型変換を行います。
 + この関数は各モデルで最初に実行されるので，基本的にユーザが明示的に行う必要はありません。
@@ -43,15 +46,14 @@ library(exametrika)
 dat <- dataFormat(rawData, na = -99)
 ```
 
-## exametrikaクラスのデータ
+### exametrikaの中ではデータが変換されます(2/2)
 
 + データ行列は$U$，欠測指示子行列は$Z$として変換されます。
+
 ```{r}
 head(dat$U)
 head(dat$Z)
 ```
-
-##  exametrikaクラスのデータ
 
 + `exametrika`クラスは他にも情報を持っています。
 
@@ -70,7 +72,7 @@ head(dat$ID)
 dat$response.type
 ```
 
-##  exametrikaクラスのデータの例
+##  exametrikaクラスのデータの具体例
 
 ### 数値のID列を持つデータ
 
