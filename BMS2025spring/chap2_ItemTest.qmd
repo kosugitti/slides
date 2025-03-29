@@ -198,6 +198,13 @@ TestStatistics(dat)
 Dimensionality(dat)
 ```
 
+### 古典的テスト理論(CTT)
+
+古典的テスト理論では，テストの信頼性を見ることができます。
+
+```{r}
+CTT(dat)
+```
 ## 多値への展開
 
 ### `exametrika`における多値データ
