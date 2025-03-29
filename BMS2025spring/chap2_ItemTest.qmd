@@ -84,8 +84,6 @@ result1 <- dataFormat(data1)
 result1
 ```
 
-##  exametrikaクラスのデータの例
-
 ### 文字列のID列を持つデータ
 
 + `ID`列は基本的に第一列目をみますが，別途指定もできます
@@ -103,7 +101,7 @@ result2
 
 
 
-### 項目分析をしよう
+## 項目分析をしよう
 
 #### 正当数
 ```{r}
@@ -274,7 +272,7 @@ result6
 result6$U
 ```
 
-### 項目分析をしよう(多値データの場合)
+## 項目分析をしよう(多値データの場合)
 
 + サンプルデータ`J5S1000`を例に見てみましょう
 
@@ -288,8 +286,6 @@ TestStatistics(dat)
 ```{r}
 ItemStatistics(dat)
 ```
-
-### まとめて分析(項目間分析・多値データの場合)
 
 
 ```{r}
@@ -323,14 +319,14 @@ IIAnalysis$CSR[[1]][[2]]
 IIAnalysis$MI
 ```
 
-### 多分相関係数(Polychoric correlation)
+#### 多分相関係数(Polychoric correlation)
 
 ```{r}
 IIAnalysis$Polychoric
 ```
 
 
-### 次元性分析(多分相関係数の固有値分解)
+#### 次元性分析(多分相関係数の固有値分解)
 
 
 ```{r}
