@@ -251,8 +251,7 @@ window.Quarto = {
   <li><a href="#ランクメンバーシッププロファイル-1" id="toc-ランクメンバーシッププロファイル-1" class="nav-link" data-scroll-target="#ランクメンバーシッププロファイル-1"><span class="header-section-number">5.4.4</span> ランクメンバーシッププロファイル</a></li>
   <li><a href="#テスト参照プロファイル-1" id="toc-テスト参照プロファイル-1" class="nav-link" data-scroll-target="#テスト参照プロファイル-1"><span class="header-section-number">5.4.5</span> テスト参照プロファイル</a></li>
   <li><a href="#潜在ランク分布" id="toc-潜在ランク分布" class="nav-link" data-scroll-target="#潜在ランク分布"><span class="header-section-number">5.4.6</span> 潜在ランク分布</a></li>
-  <li><a href="#潜在ランク分布-1" id="toc-潜在ランク分布-1" class="nav-link" data-scroll-target="#潜在ランク分布-1"><span class="header-section-number">5.4.7</span> 潜在ランク分布</a></li>
-  <li><a href="#その他の出力" id="toc-その他の出力" class="nav-link" data-scroll-target="#その他の出力"><span class="header-section-number">5.4.8</span> その他の出力</a></li>
+  <li><a href="#その他の出力" id="toc-その他の出力" class="nav-link" data-scroll-target="#その他の出力"><span class="header-section-number">5.4.7</span> その他の出力</a></li>
   </ul></li>
   <li><a href="#種類の推定法があります" id="toc-種類の推定法があります" class="nav-link" data-scroll-target="#種類の推定法があります"><span class="header-section-number">5.5</span> 2種類の推定法があります</a>
   <ul class="collapse">
@@ -800,7 +799,7 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 <section id="テスト参照プロファイル-1" class="level3" data-number="5.4.5">
 <h3 data-number="5.4.5" class="anchored" data-anchor-id="テスト参照プロファイル-1"><span class="header-section-number">5.4.5</span> テスト参照プロファイル</h3>
 <ul>
-<li>テストの得点とクラスの分類を可視化します</li>
+<li>テストの得点とランクの分類を可視化します</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"TRP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -816,7 +815,7 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 <section id="潜在ランク分布" class="level3" data-number="5.4.6">
 <h3 data-number="5.4.6" class="anchored" data-anchor-id="潜在ランク分布"><span class="header-section-number">5.4.6</span> 潜在ランク分布</h3>
 <ul>
-<li>クラスの分布をプロットします
+<li>ランクの分布をプロットします
 <ul>
 <li>棒グラフで表現されているのがLatent Rank Distribution</li>
 <li>折れ線グラフで表現されているのがRank Membership Distribution</li>
@@ -832,11 +831,8 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 </div>
 </div>
 </div>
-</section>
-<section id="潜在ランク分布-1" class="level3" data-number="5.4.7">
-<h3 data-number="5.4.7" class="anchored" data-anchor-id="潜在ランク分布-1"><span class="header-section-number">5.4.7</span> 潜在ランク分布</h3>
 <ul>
-<li>クラスの分布をプロットします</li>
+<li>ランクの分布をプロットします</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"LRD"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -849,8 +845,8 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 </div>
 </div>
 </section>
-<section id="その他の出力" class="level3" data-number="5.4.8">
-<h3 data-number="5.4.8" class="anchored" data-anchor-id="その他の出力"><span class="header-section-number">5.4.8</span> その他の出力</h3>
+<section id="その他の出力" class="level3" data-number="5.4.7">
+<h3 data-number="5.4.7" class="anchored" data-anchor-id="その他の出力"><span class="header-section-number">5.4.7</span> その他の出力</h3>
 <ul>
 <li><code>IRP index</code>を表示することができます
 <ul>

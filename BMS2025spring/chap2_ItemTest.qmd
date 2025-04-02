@@ -316,7 +316,7 @@ IIAnalysis$JSR[[1]][[2]]
 #### 条件付き選択率(Conditional Selection Ratio)
 
 + 同時選択率Conditional Selection Ratioは`CSR`変数にリストとして入っています
-    + 項目$J$と項目$K$の同時選択率行列は`CSR[[J]][[K]]`で表示します
+    + 項目$J$と項目$K$の条件付き選択率行列は`CSR[[J]][[K]]`で表示します
 
 ```{r}
 IIAnalysis$CSR[[1]][[2]]

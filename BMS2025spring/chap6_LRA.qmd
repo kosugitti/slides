@@ -120,7 +120,7 @@ plot(result.LRA, type = "RMP", students = 1:6, nr = 2, nc = 3)
 
 ### テスト参照プロファイル
 
-+ テストの得点とクラスの分類を可視化します
++ テストの得点とランクの分類を可視化します
 
 ```{r}
 plot(result.LRA, type = "TRP")
@@ -128,7 +128,7 @@ plot(result.LRA, type = "TRP")
 
 ### 潜在ランク分布
 
-+ クラスの分布をプロットします
++ ランクの分布をプロットします
     + 棒グラフで表現されているのがLatent Rank Distribution
     + 折れ線グラフで表現されているのがRank Membership Distribution
 
@@ -137,9 +137,7 @@ plot(result.LRA, type = "LRD")
 ```
 
 
-### 潜在ランク分布
-
-+ クラスの分布をプロットします
++ ランクの分布をプロットします
 
 ```{r}
 plot(result.LRA, type = "LRD")

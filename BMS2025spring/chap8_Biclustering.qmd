@@ -59,9 +59,9 @@ plot(result, type = "TRP")
 plot(result, type = "CRV")
 ```
 
-### フィールドメンバーシップ・プロファイル
+### フィールド参照プロファイル
 
-+ 項目がどのフィールドに対応するのかを出力します
++ フィールドごとに，各ランクの期待される正答率をプロットします。　
 
 ```{r}
 plot(result, type = "FRP", items = 1:6, nr = 2, nc = 3)
@@ -135,7 +135,7 @@ plot(result.R, type = "RRV")
 + 項目がどのフィールドに対応するのかを出力します
 
 ```{r}
-plot(result, type = "FRP", items = 1:6, nr = 2, nc = 3)
+plot(result.R, type = "FRP", items = 1:6, nr = 2, nc = 3)
 ```
 
 ### ランクメンバーシップ・プロファイル
@@ -143,7 +143,7 @@ plot(result, type = "FRP", items = 1:6, nr = 2, nc = 3)
 + 受検者がどのクラスに対応するのかを出力します
 
 ```{r}
-plot(result, type = "RMP", students = 1:6, nr = 2, nc = 3)
+plot(result.R, type = "RMP", students = 1:6, nr = 2, nc = 3)
 ```
 
 
@@ -153,7 +153,7 @@ plot(result, type = "RMP", students = 1:6, nr = 2, nc = 3)
 + ランクメンバーシップの分布を折れ線グラフで表現
 
 ```{r}
-plot(result, type = "LRD")
+plot(result.R, type = "LRD")
 ```
 
 ## Confirmatory Analysis
