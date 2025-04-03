@@ -224,7 +224,7 @@ plot(result.R, type = "FRP", nr = 2, nc = 3)
 + 折れ線グラフで表現されているのがTest Reference Profileで，ランクごとの期待得点です。
 
 ```{r}
-plot(result, type = "TRP")
+plot(result.R, type = "TRP")
 ```
 
 
