@@ -588,7 +588,7 @@ Item35      0      0 0.00000 0.00000      1</code></pre>
 <h3 data-number="6.2.4" class="anchored" data-anchor-id="クラスとフィールドの関係"><span class="header-section-number">6.2.4</span> クラスとフィールドの関係</h3>
 <section id="クラス参照ベクトル" class="level4" data-number="6.2.4.1">
 <h4 data-number="6.2.4.1" class="anchored" data-anchor-id="クラス参照ベクトル"><span class="header-section-number">6.2.4.1</span> クラス参照ベクトル</h4>
-<p>クラスごと・フィールドごとの正答率をプロットすることができます。クラス参照ベクトルClass Reference Vectorと呼ばれます。</p>
+<p>フィールドにおけるクラスごと正答率をプロットすることができます。クラス参照ベクトルClass Reference Vectorと呼ばれます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">"CRV"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -599,10 +599,7 @@ Item35      0      0 0.00000 0.00000      1</code></pre>
 </div>
 </div>
 </div>
-</section>
-<section id="フィールド参照プロファイル" class="level4" data-number="6.2.4.2">
-<h4 data-number="6.2.4.2" class="anchored" data-anchor-id="フィールド参照プロファイル"><span class="header-section-number">6.2.4.2</span> フィールド参照プロファイル</h4>
-<p>クラスごと・フィールドごとの正答率をプロットすることができます。この図をフィールド参照プロファイルField Reference Profileといいます。</p>
+<p>これは数値で確認することもできます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>FRP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -613,11 +610,17 @@ Field3 0.20081642 0.54305218 0.22811379 0.47498694 0.7061406 1.0000000
 Field4 0.04954076 0.24549999 0.07824042 0.23310794 0.6482247 0.9828854
 Field5 0.02254831 0.05446897 0.02836654 0.04301178 0.1603798 0.9834310</code></pre>
 </div>
+</div>
+</section>
+<section id="フィールド参照プロファイル" class="level4" data-number="6.2.4.2">
+<h4 data-number="6.2.4.2" class="anchored" data-anchor-id="フィールド参照プロファイル"><span class="header-section-number">6.2.4.2</span> フィールド参照プロファイル</h4>
+<p>クラスごと・フィールドごとの正答率をプロットすることができます。この図をフィールド参照プロファイルField Reference Profileといいます。</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">"FRP"</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -638,7 +641,7 @@ Field5 0.02254831 0.05446897 0.02836654 0.04301178 0.1603798 0.9834310</code></p
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -768,7 +771,7 @@ Weakly Ordinal Alignment Condition is Satisfied.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -797,7 +800,7 @@ Student006 0.256715 0.690129 0.053139 0.000018 0.000000 0.000000</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -827,7 +830,7 @@ Student006 0.256715 0.690129 0.053139 0.000018 0.000000 0.000000</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -889,7 +892,7 @@ Item35      0      0 0.00000 0.00000 1.00000</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -912,7 +915,7 @@ Field5 0.03293073 0.05469207 0.09344104 0.1298351 0.2618470 0.5980969</code></pr
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -933,7 +936,7 @@ Field5 0.03293073 0.05469207 0.09344104 0.1298351 0.2618470 0.5980969</code></pr
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -981,7 +984,7 @@ iter 7 logLik -9243.17                                                          
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -989,7 +992,7 @@ iter 7 logLik -9243.17                                                          
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
