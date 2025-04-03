@@ -34,56 +34,88 @@ result
 plot(result, type = "Array")
 ```
 
-### フィールド参照プロファイル
+### 受験生とクラスの関係
+
+#### クラスメンバーシップとプロファイル
+
+クラスの分布をプロットします。
+
+内部では，各受験者がどのクラスに所属するかの確率を推定しています。この確率をクラス・メンバーシップ・プロファイルといいます。数値で出力することも，プロットすることも可能です。
+
+```{r}
+## 丸めて出力
+round(result$ClassMembership, 6) |> head()
+## 図で出力
+plot(result, type = "CMP", students = 1:6, nr = 2, nc = 3)
+```
+
+
+#### 推定された所属クラス
+
+この所属確率が最も高いものが，推定される所属クラスとなります。
+
+```{r}
+result$ClassEstimated |> head()
+```
+
+#### 潜在クラス分布
+
+メンバーシップは所属確率で，それをクラスごとに集計して分布を見るのがClass Membership Distributionです。
+
+
+推定される所属クラス(推定値)で集計して分布を見るのがLatent Class Distributionです。
+
+プロットの`type="LCD"`で両者が同時にプロットされます。
+
++ 棒グラフで表現されているのがLatent Class Distributionです。
++ 折れ線グラフで表現されているのがClass Membership Distributionです。
+
+
+```{r}
+plot(result, type = "LCD")
+```
+
+### 項目とフィールドの関係
+
+内部では，各項目がどのフィールドに所属するかの確率を推定しています。この確率をフィールドメンバーシッププロファイルといい，`FieldMembership`という名前で保存されています。
+
+```{r}
+round(result$FieldMembership, 5)
+```
+
+
+### クラスとフィールドの関係
+
+#### クラス参照ベクトル
+
+クラスごと・フィールドごとの正答率をプロットすることができます。クラス参照ベクトルClass Reference Vectorと呼ばれます。
+
+```{r}
+plot(result, type = "CRV")
+```
+
+#### フィールド参照プロファイル
+
+クラスごと・フィールドごとの正答率をプロットすることができます。この図をフィールド参照プロファイルField Reference Profileといいます。
 
 ```{r}
 result$FRP
 plot(result, type = "FRP", nr = 2, nc = 3)
 ```
 
-### テスト参照プロファイルと潜在ランク分布
+### テストとクラスの関係
 
-+ クラスの分布をプロットします
-    + 棒グラフで表現されているのがTest Reference Distribution
-    + 折れ線グラフで表現されているのがLatent Class Distribution
+#### テスト参照プロファイル
+
+テスト得点とクラスの分布を同時にプロットするものをテスト参照プロファイルTest Reference Profileといいます。
+
++ 棒グラフで表現されているのがLatent Class Distributionです。
++ 折れ線グラフで表現されているのがTest Reference Profileで，クラスごとの期待得点です。
 
 ```{r}
 plot(result, type = "TRP")
 ```
 
-### クラス参照ベクトル
-
-+ クラスごと・フィールドごとの正答率をプロットします
-
-```{r}
-plot(result, type = "CRV")
-```
-
-### フィールド参照プロファイル
-
-+ フィールドごとに，各ランクの期待される正答率をプロットします。　
-
-```{r}
-plot(result, type = "FRP", items = 1:6, nr = 2, nc = 3)
-```
-
-### クラスメンバーシップ・プロファイル
-
-+ 受検者がどのクラスに対応するのかを出力します
-
-```{r}
-plot(result, type = "CMP", students = 1:6, nr = 2, nc = 3)
-```
-
-
-### クラスの分布
-
-+ 推定されたクラスの分布を棒グラフで表現
-+ クラスメンバーシップの分布を折れ線グラフで表現
-
-```{r}
-plot(result, type = "LCD")
-```
 
 
 ## ランクラスタリングの実行
@@ -101,60 +133,90 @@ result.R
 + うまく分類できたかどうかをアレイプロットで確認できます。
 
 ```{r}
-plot(result, type = "Array")
+plot(result.R, type = "Array")
 ```
 
+### 受験生とランクの関係
 
-### フィールド参照プロファイル
+#### ランクメンバーシップとプロファイル
 
-```{r frp}
-result.R$FRP
-plot(result.R, type = "FRP", nr = 2, nc = 3)
-```
+ランクの分布をプロットします。
 
-### テスト参照プロファイルと潜在ランク分布
-
-+ クラスの分布をプロットします
-    + 棒グラフで表現されているのがTest Reference Distribution
-    + 折れ線グラフで表現されているのがLatent Class Distribution
+内部では，各受験者がどのランクに所属するかの確率を推定しています。この確率をランク・メンバーシップ・プロファイルといいます。数値で出力することも，プロットすることも可能です。
 
 ```{r}
-plot(result.R, type = "TRP")
+## 丸めて出力
+round(result.R$ClassMembership, 6) |> head()
+## 図で出力
+plot(result.R, type = "CMP", students = 1:6, nr = 2, nc = 3)
 ```
 
-### ランク参照ベクトル
 
-+ ランクごと・フィールドごとの正答率をプロットします
+#### 推定された所属ランク
+
+この所属確率が最も高いものが，推定される所属ランクとなります。
+
+```{r}
+result.R$ClassEstimated |> head()
+```
+
+#### 潜在ランク分布
+
+メンバーシップは所属確率で，それをランクごとに集計して分布を見るのがRank Membership Distributionです。
+
+推定される所属クラス(推定値)で集計して分布を見るのがLatent Rank Distributionです。
+
+プロットの`type="LRD"`で両者が同時にプロットされます。
+
++ 棒グラフで表現されているのがLatent Rank Distributionです。
++ 折れ線グラフで表現されているのがRank Membership Distributionです。
+
+
+```{r}
+plot(result.R, type = "LRD")
+```
+
+### 項目とフィールドの関係
+
+内部では，各項目がどのフィールドに所属するかの確率を推定しています。この確率をフィールドメンバーシッププロファイルといい，`FieldMembership`という名前で保存されています。
+
+```{r}
+round(result.R$FieldMembership, 5)
+```
+
+
+### ランクとフィールドの関係
+
+#### ランク参照ベクトル
+
+クラスごと・フィールドごとの正答率をプロットすることができます。クラス参照ベクトルランク Reference Vectorと呼ばれます。
 
 ```{r}
 plot(result.R, type = "RRV")
 ```
 
-### フィールドメンバーシップ・プロファイル
+#### フィールド参照プロファイル
 
-+ 項目がどのフィールドに対応するのかを出力します
-
-```{r}
-plot(result.R, type = "FRP", items = 1:6, nr = 2, nc = 3)
-```
-
-### ランクメンバーシップ・プロファイル
-
-+ 受検者がどのクラスに対応するのかを出力します
+ランクごと・フィールドごとの正答率をプロットすることができます。この図をフィールド参照プロファイルField Reference Profileといいます。
 
 ```{r}
-plot(result.R, type = "RMP", students = 1:6, nr = 2, nc = 3)
+result.R$FRP
+plot(result.R, type = "FRP", nr = 2, nc = 3)
 ```
 
+### テストとクラスの関係
 
-### ランクの分布
+#### テスト参照プロファイル
 
-+ 推定されたランクの分布を棒グラフで表現
-+ ランクメンバーシップの分布を折れ線グラフで表現
+テスト得点とランクの分布を同時にプロットするものをテスト参照プロファイルTest Reference Profileといいます。
+
++ 棒グラフで表現されているのがLatent Rank Distributionです。
++ 折れ線グラフで表現されているのがTest Reference Profileで，ランクごとの期待得点です。
 
 ```{r}
-plot(result.R, type = "LRD")
+plot(result, type = "TRP")
 ```
+
 
 ## Confirmatory Analysis
 
