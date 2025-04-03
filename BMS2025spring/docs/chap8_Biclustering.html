@@ -614,7 +614,7 @@ Field5 0.02254831 0.05446897 0.02836654 0.04301178 0.1603798 0.9834310</code></p
 </section>
 <section id="フィールド参照プロファイル" class="level4" data-number="6.2.4.2">
 <h4 data-number="6.2.4.2" class="anchored" data-anchor-id="フィールド参照プロファイル"><span class="header-section-number">6.2.4.2</span> フィールド参照プロファイル</h4>
-<p>クラスごと・フィールドごとの正答率をプロットすることができます。この図をフィールド参照プロファイルField Reference Profileといいます。</p>
+<p>フィールドの特徴に注目し，クラスごと正答率をプロットすることができます。この図をフィールド参照プロファイルField Reference Profileといいます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">"FRP"</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -886,7 +886,7 @@ Item35      0      0 0.00000 0.00000 1.00000</code></pre>
 <h3 data-number="6.3.4" class="anchored" data-anchor-id="ランクとフィールドの関係"><span class="header-section-number">6.3.4</span> ランクとフィールドの関係</h3>
 <section id="ランク参照ベクトル" class="level4" data-number="6.3.4.1">
 <h4 data-number="6.3.4.1" class="anchored" data-anchor-id="ランク参照ベクトル"><span class="header-section-number">6.3.4.1</span> ランク参照ベクトル</h4>
-<p>クラスごと・フィールドごとの正答率をプロットすることができます。クラス参照ベクトルランク Reference Vectorと呼ばれます。</p>
+<p>フィールドにおけるランクごと正答率をプロットすることができます。ランク参照ベクトルRank Reference Vectorと呼ばれます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.R, <span class="at">type =</span> <span class="st">"RRV"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -897,10 +897,7 @@ Item35      0      0 0.00000 0.00000 1.00000</code></pre>
 </div>
 </div>
 </div>
-</section>
-<section id="フィールド参照プロファイル-1" class="level4" data-number="6.3.4.2">
-<h4 data-number="6.3.4.2" class="anchored" data-anchor-id="フィールド参照プロファイル-1"><span class="header-section-number">6.3.4.2</span> フィールド参照プロファイル</h4>
-<p>ランクごと・フィールドごとの正答率をプロットすることができます。この図をフィールド参照プロファイルField Reference Profileといいます。</p>
+<p>これは数値で確認することもできます。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>result.R<span class="sc">$</span>FRP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -911,11 +908,17 @@ Field3 0.22472428 0.32079306 0.44027355 0.6163989 0.7507110 0.8988009
 Field4 0.10394873 0.18598451 0.28100007 0.3614656 0.6030432 0.8411943
 Field5 0.03293073 0.05469207 0.09344104 0.1298351 0.2618470 0.5980969</code></pre>
 </div>
+</div>
+</section>
+<section id="フィールド参照プロファイル-1" class="level4" data-number="6.3.4.2">
+<h4 data-number="6.3.4.2" class="anchored" data-anchor-id="フィールド参照プロファイル-1"><span class="header-section-number">6.3.4.2</span> フィールド参照プロファイル</h4>
+<p>フィールドの特徴に注目し，ランクごと正答率をプロットすることができます。この図をフィールド参照プロファイルField Reference Profileといいます。</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.R, <span class="at">type =</span> <span class="st">"FRP"</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -936,7 +939,7 @@ Field5 0.03293073 0.05469207 0.09344104 0.1298351 0.2618470 0.5980969</code></pr
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -984,7 +987,7 @@ iter 7 logLik -9243.17                                                          
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -992,7 +995,7 @@ iter 7 logLik -9243.17                                                          
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="chap8_Biclustering_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
