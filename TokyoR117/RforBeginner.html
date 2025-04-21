@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Koji Kosugi">
 
 <title>Rとexametrikaパッケージの導入</title>
 <style>
@@ -67,14 +68,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="RforBeginner_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="RforBeginner_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="RforBeginner_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#自己紹介" id="toc-自己紹介" class="nav-link active" data-scroll-target="#自己紹介">自己紹介</a></li>
+  <li><a href="#rの紹介" id="toc-rの紹介" class="nav-link" data-scroll-target="#rの紹介">Rの紹介</a></li>
+  <li><a href="#rのはじめかた" id="toc-rのはじめかた" class="nav-link" data-scroll-target="#rのはじめかた">Rのはじめかた</a>
+  <ul class="collapse">
+  <li><a href="#rstudioも使いましょう" id="toc-rstudioも使いましょう" class="nav-link" data-scroll-target="#rstudioも使いましょう">RStudioも使いましょう</a></li>
+  <li><a href="#rstudioの起動画面" id="toc-rstudioの起動画面" class="nav-link" data-scroll-target="#rstudioの起動画面">RStudioの起動画面</a></li>
+  <li><a href="#オススメ設定" id="toc-オススメ設定" class="nav-link" data-scroll-target="#オススメ設定">オススメ設定</a></li>
+  <li><a href="#オススメ設定つづき" id="toc-オススメ設定つづき" class="nav-link" data-scroll-target="#オススメ設定つづき">オススメ設定(つづき)</a></li>
+  <li><a href="#rstudioの4つの窓" id="toc-rstudioの4つの窓" class="nav-link" data-scroll-target="#rstudioの4つの窓">RStudioの4つの窓</a></li>
+  <li><a href="#rstudioはプロジェクト管理が基本" id="toc-rstudioはプロジェクト管理が基本" class="nav-link" data-scroll-target="#rstudioはプロジェクト管理が基本">RStudioはプロジェクト管理が基本</a></li>
+  </ul></li>
+  <li><a href="#rをさわってみましょう" id="toc-rをさわってみましょう" class="nav-link" data-scroll-target="#rをさわってみましょう">Rをさわってみましょう</a>
+  <ul class="collapse">
+  <li><a href="#はじめの1歩" id="toc-はじめの1歩" class="nav-link" data-scroll-target="#はじめの1歩">はじめの1歩</a></li>
+  <li><a href="#パッケージ" id="toc-パッケージ" class="nav-link" data-scroll-target="#パッケージ">パッケージ</a></li>
+  <li><a href="#パッケージの使い方" id="toc-パッケージの使い方" class="nav-link" data-scroll-target="#パッケージの使い方">パッケージの使い方</a></li>
+  <li><a href="#数値計算の基礎" id="toc-数値計算の基礎" class="nav-link" data-scroll-target="#数値計算の基礎">数値計算の基礎</a></li>
+  <li><a href="#数値計算の基礎-1" id="toc-数値計算の基礎-1" class="nav-link" data-scroll-target="#数値計算の基礎-1">数値計算の基礎</a></li>
+  <li><a href="#ベクトル行列リストデータフレーム" id="toc-ベクトル行列リストデータフレーム" class="nav-link" data-scroll-target="#ベクトル行列リストデータフレーム">ベクトル，行列，リスト，データフレーム</a></li>
+  <li><a href="#ベクトルvectorの例" id="toc-ベクトルvectorの例" class="nav-link" data-scroll-target="#ベクトルvectorの例">ベクトル（Vector）の例</a></li>
+  <li><a href="#行列matrix" id="toc-行列matrix" class="nav-link" data-scroll-target="#行列matrix">行列（Matrix）</a></li>
+  <li><a href="#配列array" id="toc-配列array" class="nav-link" data-scroll-target="#配列array">配列（Array）</a></li>
+  <li><a href="#リストlist" id="toc-リストlist" class="nav-link" data-scroll-target="#リストlist">リスト（List）</a></li>
+  <li><a href="#リストlist-1" id="toc-リストlist-1" class="nav-link" data-scroll-target="#リストlist-1">リスト（List）</a></li>
+  <li><a href="#データフレームdata-frame" id="toc-データフレームdata-frame" class="nav-link" data-scroll-target="#データフレームdata-frame">データフレーム（Data Frame）</a></li>
+  <li><a href="#データ構造の比較" id="toc-データ構造の比較" class="nav-link" data-scroll-target="#データ構造の比較">データ構造の比較</a></li>
+  <li><a href="#パイプ演算子を活用しよう" id="toc-パイプ演算子を活用しよう" class="nav-link" data-scroll-target="#パイプ演算子を活用しよう">パイプ演算子を活用しよう</a></li>
+  <li><a href="#余談tidyな世界" id="toc-余談tidyな世界" class="nav-link" data-scroll-target="#余談tidyな世界">(余談)tidyな世界</a></li>
+  <li><a href="#チートシートを活用しよう" id="toc-チートシートを活用しよう" class="nav-link" data-scroll-target="#チートシートを活用しよう">チートシートを活用しよう</a></li>
+  </ul></li>
+  <li><a href="#具体的にデータを扱ってみよう" id="toc-具体的にデータを扱ってみよう" class="nav-link" data-scroll-target="#具体的にデータを扱ってみよう">具体的にデータを扱ってみよう</a>
+  <ul class="collapse">
+  <li><a href="#データの読み込みと操作" id="toc-データの読み込みと操作" class="nav-link" data-scroll-target="#データの読み込みと操作">データの読み込みと操作</a></li>
+  <li><a href="#基本的なcsv読み込み" id="toc-基本的なcsv読み込み" class="nav-link" data-scroll-target="#基本的なcsv読み込み">基本的なCSV読み込み</a></li>
+  <li><a href="#import-dataset" id="toc-import-dataset" class="nav-link" data-scroll-target="#import-dataset">Import Dataset</a></li>
+  <li><a href="#サンプルコードを読み込んでみよう" id="toc-サンプルコードを読み込んでみよう" class="nav-link" data-scroll-target="#サンプルコードを読み込んでみよう">サンプルコードを読み込んでみよう</a></li>
+  <li><a href="#オブジェクトの基本情報" id="toc-オブジェクトの基本情報" class="nav-link" data-scroll-target="#オブジェクトの基本情報">オブジェクトの基本情報</a></li>
+  <li><a href="#記述統計量" id="toc-記述統計量" class="nav-link" data-scroll-target="#記述統計量">記述統計量</a></li>
+  <li><a href="#変数毎の要約統計量" id="toc-変数毎の要約統計量" class="nav-link" data-scroll-target="#変数毎の要約統計量">変数毎の要約統計量</a></li>
+  <li><a href="#因子型をつくってみましょう" id="toc-因子型をつくってみましょう" class="nav-link" data-scroll-target="#因子型をつくってみましょう">因子型をつくってみましょう</a></li>
+  <li><a href="#可視化してみましょう" id="toc-可視化してみましょう" class="nav-link" data-scroll-target="#可視化してみましょう">可視化してみましょう</a></li>
+  <li><a href="#可視化してみましょう-1" id="toc-可視化してみましょう-1" class="nav-link" data-scroll-target="#可視化してみましょう-1">可視化してみましょう</a></li>
+  <li><a href="#可視化してみましょう-2" id="toc-可視化してみましょう-2" class="nav-link" data-scroll-target="#可視化してみましょう-2">可視化してみましょう</a></li>
+  <li><a href="#ggplotによる出力はより綺麗です" id="toc-ggplotによる出力はより綺麗です" class="nav-link" data-scroll-target="#ggplotによる出力はより綺麗です">ggplotによる出力は，より綺麗です</a></li>
+  </ul></li>
+  <li><a href="#発展的なトピックス" id="toc-発展的なトピックス" class="nav-link" data-scroll-target="#発展的なトピックス">発展的なトピックス</a>
+  <ul class="collapse">
+  <li><a href="#rstido以外のide" id="toc-rstido以外のide" class="nav-link" data-scroll-target="#rstido以外のide">RStido以外のIDE</a></li>
+  <li><a href="#quartormarkdown文芸的プログラミング" id="toc-quartormarkdown文芸的プログラミング" class="nav-link" data-scroll-target="#quartormarkdown文芸的プログラミング">Quarto/Rmarkdown：文芸的プログラミング</a></li>
+  <li><a href="#quartormarkdown文芸的プログラミング-1" id="toc-quartormarkdown文芸的プログラミング-1" class="nav-link" data-scroll-target="#quartormarkdown文芸的プログラミング-1">Quarto/Rmarkdown：文芸的プログラミング</a></li>
+  </ul></li>
+  <li><a href="#enjoy" id="toc-enjoy" class="nav-link" data-scroll-target="#enjoy">Enjoy!</a></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -83,10 +144,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://kosugitti.github.io/kosugitti10/">Koji Kosugi, PhD</a> <a href="mailto:kosugitti_at_gmail.coms" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Senshu University
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    
+      
   
     
   </div>
@@ -102,6 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="column" style="width:60%;">
 <ul>
 <li>小杉考司（こすぎこうじ）</li>
+<li>生年月日；1976.1.17(117はいい数字)</li>
 <li>専修大学人間科学部　教授　博士（社会学）</li>
 <li>担当講義；心理学データ解析基礎，心理学データ解析応用</li>
 <li>専門分野
@@ -109,12 +184,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>心理尺度の作り方，使い方</li>
 <li>多変量解析（因子分析，多次元尺度構成法），統計モデリング</li>
 <li>統計パッケージ開発；テスト理論用パッケージ<a href="https://kosugitti.github.io/exametrika/">exametrika</a></li>
-</ul></li>
-<li>関わった書籍
-<ul>
-<li><a href="https://amzn.to/3XlA5Gq">数値シミュレーションで読み解く統計のしくみ〜Rでためしてわかる心理統計</a></li>
-<li><a href="https://amzn.to/3EWhLNY">研究論文を読み解くための多変量解析入門 基礎篇: 重回帰分析からメタ分析まで</a></li>
-<li><a href="https://amzn.to/4gYB32u">言葉と数式で理解する多変量解析入門</a> など</li>
 </ul></li>
 </ul>
 </div><div class="column" style="width:40%;">
@@ -1759,4 +1828,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="RforBeginner_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

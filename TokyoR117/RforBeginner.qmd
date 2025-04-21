@@ -1,8 +1,23 @@
 ---
 title: "Rとexametrikaパッケージの導入"
+author:
+  - name: "Koji Kosugi"
+    degrees: PhD
+    url: "https://kosugitti.github.io/kosugitti10/"
+    affiliations: Senshu University
+    email: kosugitti_at_gmail.coms
 editor: 
     render-on-save: true
 from: markdown+emoji
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "目次"
+    toc-depth: 3
+    toc-expand: true
+    smooth-scroll: true
+    anchor-sections: true
 ---
 
 ## 自己紹介
@@ -11,17 +26,13 @@ from: markdown+emoji
 ::: {.column width="60%"}
 
 + 小杉考司（こすぎこうじ）
++ 生年月日；1976.1.17(117はいい数字)
 + 専修大学人間科学部　教授　博士（社会学）
 + 担当講義；心理学データ解析基礎，心理学データ解析応用
 + 専門分野
     + 心理尺度の作り方，使い方
     + 多変量解析（因子分析，多次元尺度構成法），統計モデリング
     + 統計パッケージ開発；テスト理論用パッケージ[exametrika](https://kosugitti.github.io/exametrika/)
-+ 関わった書籍
-    + [数値シミュレーションで読み解く統計のしくみ〜Rでためしてわかる心理統計](https://amzn.to/3XlA5Gq)
-    + [研究論文を読み解くための多変量解析入門 基礎篇: 重回帰分析からメタ分析まで](https://amzn.to/3EWhLNY)
-    + [言葉と数式で理解する多変量解析入門](https://amzn.to/4gYB32u)
-など
 :::
 
 ::: {.column width="40%"}
