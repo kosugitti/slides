@@ -5,7 +5,7 @@ author:
     degrees: PhD
     url: "https://kosugitti.github.io/kosugitti10/"
     affiliations: Senshu University
-    email: kosugitti_at_gmail.coms
+    email: kosugitti_at_gmail.com
 editor: 
     render-on-save: true
 from: markdown+emoji
@@ -26,7 +26,7 @@ format:
 ::: {.column width="60%"}
 
 + 小杉考司（こすぎこうじ）
-+ 生年月日；1976.1.17(117はいい数字)
++ 生年月日：1976.1.17(117はいい数字)
 + 専修大学人間科学部　教授　博士（社会学）
 + 担当講義；心理学データ解析基礎，心理学データ解析応用
 + 専門分野
@@ -506,7 +506,7 @@ data <- read.csv("data.csv")
 + 世界標準である`UTF-8`という文字コードでファイルを管理しましょう
 
 ```{r eval=FALSE}
-data <- read.csv("data.csv", fileEncoding = "UTF-8")
+data <- read.csv("data.csv", fileEncoding = "CP932") # Windowsの場合
 ```
 
 + Rstudioの`Files` タブからファイルを選んで`Import Dataset`とするとGUIでも操作できます。
@@ -730,7 +730,7 @@ baseball |>
 
 + コピペ汚染がなく，RStudioで執筆と分析が統合，これだけで完結できます。
 
-![Rmarkdowonのしくみ](RMD.png)
+![Rmarkdownのしくみ](RMD.png)
 
 #### Quartoとは
 
