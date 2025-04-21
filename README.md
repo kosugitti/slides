@@ -12,7 +12,8 @@
 
 + [同志社大学心理学部特別講義；Rによる心理ネットワーク分析入門](PsychNetwork20240708/NetworkPsychometriks.html)
 
-### 行動計量学会・第27回春の合宿セミナー
-
 + [行動計量学会・第27回春の合宿セミナー;exametrikaパッケージによるテスト理論の実践](BMS2025spring/docs/)
 
+## 2025年度
+
++ [Tokyo.R117回初心者セッション・はじめようR](TokyoR117/RforBeginner.qmd)

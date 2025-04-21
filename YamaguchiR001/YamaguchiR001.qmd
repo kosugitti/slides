@@ -10,7 +10,7 @@ author:
 format: 
     revealjs:
         theme: serif
-        footer: "行動計量学会27th春の合宿セミナー"
+        footer: "YamaguchiR#1"
         height: 1200
         width:  1600
         transition: slide
