@@ -1,5 +1,5 @@
 ---
-title: "Rとexametrikaパッケージの導入"
+title: "はじめよう！R"
 author:
   - name: "Koji Kosugi"
     degrees: PhD
