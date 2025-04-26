@@ -513,7 +513,7 @@ data <- read.csv("data.csv", fileEncoding = "CP932") # Windowsの場合
 
 ### Import Dataset
 
-![](importDatasetWindow.png)
+![](ImportDatasetWindow.png)
 
 ### サンプルコードを読み込んでみよう
 
