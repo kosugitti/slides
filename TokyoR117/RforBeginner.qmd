@@ -96,7 +96,7 @@ MacにはパッケージマネージャHomebrewというアプリがあり，Hom
 
 ### RStudioの起動画面
 
-![RStudi起動画面](RStudioLayout1.png)
+![RStudi起動画面](RStudioLayout.png)
 
 + 大きく4分割して使います。
 + 起動して最初にやるのが「**環境設定**」です。
@@ -105,7 +105,7 @@ MacにはパッケージマネージャHomebrewというアプリがあり，Hom
 
 ### オススメ設定
 
-![環境設定画面](RStudioGlobalOptions.png)
+![環境設定画面](RstudioGlobalOptions.png)
 
 + General > Basic のWrokspace，`Save Workspace to .RData on exit:`を**never**に
 + General > Graphics > Graphics Deviceの`Backend`を**AGG**に
