@@ -1,0 +1,164 @@
+---
+title: "Biclusteringの精度について"
+author:
+  - name: "Koji Kosugi"
+    degrees: PhD
+    url: "https://kosugitti.github.io/kosugitti10/"
+    affiliations: Senshu University
+    email: kosugitti_at_gmail.com
+editor: 
+    render-on-save: false
+from: markdown+emoji
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    fig-format: png
+    fig-dpi: 150
+---
+
+## 自己紹介
+
+:::: {.columns}
+::: {.column width="70%"}
+
++ 小杉考司（こすぎこうじ）
++ ベイズ塾1号生
++ 専門分野
+    + 心理尺度の作り方，使い方
+    + 多変量解析（因子分析，多次元尺度構成法），統計モデリング
+    + 統計パッケージ開発；テスト理論用パッケージ[exametrika](https://kosugitti.github.io/exametrika/)
+:::
+
+::: {.column width="30%"}
+![](exametrika.png)
+:::
+::::
+
+## Biclusteringとは
+
++ 行と列を同時にクラスタリングする方法
++ テストデータ(正答1/誤答0)の分析に用いて，「どういう人がどういうパタンで回答しているか」がわかる。
++ 行(受験者)の分類をクラス，列(項目)はフィールドと呼ぶ
++ クラスに順序性を仮定した，ランクラスタリングというのもあるよ
+
+## BiclusteringのArrayプロット
+
+
+:::: {.columns}
+::: {.column width="50%"}
+![Arrayplot](ArrayPlot.png)
+:::
+
+::: {.column width="50%"}
+![ranklustering example](Ranclustering_ex.png)
+:::
+Shojima,K. (2022) Test Data Engineering, Springer
+::::
+
+## Biclusteringはなぜ必要か
+
++ リッカート法→因子分析，という不適切な慣例が横行していると小杉は考えているからです。
++ 個人の内部に関する要素の同一性(局所均質的構成概念の仮定;Borsboom(2005))が満たされないものは，カテゴリの度数を数え上げることさえ限定的な意味しか持ち得ない
+  + 本当はわからないけどこのカテゴリに反応したという意味で「同じ」とみなす，という無機質な解釈なら可能
++ みんなBiclusteringやろうず
+
+## Now on CRAN
+
++ BiclusteringはCRANに登録されています
++ 最新版は1.6.0で，19日朝にアップロードしたのでそのうち反映されるはず
+  + Biculustring.norminal /Biclustering.ordinal is available!
+  + New function GridSerch() for grid search optimization of model parameter
++ [行動計量学会春の合宿セミナー資料](https://kosugitti.github.io/slides/BMS2025spring/docs/)に使い方を書いてあります。
++ パッケージについてはR journalに投稿中(Preprintは[こちら](https://doi.org/10.31234/osf.io/rmbv3_v1))
+
+## 使えんのか，オイ
+
++ 局所解に陥ったりしないんですか？一意に求まるんですか？という質問がよくある
++ パラメタリカバリで確認しておかねば(泥縄)
+
+## シミュレーションの設計(1/2)
+
+### 2値Biclusteringで考える
+
++ 人数は200, 400, 800とする
++ 項目数は10, 20, 40とする
++ クラス数を決める(2,3,5,10とする)
+  + 例えばC=5なら，25, 25, 50, 50, 100 (N=250)のように受験者の所属クラスを決める
++ フィールド数を決める(2,3,5,10とする)
+  + 例えばF=3なら，2, 4, 4 (J=10)のように項目の所属フィールドを決める
+
+## シミュレーションの設計(2/2)
+
+### 2値Biclusteringで考える
+
++ $\Pi(C \times F)$を整然と決める
+  + $\Pi$はクラスとフィールドの関係を決める行列
+    + 要素はあるクラスcの人におけるフィールドfの項目に対する期待正答率
++ データセット$\boldsymbol{U}$を所属クラス，所属フィールドの正答率からベルヌーイ乱数で生成
+
+## 各条件で100回ずつやってみた(現在進行中)
+
+従属変数は$\Pi$(Biclustering的にはField Reference Profile, FRPという)のRoot Mean Square Errorをみます。
+
+```{r}
+pacman::p_load(tidyverse, rpart, rpart.plot)
+dat2 <- read_csv("simulation_results_2.csv") |> 
+    filter(cntr == "1") |> 
+  filter(method == "B")
+
+dat2 |> 
+  mutate(FLG = ifelse(is.na(log_lik),1,0)) |> 
+  summarise(
+    perfect = mean(FLG)
+  )
+```
+
+30%は完璧にリカバリできてる。
+
+## 統計量で見てみる
+```{r}
+dat2 %>%
+  select(RMSE_FRP) |> 
+  summary()
+```
+
++ 平均`r round(mean(dat2$RMSE_FRP,na.rm = TRUE),3)`，中央値`r round(median(dat2$RMSE_FRP,na.rm = TRUE),3)`はいい方なんだろうか。
++ `r round(4516/NROW(dat2),5)*100` %は推定に失敗してる？
+
+## パターンごとの分布
+
+分布で確認してみる
+```{r}
+dat2 |>
+  ggplot(aes(x = RMSE_FRP)) +
+  geom_histogram() +
+  facet_wrap(nobs ~ nitems) +
+  xlim(-0.1, 1) 
+```
+
+## 収束しなかったパターンを確認してみる
+
+```{r}
+#| dev: ragg_png
+dat2_missFLG <- dat2 |> 
+  mutate(MISS = ifelse(!is.na(log_lik),1,0)) 
+missTree <- rpart(MISS ~ nobs + nitems + ncls + nfld + cntr,
+  data = dat2_missFLG,
+  method = "class",
+  control = rpart.control(cp = 0.01, minsplit = 10)
+)
+rpart.plot(missTree, main = "Decision Tree: 収束判定・収束したら1")
+# print(missTree)
+```
+
++ フィールド数が多くなると失敗しがち
++ クラス数が小さすぎると失敗しがち
+
+
+## Fin
+
++ いろいろご意見ください
++ よかったら使ってやってください
