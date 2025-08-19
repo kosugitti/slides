@@ -100,7 +100,7 @@ Shojima,K. (2022) Test Data Engineering, Springer
     + 要素はあるクラスcの人におけるフィールドfの項目に対する期待正答率
 + データセット$\boldsymbol{U}$を所属クラス，所属フィールドの正答率からベルヌーイ乱数で生成
 
-## 各条件で100回ずつやってみた(現在進行中)
+## 各条件で100回ずつやってみた
 
 従属変数は$\Pi$(Biclustering的にはField Reference Profile, FRPという)のRoot Mean Square Errorをみます。
 
@@ -158,6 +158,72 @@ rpart.plot(missTree, main = "Decision Tree: 収束判定・収束したら1")
 + フィールド数が多くなると失敗しがち
 + クラス数が小さすぎると失敗しがち
 
+## シミュレーションの設計2
+
+### 多値バイクラスタリングでやってみる
+
++ カテゴリ数Qを3,5,7に変える
+
++ 24時間かかりました
+
+## 各条件で100回ずつやってみた
+
+従属変数は$\Pi$が$C \times F \times Q$の配列になってますが，基本的には同じFRPのRMSEで。
+
+```{r}
+pacman::p_load(tidyverse, rpart, rpart.plot)
+datQ <- read_csv("simulation_results_Q.csv") |> 
+    filter(cntr == "1") |> 
+  filter(method == "B")
+
+datQ |> 
+  mutate(FLG = ifelse(is.na(log_lik),1,0)) |> 
+  summarise(
+    perfect = mean(FLG)
+  )
+```
+
+完璧なリカバリは無理・・・だと？
+
+## パターンごとの分布
+
+分布で確認してみる
+
+```{r}
+datQ |>
+  mutate(Q = as.factor(Q)) |> 
+  ggplot(aes(x = RMSE_FRP, group = Q, color = Q)) +
+  geom_density() +
+  facet_wrap(nobs ~ nitems) +
+  xlim(-0.1, 1) 
+```
+
+
+## 統計量で見てみる
+```{r}
+datQ %>%
+  select(RMSE_FRP) |> 
+  summary()
+```
+
++ 平均`r round(mean(datQ$RMSE_FRP,na.rm = TRUE),3)`，中央値`r round(median(datQ$RMSE_FRP,na.rm = TRUE),3)`で，2値より適合度はいい
++ 完璧に推定できる，はないけど，推定失敗(NA)もない
+  + ただし，EMアルゴリズムがmax_iterに達していて，推定が終わってないケースがあるようだ
+
+## 傾向を見る決定木
+
+```{r}
+#| dev: ragg_png
+QTree <- rpart(RMSE_FRP ~ nobs + nitems + ncls + nfld + Q,
+  data = datQ,
+  method = "anova",
+  control = rpart.control(cp = 0.01, minsplit = 10)
+)
+rpart.plot(QTree, main = "Decision Tree: 従属変数がRMSE")
+# print(missTree)
+```
+
++ サンプルサイズや項目数の関数ではなさそう？
 
 ## Fin
 

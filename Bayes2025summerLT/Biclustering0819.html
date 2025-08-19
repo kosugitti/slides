@@ -255,8 +255,8 @@
 <li>データセット<span class="math inline">\(\boldsymbol{U}\)</span>を所属クラス，所属フィールドの正答率からベルヌーイ乱数で生成</li>
 </ul>
 </section>
-<section id="各条件で100回ずつやってみた現在進行中" class="slide level2">
-<h2>各条件で100回ずつやってみた(現在進行中)</h2>
+<section id="各条件で100回ずつやってみた" class="slide level2">
+<h2>各条件で100回ずつやってみた</h2>
 <p>従属変数は<span class="math inline">\(\Pi\)</span>(Biclustering的にはField Reference Profile, FRPという)のRoot Mean Square Errorをみます。</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -298,6 +298,60 @@
 <img data-src="Biclustering0819_files/figure-revealjs/unnamed-chunk-4-1.png" class="r-stretch"><ul>
 <li>フィールド数が多くなると失敗しがち</li>
 <li>クラス数が小さすぎると失敗しがち</li>
+</ul>
+</section>
+<section id="シミュレーションの設計2" class="slide level2">
+<h2>シミュレーションの設計2</h2>
+<h3 id="多値バイクラスタリングでやってみる">多値バイクラスタリングでやってみる</h3>
+<ul>
+<li><p>カテゴリ数Qを3,5,7に変える</p></li>
+<li><p>24時間かかりました</p></li>
+</ul>
+</section>
+<section id="各条件で100回ずつやってみた-1" class="slide level2">
+<h2>各条件で100回ずつやってみた</h2>
+<p>従属変数は<span class="math inline">\(\Pi\)</span>が<span class="math inline">\(C \times F \times Q\)</span>の配列になってますが，基本的には同じFRPのRMSEで。</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  perfect
+    &lt;dbl&gt;
+1       0</code></pre>
+</div>
+</div>
+<p>完璧なリカバリは無理・・・だと？</p>
+</section>
+<section id="パターンごとの分布-1" class="slide level2">
+<h2>パターンごとの分布</h2>
+<p>分布で確認してみる</p>
+
+<img data-src="Biclustering0819_files/figure-revealjs/unnamed-chunk-6-1.png" class="r-stretch"></section>
+<section id="統計量で見てみる-1" class="slide level2">
+<h2>統計量で見てみる</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    RMSE_FRP       
+ Min.   :0.001163  
+ 1st Qu.:0.063555  
+ Median :0.088566  
+ Mean   :0.086038  
+ 3rd Qu.:0.113883  
+ Max.   :0.278838  </code></pre>
+</div>
+</div>
+<ul>
+<li>平均0.086，中央値0.089で，2値より適合度はいい</li>
+<li>完璧に推定できる，はないけど，推定失敗(NA)もない
+<ul>
+<li>ただし，EMアルゴリズムがmax_iterに達していて，推定が終わってないケースがあるようだ</li>
+</ul></li>
+</ul>
+</section>
+<section id="傾向を見る決定木" class="slide level2">
+<h2>傾向を見る決定木</h2>
+
+<img data-src="Biclustering0819_files/figure-revealjs/unnamed-chunk-8-1.png" class="r-stretch"><ul>
+<li>サンプルサイズや項目数の関数ではなさそう？</li>
 </ul>
 </section>
 <section id="fin" class="slide level2">
