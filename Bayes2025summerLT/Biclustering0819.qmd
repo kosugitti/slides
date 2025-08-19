@@ -5,7 +5,7 @@ author:
     degrees: PhD
     url: "https://kosugitti.github.io/kosugitti10/"
     affiliations: Senshu University
-    email: kosugitti_at_gmail.com
+    email: kosugitti@gmail.com
 editor: 
     render-on-save: false
 from: markdown+emoji
