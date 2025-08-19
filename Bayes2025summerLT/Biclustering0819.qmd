@@ -44,18 +44,16 @@ format:
 + 行(受験者)の分類をクラス，列(項目)はフィールドと呼ぶ
 + クラスに順序性を仮定した，ランクラスタリングというのもあるよ
 
-## BiclusteringのArrayプロット
-
+## Shojima,K. (2022) Test Data Engineering, Springerより
 
 :::: {.columns}
-::: {.column width="50%"}
-![Arrayplot](ArrayPlot.png)
+::: {.column width="40%"}
+![Arrayplot](ArrayPlot.png){width=80%}
 :::
 
-::: {.column width="50%"}
-![ranklustering example](Ranclustering_ex.png)
+::: {.column width="40%"}
+![ranklustering example](Ranclustering_ex.png){width=80%}
 :::
-Shojima,K. (2022) Test Data Engineering, Springer
 ::::
 
 ## Biclusteringはなぜ必要か
@@ -64,20 +62,24 @@ Shojima,K. (2022) Test Data Engineering, Springer
 + 個人の内部に関する要素の同一性(局所均質的構成概念の仮定;Borsboom(2005))が満たされないものは，カテゴリの度数を数え上げることさえ限定的な意味しか持ち得ない
   + 本当はわからないけどこのカテゴリに反応したという意味で「同じ」とみなす！
   + 測定モデルに言及しないので色んなシーンで使えると思います
-+ みんなBiclusteringやろうず
+
+## みんなBiclusteringやろうず
+
++ BiclusteringはCRANに登録されています
++ サイトは[こちら](https://kosugitti.github.io/exametrika/ja.html)
++ パッケージについてはR journalに投稿中(Preprintは[こちら](https://doi.org/10.31234/osf.io/rmbv3_v1))
++ [行動計量学会春の合宿セミナー資料](https://kosugitti.github.io/slides/BMS2025spring/docs/)に使い方を書いてあります。
 
 ## Now on CRAN
 
-+ BiclusteringはCRANに登録されています
 + 最新版は1.6.0で，今朝アップロードし，反映されてました
   + Biculustring.norminal /Biclustering.ordinal is available!
   + New function GridSerch() for grid search optimization of model parameter
-+ [行動計量学会春の合宿セミナー資料](https://kosugitti.github.io/slides/BMS2025spring/docs/)に使い方を書いてあります。
-+ パッケージについてはR journalに投稿中(Preprintは[こちら](https://doi.org/10.31234/osf.io/rmbv3_v1))
+  + A lot of Bugs Fixed!
 
-## 使えんのか，オイ
+## ほんまに使えんのか，オイ
 
-+ 局所解に陥ったりしないんですか？一意に求まるんですか？という質問がよくある
++ EMアルゴリズムで推定中に，局所解に陥ったりしないんですか？とか，一意に求まるんですか？という質問がよくある
 + パラメタリカバリで確認しておかねば(泥縄)
 
 ## シミュレーションの設計(1/2)

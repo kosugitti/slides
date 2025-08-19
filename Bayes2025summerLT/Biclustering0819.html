@@ -173,25 +173,24 @@
 <li>クラスに順序性を仮定した，ランクラスタリングというのもあるよ</li>
 </ul>
 </section>
-<section id="biclusteringのarrayプロット" class="slide level2">
-<h2>BiclusteringのArrayプロット</h2>
+<section id="shojimak.-2022-test-data-engineering-springerより" class="slide level2">
+<h2>Shojima,K. (2022) Test Data Engineering, Springerより</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:40%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="ArrayPlot.png"></p>
+<p><img data-src="ArrayPlot.png" style="width:80.0%"></p>
 <figcaption>Arrayplot</figcaption>
 </figure>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:40%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Ranclustering_ex.png"></p>
+<p><img data-src="Ranclustering_ex.png" style="width:80.0%"></p>
 <figcaption>ranklustering example</figcaption>
 </figure>
 </div>
-</div><p>Shojima,K. (2022) Test Data Engineering, Springer</p>
-</div>
+</div></div>
 </section>
 <section id="biclusteringはなぜ必要か" class="slide level2">
 <h2>Biclusteringはなぜ必要か</h2>
@@ -202,26 +201,32 @@
 <li>本当はわからないけどこのカテゴリに反応したという意味で「同じ」とみなす！</li>
 <li>測定モデルに言及しないので色んなシーンで使えると思います</li>
 </ul></li>
-<li>みんなBiclusteringやろうず</li>
+</ul>
+</section>
+<section id="みんなbiclusteringやろうず" class="slide level2">
+<h2>みんなBiclusteringやろうず</h2>
+<ul>
+<li>BiclusteringはCRANに登録されています</li>
+<li>サイトは<a href="https://kosugitti.github.io/exametrika/ja.html">こちら</a></li>
+<li>パッケージについてはR journalに投稿中(Preprintは<a href="https://doi.org/10.31234/osf.io/rmbv3_v1">こちら</a>)</li>
+<li><a href="https://kosugitti.github.io/slides/BMS2025spring/docs/">行動計量学会春の合宿セミナー資料</a>に使い方を書いてあります。</li>
 </ul>
 </section>
 <section id="now-on-cran" class="slide level2">
 <h2>Now on CRAN</h2>
 <ul>
-<li>BiclusteringはCRANに登録されています</li>
 <li>最新版は1.6.0で，今朝アップロードし，反映されてました
 <ul>
 <li>Biculustring.norminal /Biclustering.ordinal is available!</li>
 <li>New function GridSerch() for grid search optimization of model parameter</li>
+<li>A lot of Bugs Fixed!</li>
 </ul></li>
-<li><a href="https://kosugitti.github.io/slides/BMS2025spring/docs/">行動計量学会春の合宿セミナー資料</a>に使い方を書いてあります。</li>
-<li>パッケージについてはR journalに投稿中(Preprintは<a href="https://doi.org/10.31234/osf.io/rmbv3_v1">こちら</a>)</li>
 </ul>
 </section>
-<section id="使えんのかオイ" class="slide level2">
-<h2>使えんのか，オイ</h2>
+<section id="ほんまに使えんのかオイ" class="slide level2">
+<h2>ほんまに使えんのか，オイ</h2>
 <ul>
-<li>局所解に陥ったりしないんですか？一意に求まるんですか？という質問がよくある</li>
+<li>EMアルゴリズムで推定中に，局所解に陥ったりしないんですか？とか，一意に求まるんですか？という質問がよくある</li>
 <li>パラメタリカバリで確認しておかねば(泥縄)</li>
 </ul>
 </section>
