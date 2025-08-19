@@ -69,7 +69,7 @@ Shojima,K. (2022) Test Data Engineering, Springer
 ## Now on CRAN
 
 + BiclusteringはCRANに登録されています
-+ 最新版は1.6.0で，19日朝にアップロードしたのでそのうち反映されるはず
++ 最新版は1.6.0で，今朝アップロードし，反映されてました
   + Biculustring.norminal /Biclustering.ordinal is available!
   + New function GridSerch() for grid search optimization of model parameter
 + [行動計量学会春の合宿セミナー資料](https://kosugitti.github.io/slides/BMS2025spring/docs/)に使い方を書いてあります。
