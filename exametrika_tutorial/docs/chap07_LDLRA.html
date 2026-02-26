@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; 局所依存モデル – exametrikaパッケージ チュートリアル</title>
+<title>8&nbsp; 局所依存モデルとBINET – exametrikaパッケージ チュートリアル</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chap07_LDLRA.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデル</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chap07_LDLRA.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデルとBINET</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chap07_LDLRA.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデル</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデルとBINET</span></span></a>
   </div>
 </li>
     </ul>
@@ -231,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデル</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデルとBINET</span></h1>
 </div>
 
 
@@ -248,17 +248,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>この章では，テストデータにおける局所依存性をモデル化する3つのアプローチを紹介します。</p>
+<p>この章では，局所依存モデル（LDLRA・LDB）とバイクラスターネットワークモデル（BINET）を紹介します。</p>
+<p>LDLRAとLDBは，テストデータにおける局所依存性をモデル化するアプローチです。一方，BINETはバイクラスタリングとネットワーク分析を組み合わせたモデルであり，局所依存モデルとは異なります。</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 38%">
-<col style="width: 16%">
+<col style="width: 19%">
+<col style="width: 14%">
+<col style="width: 19%">
+<col style="width: 33%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">モデル</th>
+<th style="text-align: left;">種別</th>
 <th style="text-align: left;">ノード</th>
 <th style="text-align: left;">ロケーション</th>
 <th style="text-align: left;">特徴</th>
@@ -267,18 +270,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>LDLRA</strong></td>
+<td style="text-align: left;">局所依存モデル</td>
 <td style="text-align: left;">項目</td>
 <td style="text-align: left;">ランク</td>
 <td style="text-align: left;">項目間の依存関係がランクにより変化</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>LDB</strong></td>
+<td style="text-align: left;">局所依存モデル</td>
 <td style="text-align: left;">フィールド</td>
 <td style="text-align: left;">ランク</td>
 <td style="text-align: left;">フィールド間の依存関係をランク内で分析</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>BINET</strong></td>
+<td style="text-align: left;">ネットワークモデル</td>
 <td style="text-align: left;">クラス</td>
 <td style="text-align: left;">フィールド</td>
 <td style="text-align: left;">フィールド内でのクラス遷移を検討</td>
