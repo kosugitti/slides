@@ -1,0 +1,395 @@
+---
+title: "バイクラスタリング"
+---
+
+```{r}
+#| include: false
+library(exametrika)
+```
+
+この章では，項目と受検者の同時クラスタリングであるバイクラスタリングについて紹介します。サンプルデータ`J35S515`（35項目・515人の二値データ）を使用します。
+
+```{r}
+dat <- J35S515
+dat$U |> head()
+```
+
+## クラス型バイクラスタリング（method = "B"）
+
+`method = "B"`でクラス型（順序性なし）のバイクラスタリングを実行します。`nfld`でフィールド数，`ncls`でクラス数を指定します。
+
+```{r}
+result.B <- Biclustering(dat, nfld = 5, ncls = 6, method = "B")
+result.B
+```
+
+### 可視化（baseグラフィックス）
+
+#### アレイプロット
+
+分類結果を行列形式で表示します。
+
+```{r}
+plot(result.B, type = "Array")
+```
+
+#### クラスメンバーシッププロファイル（CMP）
+
+```{r}
+round(result.B$ClassMembership, 6) |> head()
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.B, type = "CMP", students = 1:6, nr = 2, nc = 3)
+```
+
+#### 推定された所属クラス
+
+```{r}
+result.B$ClassEstimated |> head()
+```
+
+#### 潜在クラス分布（LCD）
+
+棒グラフがLatent Class Distribution，折れ線グラフがClass Membership Distributionです。
+
+```{r}
+plot(result.B, type = "LCD")
+```
+
+#### フィールドメンバーシップ
+
+各項目がどのフィールドに所属するかの確率を示します。
+
+```{r}
+round(result.B$FieldMembership, 5)
+```
+
+#### クラス参照ベクトル（CRV）
+
+フィールドにおけるクラスごとの正答率を表示します。
+
+```{r}
+plot(result.B, type = "CRV")
+```
+
+```{r}
+result.B$FRP
+```
+
+#### フィールド参照プロファイル（FRP）
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.B, type = "FRP", nr = 2, nc = 3)
+```
+
+#### テスト参照プロファイル（TRP）
+
+```{r}
+plot(result.B, type = "TRP")
+```
+
+### 可視化（ggExametrika）
+
+```{r}
+#| message: false
+library(ggExametrika)
+```
+
+```{r}
+plotArray_gg(result.B)
+```
+
+```{r}
+plotCMP_gg(result.B)[[1]]
+```
+
+```{r}
+plotLCD_gg(result.B)
+```
+
+```{r}
+plotCRV_gg(result.B)
+```
+
+```{r}
+plotFRP_gg(result.B, fields = 1)
+```
+
+```{r}
+plotTRP_gg(result.B)
+```
+
+## ランク型バイクラスタリング（method = "R"）
+
+`method = "R"`で潜在ランク（順序性あり）のバイクラスタリングを実行します。アルゴリズムとしてはLRAと同じ順序性を保ったフィルタ行列を通しています。
+
+```{r}
+result.R <- Biclustering(dat, nfld = 5, ncls = 6, method = "R")
+result.R
+```
+
+### 可視化（baseグラフィックス）
+
+```{r}
+plot(result.R, type = "Array")
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.R, type = "RMP", students = 1:6, nr = 2, nc = 3)
+```
+
+```{r}
+plot(result.R, type = "LRD")
+```
+
+```{r}
+plot(result.R, type = "RRV")
+```
+
+```{r}
+result.R$FRP
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.R, type = "FRP", nr = 2, nc = 3)
+```
+
+```{r}
+plot(result.R, type = "TRP")
+```
+
+### 可視化（ggExametrika）
+
+```{r}
+plotArray_gg(result.R)
+```
+
+```{r}
+plotRMP_gg(result.R)[[1]]
+```
+
+```{r}
+plotLRD_gg(result.R)
+```
+
+```{r}
+plotRRV_gg(result.R)
+```
+
+```{r}
+plotFRP_gg(result.R, fields = 1)
+```
+
+```{r}
+plotTRP_gg(result.R)
+```
+
+## 確認的分析（conf引数）
+
+どの項目がどのフィールドに入るかを事前に指定して分析できます。項目がテストの領域などに対応している仮説がある場合に便利です。
+
+```{r}
+result.R.conf <- Biclustering(dat,
+  nfld = 5, ncls = 6, method = "R",
+  conf = c(
+    1, 1, 1, 1, 1, 1, 1,
+    2, 2, 2, 2, 2, 2, 2,
+    3, 3, 3, 3, 3, 3, 3,
+    4, 4, 4, 4, 4, 4, 4,
+    5, 5, 5, 5, 5, 5, 5
+  )
+)
+```
+
+```{r}
+plot(result.R.conf, type = "RRV")
+plot(result.R.conf, type = "TRP")
+```
+
+## グリッドサーチ（GridSearch）
+
+最適なフィールド数とクラス数がわからない場合は，グリッドサーチで総当たり探索ができます。`index`引数で最適化基準（BIC, AIC等）を指定します。
+
+```{r}
+result.GS <- GridSearch(dat, method = "R", max_ncls = 10, max_nfld = 10, index = "BIC")
+result.GS$optimal_ncls
+result.GS$optimal_nfld
+```
+
+```{r}
+plot(result.GS$optimal_result, type = "Array")
+```
+
+## 無限関係モデル（IRM）
+
+`Biclustering_IRM()`は，ノンパラメトリックベイズの手法により潜在的なクラスとフィールドの数を自動で推定します。`gamma_c`と`gamma_f`はCRP（Chinese Restaurant Process）の集中度パラメータです。
+
+```{r}
+result.IRM <- Biclustering_IRM(dat, gamma_c = 1, gamma_f = 1, verbose = TRUE)
+result.IRM
+```
+
+```{r}
+plot(result.IRM, type = "Array")
+```
+
+```{r}
+plot(result.IRM, type = "FRP", nc = 3)
+```
+
+```{r}
+plot(result.IRM, type = "TRP")
+```
+
+## 多値バイクラスタリング
+
+### 順序データ
+
+サンプルデータ`J35S500`（5件法・35項目・500人）を使用します。
+
+```{r}
+result.B.ord <- Biclustering(J35S500, ncls = 5, nfld = 5, method = "R")
+result.B.ord
+```
+
+#### 可視化（baseグラフィックス）
+
+```{r}
+plot(result.B.ord, type = "Array")
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.B.ord, type = "FRP", nc = 3, nr = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.B.ord, type = "FCRP", nc = 3, nr = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.B.ord, type = "FCRP", style = "bar", nc = 3, nr = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.B.ord, type = "FCBR", nc = 3, nr = 2)
+```
+
+```{r}
+plot(result.B.ord, type = "ScoreField")
+```
+
+```{r}
+plot(result.B.ord, type = "RRV")
+```
+
+#### 可視化（ggExametrika）
+
+```{r}
+plotArray_gg(result.B.ord)
+```
+
+```{r}
+plotFRP_gg(result.B.ord, fields = 1)
+```
+
+```{r}
+plotFCRP_gg(result.B.ord)
+```
+
+```{r}
+plotFCBR_gg(result.B.ord, fields = 1)
+```
+
+```{r}
+plotScoreField_gg(result.B.ord)
+```
+
+```{r}
+plotRRV_gg(result.B.ord)
+```
+
+### 名義データ
+
+サンプルデータ`J20S600`（4カテゴリ・20項目・600人）を使用します。
+
+```{r}
+result.B.nom <- Biclustering(J20S600, ncls = 5, nfld = 4)
+result.B.nom
+```
+
+#### 可視化（baseグラフィックス）
+
+```{r}
+plot(result.B.nom, type = "Array")
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.B.nom, type = "FRP", nc = 2, nr = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.B.nom, type = "FCRP", nc = 2, nr = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.B.nom, type = "FCRP", style = "bar", nc = 2, nr = 2)
+```
+
+```{r}
+plot(result.B.nom, type = "ScoreField")
+```
+
+```{r}
+plot(result.B.nom, type = "RRV")
+```
+
+#### 可視化（ggExametrika）
+
+```{r}
+plotArray_gg(result.B.nom)
+```
+
+```{r}
+plotFRP_gg(result.B.nom, fields = 1)
+```
+
+```{r}
+plotFCRP_gg(result.B.nom)
+```
+
+```{r}
+plotScoreField_gg(result.B.nom)
+```
+
+```{r}
+plotRRV_gg(result.B.nom)
+```
+
+## バイクラスタリングの利点
+
+- 表面上の類似性に基づく分類であり，データ生成メカニズムを仮定しません
+- 個人間比較を必要としないため，社会的態度のような仮定を満たさない心理的データにも適用できます
+- スコアではなく反応パターンで項目や受検者を分類するため，生態学的妥当性の高い分析が可能です

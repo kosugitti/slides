@@ -1,0 +1,128 @@
+---
+title: "ベイズネットワークモデル"
+---
+
+```{r}
+#| include: false
+library(exametrika)
+library(igraph)
+```
+
+この章では，テストデータにおける項目間の依存構造をモデル化するベイズネットワークモデル（BNM）を紹介します。
+
+## BNMの概要
+
+BNMは項目間の条件付き確率をネットワーク形式で表現するモデルです。有向非巡回グラフ（DAG: Directed Acyclic Graph）を用いて，項目間の依存関係を記述します。
+
+## DAGの指定方法
+
+DAGは3つの方法で指定できます。
+
+### 1. igraphオブジェクトから
+
+```{r}
+DAG <- matrix(
+  c(
+    "Item01", "Item02",
+    "Item02", "Item03",
+    "Item02", "Item04",
+    "Item03", "Item05",
+    "Item04", "Item05"
+  ),
+  ncol = 2, byrow = TRUE
+)
+
+g <- igraph::graph_from_data_frame(DAG)
+g
+```
+
+### 2. 隣接行列から
+
+```{r}
+adj_mat <- as.matrix(igraph::get.adjacency(g))
+adj_mat
+```
+
+### 3. CSVファイルから
+
+```{r}
+#| eval: false
+# CSVファイルからDAGを読み込む場合
+# ファイルには From, To の2列が必要
+result.BNM <- BNM(J5S10, adj_file = "dag.csv")
+```
+
+## BNMの実行
+
+サンプルデータ`J5S10`（5項目・10人）を使用します。
+
+```{r}
+result.BNM <- BNM(J5S10, adj_matrix = adj_mat)
+result.BNM
+```
+
+### 可視化（ggExametrika）
+
+```{r}
+#| message: false
+library(ggExametrika)
+```
+
+```{r}
+plotGraph_gg(result.BNM)
+```
+
+## 構造学習：遺伝的アルゴリズム（BNM_GA）
+
+DAGの構造が未知の場合は，`BNM_GA()`で遺伝的アルゴリズムにより最適なDAGを探索できます。
+
+```{r}
+result.GA <- BNM_GA(J5S10,
+  population = 20, Rs = 0.5, Rm = 0.002, maxParents = 2,
+  maxGeneration = 100, crossover = 2, elitism = 2
+)
+result.GA
+```
+
+主要なパラメータ：
+
+- `population`：集団サイズ
+- `Rs`：選択率
+- `Rm`：突然変異率
+- `maxParents`：各ノードの最大親数
+- `maxGeneration`：最大世代数
+- `crossover`：交叉ポイント数
+- `elitism`：エリート保存数
+
+## 構造学習：PBIL（BNM_PBIL）
+
+Population-Based Incremental Learning（PBIL）による構造学習も利用できます。
+
+```{r}
+result.PBIL <- BNM_PBIL(J5S10,
+  population = 20, Rs = 0.5, Rm = 0.005, maxParents = 2,
+  alpha = 0.05, estimate = 4
+)
+result.PBIL
+```
+
+主要なパラメータ：
+
+- `alpha`：学習率
+- `estimate`：推定反復回数
+
+## より大きなデータでの例
+
+サンプルデータ`J15S500`（15項目・500人の二値データ）を使用した構造学習の例を示します。
+
+```{r}
+result.GA.large <- BNM_GA(J15S500,
+  population = 20, Rs = 0.5, Rm = 0.002, maxParents = 2,
+  maxGeneration = 100, crossover = 2, elitism = 2
+)
+result.GA.large
+```
+
+```{r}
+plotGraph_gg(result.GA.large)
+```

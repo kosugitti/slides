@@ -1,0 +1,250 @@
+---
+title: "記述統計・項目分析・CTT"
+---
+
+```{r}
+#| include: false
+library(exametrika)
+```
+
+この章では，テストデータの記述統計，項目分析，古典的テスト理論（CTT）に関する関数を紹介します。サンプルデータ`J15S500`（15項目・500人の二値データ）を使用します。
+
+```{r}
+dat <- J15S500
+```
+
+## スコアリング関数
+
+### 正答数（Number Right Score）
+
+```{r}
+nrs(dat) |> head(10)
+```
+
+### 標準化スコア
+
+```{r}
+sscore(dat) |> head(10)
+```
+
+### スタナイン
+
+```{r}
+stanine(dat)
+```
+
+### 正答率（Correct Response Rate）
+
+```{r}
+crr(dat) |> head(10)
+```
+
+### 通過率（Passage Rate）
+
+```{r}
+passage(dat)
+```
+
+### パーセンタイル
+
+```{r}
+percentile(dat) |> head(10)
+```
+
+## 項目統計量
+
+### ItemStatistics
+
+項目ごとの統計量（通過率，点双列相関等）をまとめて算出します。
+
+```{r}
+ItemStatistics(dat)
+```
+
+### StudentAnalysis
+
+```{r}
+StudentAnalysis(dat) |> head(10)
+```
+
+## 項目間分析
+
+### InterItemAnalysis
+
+項目間の関連指標をまとめて算出します。
+
+```{r}
+IIA <- InterItemAnalysis(dat)
+```
+
+#### 同時正答率（Joint Correct Response Rate）
+
+```{r}
+IIA$JCRR
+```
+
+#### 条件付き正答率（Conditional Correct Response Rate）
+
+```{r}
+IIA$CCRR
+```
+
+#### 項目リフト（Item Lift）
+
+```{r}
+IIA$IL
+```
+
+#### 相互情報量（Mutual Information）
+
+```{r}
+IIA$MI
+```
+
+#### ファイ係数（Phi Coefficient）
+
+```{r}
+IIA$Phi
+```
+
+#### 四分相関係数（Tetrachoric Correlation）
+
+```{r}
+IIA$Tetrachoric
+```
+
+## 相関係数
+
+### 項目-合計相関（双列相関）
+
+```{r}
+ITBiserial(dat)
+```
+
+### 四分相関係数行列
+
+`TetrachoricCorrelationMatrix`で四分相関係数行列を算出します。
+
+```{r}
+TetrachoricCorrelationMatrix(dat) |> round(3)
+```
+
+## テスト統計量
+
+### TestStatistics
+
+テスト全体の統計量（平均点，標準偏差，信頼性等）をまとめて表示します。
+
+```{r}
+TestStatistics(dat)
+```
+
+### 次元性分析
+
+四分相関係数行列の固有値分解により，テストの次元性を検討します。
+
+```{r}
+Dimensionality(dat)
+```
+
+## 古典的テスト理論（CTT）
+
+テストの信頼性に関する指標をまとめて算出します。
+
+```{r}
+CTT(dat)
+```
+
+### 個別の信頼性係数
+
+```{r}
+AlphaCoefficient(dat)
+```
+
+```{r}
+OmegaCoefficient(dat)
+```
+
+## 多値データの項目分析
+
+多値データでもほぼ同じ関数が使えます。サンプルデータ`J5S1000`（5項目・1000人の順序データ）を例にします。
+
+```{r}
+dat_poly <- J5S1000
+```
+
+### テスト統計量
+
+```{r}
+TestStatistics(dat_poly)
+```
+
+### 項目統計量
+
+```{r}
+ItemStatistics(dat_poly)
+```
+
+### ItemReport / ScoreReport（多値データ専用）
+
+`ItemReport`と`ScoreReport`は多値データ専用の関数です。
+
+```{r}
+ItemReport(dat_poly)
+```
+
+```{r}
+ScoreReport(dat_poly)
+```
+
+### 項目間分析（多値データ）
+
+```{r}
+IIA_poly <- InterItemAnalysis(dat_poly)
+```
+
+#### 同時選択率（Joint Selection Size）
+
+```{r}
+IIA_poly$JSS
+```
+
+#### 同時選択率行列（Joint Selection Ratio）
+
+項目Jと項目Kの同時選択率行列は`JSR[[J]][[K]]`で参照します。
+
+```{r}
+IIA_poly$JSR[[1]][[2]]
+```
+
+#### 条件付き選択率（Conditional Selection Ratio）
+
+```{r}
+IIA_poly$CSR[[1]][[2]]
+```
+
+#### 相互情報量
+
+```{r}
+IIA_poly$MI
+```
+
+#### 多分相関係数（Polychoric Correlation）
+
+```{r}
+IIA_poly$Polychoric
+```
+
+### 多分相関係数行列
+
+```{r}
+PolychoricCorrelationMatrix(dat_poly) |> round(3)
+```
+
+### 次元性分析（多値データ）
+
+多分相関係数行列の固有値分解により次元性を検討します。
+
+```{r}
+Dimensionality(dat_poly)
+```

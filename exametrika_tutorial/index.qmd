@@ -1,0 +1,86 @@
+---
+title: "はじめに"
+---
+
+# exametrikaパッケージについて
+
+`exametrika`は，教育テストデータを分析するための包括的なRパッケージです。荘島（2022）で提案されたテスト・データ・エンジニアリング（Test Data Engineering）の手法群を実装しており，以下の分析を統一的なインターフェースで実行できます。
+
+- **古典的テスト理論（CTT）**：項目分析，信頼性係数，テスト統計量
+- **項目反応理論（IRT）**：2PLM, 3PLM, 段階反応モデル（GRM）
+- **潜在クラス分析（LCA）/ 潜在ランク分析（LRA）**：受検者の潜在的な分類
+- **バイクラスタリング**：項目と受検者の同時クラスタリング，無限関係モデル（IRM）
+- **ベイズネットワークモデル（BNM）**：項目間の依存構造のモデリング
+- **局所依存モデル**：LDLRA, LDB, BINET
+
+## インストール
+
+CRANから安定版をインストールできます。
+
+```{r}
+#| eval: false
+install.packages("exametrika")
+```
+
+開発版はGitHubからインストールできます。
+
+```{r}
+#| eval: false
+# install.packages("devtools")
+devtools::install_github("kosugitti/exametrika")
+```
+
+### 依存パッケージ
+
+- R (>= 4.1.0)
+- igraph（ネットワーク分析用）
+- その他の依存パッケージは自動的にインストールされます
+
+## ggExametrikaパッケージ
+
+`ggExametrika`は，`exametrika`の分析結果を`ggplot2`ベースで可視化するパッケージです。本チュートリアルでは，各章でggExametrikaによるプロット例も併記しています。
+
+```{r}
+#| eval: false
+# install.packages("devtools")
+devtools::install_github("kosugitti/ggExametrika")
+```
+
+## 本チュートリアルの構成
+
+| 章 | 内容 |
+|:---|:-----|
+| 第1章 データ準備 | `dataFormat`によるデータ変換，サンプルデータの紹介 |
+| 第2章 記述統計・項目分析 | テスト統計量，項目統計量，古典的テスト理論 |
+| 第3章 項目反応理論 | IRT（2PLM, 3PLM），段階反応モデル（GRM） |
+| 第4章 潜在クラス/ランク分析 | LCA, LRA，多値データへの展開 |
+| 第5章 バイクラスタリング | クラス型・ランク型，GridSearch, IRM，多値展開 |
+| 第6章 ベイズネットワークモデル | BNM, 構造学習（GA, PBIL） |
+| 第7章 局所依存モデル | LDLRA, LDB, BINET |
+
+## 参考情報
+
+### exametrika Webサイト
+
+- [exametrika公式サイト](https://kosugitti.github.io/exametrika/)
+
+### 問題の報告
+
+バグを発見した場合や改善の提案がある場合：
+
+- [GitHub Issues](https://github.com/kosugitti/exametrika/issues)にIssueを開いてください
+- 最小限の再現可能な例を提供してください
+- Rのセッション情報（`sessionInfo()`）を含めてください
+
+### ディスカッション
+
+[GitHub Discussions](https://github.com/kosugitti/exametrika/discussions)では以下のことができます。
+
+- 質問をする
+- 使用事例を共有する
+- 機能リクエストについて議論する
+- パッケージの開発に関する最新情報を得る
+
+## 参考文献
+
+- Shojima, K. (2022). *Test Data Engineering: Latent Rank Analysis, Biclustering, and Bayesian Network* (Behaviormetrics: Quantitative Approaches to Human Behavior, 13). Springer.

@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; 記述統計・項目分析・CTT – exametrikaパッケージ チュートリアル</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./chap03_IRT.html" rel="next">
+<link href="./chap01_data.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chap02_descriptive.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">記述統計・項目分析・CTT</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">exametrikaパッケージ チュートリアル</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">はじめに</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chap01_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">データ準備</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chap02_descriptive.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">記述統計・項目分析・CTT</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chap03_IRT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">項目反応理論</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chap04_LCA_LRA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">潜在クラス / ランク分析</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chap05_Biclustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">バイクラスタリング</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chap06_BNM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ベイズネットワークモデル</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chap07_LDLRA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデル</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#スコアリング関数" id="toc-スコアリング関数" class="nav-link active" data-scroll-target="#スコアリング関数"><span class="header-section-number">3.1</span> スコアリング関数</a>
+  <ul class="collapse">
+  <li><a href="#正答数number-right-score" id="toc-正答数number-right-score" class="nav-link" data-scroll-target="#正答数number-right-score"><span class="header-section-number">3.1.1</span> 正答数（Number Right Score）</a></li>
+  <li><a href="#標準化スコア" id="toc-標準化スコア" class="nav-link" data-scroll-target="#標準化スコア"><span class="header-section-number">3.1.2</span> 標準化スコア</a></li>
+  <li><a href="#スタナイン" id="toc-スタナイン" class="nav-link" data-scroll-target="#スタナイン"><span class="header-section-number">3.1.3</span> スタナイン</a></li>
+  <li><a href="#正答率correct-response-rate" id="toc-正答率correct-response-rate" class="nav-link" data-scroll-target="#正答率correct-response-rate"><span class="header-section-number">3.1.4</span> 正答率（Correct Response Rate）</a></li>
+  <li><a href="#通過率passage-rate" id="toc-通過率passage-rate" class="nav-link" data-scroll-target="#通過率passage-rate"><span class="header-section-number">3.1.5</span> 通過率（Passage Rate）</a></li>
+  <li><a href="#パーセンタイル" id="toc-パーセンタイル" class="nav-link" data-scroll-target="#パーセンタイル"><span class="header-section-number">3.1.6</span> パーセンタイル</a></li>
+  </ul></li>
+  <li><a href="#項目統計量" id="toc-項目統計量" class="nav-link" data-scroll-target="#項目統計量"><span class="header-section-number">3.2</span> 項目統計量</a>
+  <ul class="collapse">
+  <li><a href="#itemstatistics" id="toc-itemstatistics" class="nav-link" data-scroll-target="#itemstatistics"><span class="header-section-number">3.2.1</span> ItemStatistics</a></li>
+  <li><a href="#studentanalysis" id="toc-studentanalysis" class="nav-link" data-scroll-target="#studentanalysis"><span class="header-section-number">3.2.2</span> StudentAnalysis</a></li>
+  </ul></li>
+  <li><a href="#項目間分析" id="toc-項目間分析" class="nav-link" data-scroll-target="#項目間分析"><span class="header-section-number">3.3</span> 項目間分析</a>
+  <ul class="collapse">
+  <li><a href="#interitemanalysis" id="toc-interitemanalysis" class="nav-link" data-scroll-target="#interitemanalysis"><span class="header-section-number">3.3.1</span> InterItemAnalysis</a></li>
+  </ul></li>
+  <li><a href="#相関係数" id="toc-相関係数" class="nav-link" data-scroll-target="#相関係数"><span class="header-section-number">3.4</span> 相関係数</a>
+  <ul class="collapse">
+  <li><a href="#項目-合計相関双列相関" id="toc-項目-合計相関双列相関" class="nav-link" data-scroll-target="#項目-合計相関双列相関"><span class="header-section-number">3.4.1</span> 項目-合計相関（双列相関）</a></li>
+  <li><a href="#四分相関係数行列" id="toc-四分相関係数行列" class="nav-link" data-scroll-target="#四分相関係数行列"><span class="header-section-number">3.4.2</span> 四分相関係数行列</a></li>
+  </ul></li>
+  <li><a href="#テスト統計量" id="toc-テスト統計量" class="nav-link" data-scroll-target="#テスト統計量"><span class="header-section-number">3.5</span> テスト統計量</a>
+  <ul class="collapse">
+  <li><a href="#teststatistics" id="toc-teststatistics" class="nav-link" data-scroll-target="#teststatistics"><span class="header-section-number">3.5.1</span> TestStatistics</a></li>
+  <li><a href="#次元性分析" id="toc-次元性分析" class="nav-link" data-scroll-target="#次元性分析"><span class="header-section-number">3.5.2</span> 次元性分析</a></li>
+  </ul></li>
+  <li><a href="#古典的テスト理論ctt" id="toc-古典的テスト理論ctt" class="nav-link" data-scroll-target="#古典的テスト理論ctt"><span class="header-section-number">3.6</span> 古典的テスト理論（CTT）</a>
+  <ul class="collapse">
+  <li><a href="#個別の信頼性係数" id="toc-個別の信頼性係数" class="nav-link" data-scroll-target="#個別の信頼性係数"><span class="header-section-number">3.6.1</span> 個別の信頼性係数</a></li>
+  </ul></li>
+  <li><a href="#多値データの項目分析" id="toc-多値データの項目分析" class="nav-link" data-scroll-target="#多値データの項目分析"><span class="header-section-number">3.7</span> 多値データの項目分析</a>
+  <ul class="collapse">
+  <li><a href="#テスト統計量-1" id="toc-テスト統計量-1" class="nav-link" data-scroll-target="#テスト統計量-1"><span class="header-section-number">3.7.1</span> テスト統計量</a></li>
+  <li><a href="#項目統計量-1" id="toc-項目統計量-1" class="nav-link" data-scroll-target="#項目統計量-1"><span class="header-section-number">3.7.2</span> 項目統計量</a></li>
+  <li><a href="#itemreport-scorereport多値データ専用" id="toc-itemreport-scorereport多値データ専用" class="nav-link" data-scroll-target="#itemreport-scorereport多値データ専用"><span class="header-section-number">3.7.3</span> ItemReport / ScoreReport（多値データ専用）</a></li>
+  <li><a href="#項目間分析多値データ" id="toc-項目間分析多値データ" class="nav-link" data-scroll-target="#項目間分析多値データ"><span class="header-section-number">3.7.4</span> 項目間分析（多値データ）</a></li>
+  <li><a href="#多分相関係数行列" id="toc-多分相関係数行列" class="nav-link" data-scroll-target="#多分相関係数行列"><span class="header-section-number">3.7.5</span> 多分相関係数行列</a></li>
+  <li><a href="#次元性分析多値データ" id="toc-次元性分析多値データ" class="nav-link" data-scroll-target="#次元性分析多値データ"><span class="header-section-number">3.7.6</span> 次元性分析（多値データ）</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">記述統計・項目分析・CTT</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>この章では，テストデータの記述統計，項目分析，古典的テスト理論（CTT）に関する関数を紹介します。サンプルデータ<code>J15S500</code>（15項目・500人の二値データ）を使用します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> J15S500</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="スコアリング関数" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="スコアリング関数"><span class="header-section-number">3.1</span> スコアリング関数</h2>
+<section id="正答数number-right-score" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="正答数number-right-score"><span class="header-section-number">3.1.1</span> 正答数（Number Right Score）</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrs</span>(dat) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]
+ [1,]    8
+ [2,]   10
+ [3,]   10
+ [4,]   11
+ [5,]    6
+ [6,]   12
+ [7,]    9
+ [8,]   10
+ [9,]   14
+[10,]    9</code></pre>
+</div>
+</div>
+</section>
+<section id="標準化スコア" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="標準化スコア"><span class="header-section-number">3.1.2</span> 標準化スコア</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sscore</span>(dat) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            [,1]
+ [1,] -0.6249599
+ [2,]  0.1261938
+ [3,]  0.1261938
+ [4,]  0.5017707
+ [5,] -1.3761137
+ [6,]  0.8773476
+ [7,] -0.2493831
+ [8,]  0.1261938
+ [9,]  1.6285014
+[10,] -0.2493831</code></pre>
+</div>
+</div>
+</section>
+<section id="スタナイン" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="スタナイン"><span class="header-section-number">3.1.3</span> スタナイン</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stanine</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$stanine
+ 4% 11% 23% 40% 60% 77% 89% 96% 
+  5   6   7   9  11  12  13  14 
+
+$stanineScore
+  [1] 4 5 5 6 3 7 5 5 9 5 5 4 8 7 2 2 7 4 7 3 8 4 5 5 5 2 5 6 6 1 2 6 2 2 9 4 7
+ [38] 6 4 5 6 9 5 5 7 6 5 7 6 8 6 7 5 6 8 7 5 6 9 7 9 6 5 6 5 2 4 3 7 3 2 5 5 5
+ [75] 7 4 8 7 7 1 5 2 4 4 7 4 6 4 7 6 4 3 4 7 4 6 5 3 6 7 5 3 8 2 6 4 6 6 3 7 7
+[112] 6 3 4 2 8 6 4 4 4 5 4 7 8 5 8 1 6 7 7 5 5 6 2 4 2 8 6 6 5 6 2 8 1 7 4 2 7
+[149] 5 8 8 6 9 5 3 6 5 8 8 9 6 4 4 2 5 2 5 4 9 3 3 8 5 7 4 5 6 4 5 4 4 3 6 4 6
+[186] 6 4 6 5 5 5 4 5 3 1 7 6 8 5 6 7 6 2 7 5 4 7 6 5 6 5 9 5 4 5 5 8 7 1 3 2 6
+[223] 5 5 5 5 5 6 4 5 4 1 7 1 5 5 4 9 7 6 7 6 5 4 6 2 6 9 4 9 5 4 6 5 6 5 4 4 4
+[260] 5 4 8 7 4 7 6 6 4 7 4 7 5 3 5 5 6 4 3 5 4 5 7 4 7 5 3 8 5 8 9 5 9 1 7 3 4
+[297] 6 7 2 6 4 8 5 5 5 7 3 7 6 5 5 6 7 4 6 6 8 4 3 5 5 8 5 8 8 8 4 5 6 5 7 4 5
+[334] 8 6 5 5 7 8 5 1 5 5 9 4 6 5 7 5 7 5 4 6 4 7 8 4 9 1 5 7 8 4 6 5 6 9 3 5 5
+[371] 9 6 8 5 5 5 5 5 9 7 1 4 4 4 7 4 4 4 7 5 3 4 6 4 6 4 6 7 3 2 8 4 5 7 5 5 1
+[408] 6 5 7 7 5 5 5 5 9 5 8 3 5 5 4 5 8 5 5 8 2 6 6 5 7 6 8 5 9 6 5 4 6 6 5 6 6
+[445] 4 3 9 7 5 8 5 8 4 7 8 1 8 6 5 3 4 4 3 1 5 8 7 8 2 3 2 3 5 3 7 5 6 9 4 7 4
+[482] 8 5 6 9 8 6 6 6 5 3 7 5 5 4 3 4 4 5 4
+Levels: 1 2 3 4 5 6 7 8 9</code></pre>
+</div>
+</div>
+</section>
+<section id="正答率correct-response-rate" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="正答率correct-response-rate"><span class="header-section-number">3.1.4</span> 正答率（Correct Response Rate）</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crr</span>(dat) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        [,1]
+Item01 0.746
+Item02 0.754
+Item03 0.726
+Item04 0.776
+Item05 0.804
+Item06 0.864
+Item07 0.716
+Item08 0.588
+Item09 0.364
+Item10 0.662</code></pre>
+</div>
+</div>
+</section>
+<section id="通過率passage-rate" class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="通過率passage-rate"><span class="header-section-number">3.1.5</span> 通過率（Passage Rate）</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">passage</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            [,1]
+  [1,] 0.5333333
+  [2,] 0.6666667
+  [3,] 0.6666667
+  [4,] 0.7333333
+  [5,] 0.4000000
+  [6,] 0.8000000
+  [7,] 0.6000000
+  [8,] 0.6666667
+  [9,] 0.9333333
+ [10,] 0.6000000
+ [11,] 0.6000000
+ [12,] 0.5333333
+ [13,] 0.8666667
+ [14,] 0.8000000
+ [15,] 0.3333333
+ [16,] 0.3333333
+ [17,] 0.8000000
+ [18,] 0.4666667
+ [19,] 0.8000000
+ [20,] 0.4000000
+ [21,] 0.8666667
+ [22,] 0.5333333
+ [23,] 0.6666667
+ [24,] 0.6666667
+ [25,] 0.6666667
+ [26,] 0.3333333
+ [27,] 0.6000000
+ [28,] 0.7333333
+ [29,] 0.7333333
+ [30,] 0.2666667
+ [31,] 0.3333333
+ [32,] 0.7333333
+ [33,] 0.3333333
+ [34,] 0.3333333
+ [35,] 1.0000000
+ [36,] 0.5333333
+ [37,] 0.8000000
+ [38,] 0.7333333
+ [39,] 0.5333333
+ [40,] 0.6666667
+ [41,] 0.7333333
+ [42,] 0.9333333
+ [43,] 0.6666667
+ [44,] 0.6000000
+ [45,] 0.8000000
+ [46,] 0.7333333
+ [47,] 0.6666667
+ [48,] 0.8000000
+ [49,] 0.7333333
+ [50,] 0.8666667
+ [51,] 0.7333333
+ [52,] 0.8000000
+ [53,] 0.6666667
+ [54,] 0.7333333
+ [55,] 0.8666667
+ [56,] 0.8000000
+ [57,] 0.6000000
+ [58,] 0.7333333
+ [59,] 0.9333333
+ [60,] 0.8000000
+ [61,] 0.9333333
+ [62,] 0.7333333
+ [63,] 0.6000000
+ [64,] 0.7333333
+ [65,] 0.6666667
+ [66,] 0.3333333
+ [67,] 0.4666667
+ [68,] 0.4000000
+ [69,] 0.8000000
+ [70,] 0.4000000
+ [71,] 0.3333333
+ [72,] 0.6666667
+ [73,] 0.6666667
+ [74,] 0.6666667
+ [75,] 0.8000000
+ [76,] 0.5333333
+ [77,] 0.8666667
+ [78,] 0.8000000
+ [79,] 0.8000000
+ [80,] 0.2666667
+ [81,] 0.6000000
+ [82,] 0.3333333
+ [83,] 0.5333333
+ [84,] 0.5333333
+ [85,] 0.8000000
+ [86,] 0.5333333
+ [87,] 0.7333333
+ [88,] 0.5333333
+ [89,] 0.8000000
+ [90,] 0.7333333
+ [91,] 0.4666667
+ [92,] 0.4000000
+ [93,] 0.5333333
+ [94,] 0.8000000
+ [95,] 0.5333333
+ [96,] 0.7333333
+ [97,] 0.6666667
+ [98,] 0.4000000
+ [99,] 0.7333333
+[100,] 0.8000000
+[101,] 0.6666667
+[102,] 0.4000000
+[103,] 0.8666667
+[104,] 0.3333333
+[105,] 0.7333333
+[106,] 0.4666667
+[107,] 0.7333333
+[108,] 0.7333333
+[109,] 0.4000000
+[110,] 0.8000000
+[111,] 0.8000000
+[112,] 0.7333333
+[113,] 0.4000000
+[114,] 0.5333333
+[115,] 0.3333333
+[116,] 0.8666667
+[117,] 0.7333333
+[118,] 0.4666667
+[119,] 0.5333333
+[120,] 0.5333333
+[121,] 0.6666667
+[122,] 0.5333333
+[123,] 0.8000000
+[124,] 0.8666667
+[125,] 0.6000000
+[126,] 0.8666667
+[127,] 0.2666667
+[128,] 0.7333333
+[129,] 0.8000000
+[130,] 0.8000000
+[131,] 0.6666667
+[132,] 0.6666667
+[133,] 0.7333333
+[134,] 0.3333333
+[135,] 0.5333333
+[136,] 0.3333333
+[137,] 0.8666667
+[138,] 0.7333333
+[139,] 0.7333333
+[140,] 0.6666667
+[141,] 0.7333333
+[142,] 0.3333333
+[143,] 0.8666667
+[144,] 0.2666667
+[145,] 0.8000000
+[146,] 0.4666667
+[147,] 0.3333333
+[148,] 0.8000000
+[149,] 0.6000000
+[150,] 0.8666667
+[151,] 0.8666667
+[152,] 0.7333333
+[153,] 0.9333333
+[154,] 0.6000000
+[155,] 0.4000000
+[156,] 0.7333333
+[157,] 0.6666667
+[158,] 0.8666667
+[159,] 0.8666667
+[160,] 1.0000000
+[161,] 0.7333333
+[162,] 0.4666667
+[163,] 0.4666667
+[164,] 0.3333333
+[165,] 0.6666667
+[166,] 0.3333333
+[167,] 0.6666667
+[168,] 0.5333333
+[169,] 0.9333333
+[170,] 0.4000000
+[171,] 0.4000000
+[172,] 0.8666667
+[173,] 0.6666667
+[174,] 0.8000000
+[175,] 0.4666667
+[176,] 0.6666667
+[177,] 0.7333333
+[178,] 0.5333333
+[179,] 0.6666667
+[180,] 0.5333333
+[181,] 0.4666667
+[182,] 0.4000000
+[183,] 0.7333333
+[184,] 0.5333333
+[185,] 0.7333333
+[186,] 0.7333333
+[187,] 0.5333333
+[188,] 0.7333333
+[189,] 0.6000000
+[190,] 0.6666667
+[191,] 0.6666667
+[192,] 0.4666667
+[193,] 0.6666667
+[194,] 0.4000000
+[195,] 0.2000000
+[196,] 0.8000000
+[197,] 0.7333333
+[198,] 0.8666667
+[199,] 0.6666667
+[200,] 0.7333333
+[201,] 0.8000000
+[202,] 0.7333333
+[203,] 0.3333333
+[204,] 0.8000000
+[205,] 0.6666667
+[206,] 0.5333333
+[207,] 0.8000000
+[208,] 0.7333333
+[209,] 0.6000000
+[210,] 0.7333333
+[211,] 0.6666667
+[212,] 0.9333333
+[213,] 0.6666667
+[214,] 0.5333333
+[215,] 0.6666667
+[216,] 0.6000000
+[217,] 0.8666667
+[218,] 0.8000000
+[219,] 0.2666667
+[220,] 0.4000000
+[221,] 0.3333333
+[222,] 0.7333333
+[223,] 0.6000000
+[224,] 0.6000000
+[225,] 0.6666667
+[226,] 0.6666667
+[227,] 0.6000000
+[228,] 0.7333333
+[229,] 0.4666667
+[230,] 0.6666667
+[231,] 0.4666667
+[232,] 0.2666667
+[233,] 0.8000000
+[234,] 0.2666667
+[235,] 0.6000000
+[236,] 0.6000000
+[237,] 0.4666667
+[238,] 0.9333333
+[239,] 0.8000000
+[240,] 0.7333333
+[241,] 0.8000000
+[242,] 0.7333333
+[243,] 0.6000000
+[244,] 0.5333333
+[245,] 0.7333333
+[246,] 0.3333333
+[247,] 0.7333333
+[248,] 1.0000000
+[249,] 0.5333333
+[250,] 0.9333333
+[251,] 0.6000000
+[252,] 0.4666667
+[253,] 0.7333333
+[254,] 0.6666667
+[255,] 0.7333333
+[256,] 0.6666667
+[257,] 0.5333333
+[258,] 0.4666667
+[259,] 0.4666667
+[260,] 0.6000000
+[261,] 0.4666667
+[262,] 0.8666667
+[263,] 0.8000000
+[264,] 0.5333333
+[265,] 0.8000000
+[266,] 0.7333333
+[267,] 0.7333333
+[268,] 0.5333333
+[269,] 0.8000000
+[270,] 0.5333333
+[271,] 0.8000000
+[272,] 0.6000000
+[273,] 0.4000000
+[274,] 0.6000000
+[275,] 0.6666667
+[276,] 0.7333333
+[277,] 0.4666667
+[278,] 0.4000000
+[279,] 0.6666667
+[280,] 0.4666667
+[281,] 0.6666667
+[282,] 0.8000000
+[283,] 0.4666667
+[284,] 0.8000000
+[285,] 0.6000000
+[286,] 0.4000000
+[287,] 0.8666667
+[288,] 0.6000000
+[289,] 0.8666667
+[290,] 1.0000000
+[291,] 0.6666667
+[292,] 0.9333333
+[293,] 0.2666667
+[294,] 0.8000000
+[295,] 0.4000000
+[296,] 0.4666667
+[297,] 0.7333333
+[298,] 0.8000000
+[299,] 0.3333333
+[300,] 0.7333333
+[301,] 0.4666667
+[302,] 0.8666667
+[303,] 0.6000000
+[304,] 0.6000000
+[305,] 0.6666667
+[306,] 0.8000000
+[307,] 0.4000000
+[308,] 0.8000000
+[309,] 0.7333333
+[310,] 0.6000000
+[311,] 0.6666667
+[312,] 0.7333333
+[313,] 0.8000000
+[314,] 0.4666667
+[315,] 0.7333333
+[316,] 0.7333333
+[317,] 0.8666667
+[318,] 0.4666667
+[319,] 0.4000000
+[320,] 0.6000000
+[321,] 0.6000000
+[322,] 0.8666667
+[323,] 0.6000000
+[324,] 0.8666667
+[325,] 0.8666667
+[326,] 0.8666667
+[327,] 0.5333333
+[328,] 0.6666667
+[329,] 0.7333333
+[330,] 0.6666667
+[331,] 0.8000000
+[332,] 0.4666667
+[333,] 0.6000000
+[334,] 0.8666667
+[335,] 0.7333333
+[336,] 0.6666667
+[337,] 0.6666667
+[338,] 0.8000000
+[339,] 0.8666667
+[340,] 0.6000000
+[341,] 0.2666667
+[342,] 0.6666667
+[343,] 0.6666667
+[344,] 0.9333333
+[345,] 0.4666667
+[346,] 0.7333333
+[347,] 0.6666667
+[348,] 0.8000000
+[349,] 0.6666667
+[350,] 0.8000000
+[351,] 0.6666667
+[352,] 0.5333333
+[353,] 0.7333333
+[354,] 0.5333333
+[355,] 0.8000000
+[356,] 0.8666667
+[357,] 0.4666667
+[358,] 0.9333333
+[359,] 0.1333333
+[360,] 0.6000000
+[361,] 0.8000000
+[362,] 0.8666667
+[363,] 0.4666667
+[364,] 0.7333333
+[365,] 0.6666667
+[366,] 0.7333333
+[367,] 1.0000000
+[368,] 0.4000000
+[369,] 0.6666667
+[370,] 0.6666667
+[371,] 0.9333333
+[372,] 0.7333333
+[373,] 0.8666667
+[374,] 0.6000000
+[375,] 0.6000000
+[376,] 0.6666667
+[377,] 0.6666667
+[378,] 0.6666667
+[379,] 0.9333333
+[380,] 0.8000000
+[381,] 0.1333333
+[382,] 0.4666667
+[383,] 0.4666667
+[384,] 0.4666667
+[385,] 0.8000000
+[386,] 0.5333333
+[387,] 0.5333333
+[388,] 0.4666667
+[389,] 0.8000000
+[390,] 0.6000000
+[391,] 0.4000000
+[392,] 0.4666667
+[393,] 0.7333333
+[394,] 0.4666667
+[395,] 0.7333333
+[396,] 0.5333333
+[397,] 0.7333333
+[398,] 0.8000000
+[399,] 0.4000000
+[400,] 0.3333333
+[401,] 0.8666667
+[402,] 0.4666667
+[403,] 0.6666667
+[404,] 0.8000000
+[405,] 0.6666667
+[406,] 0.6666667
+[407,] 0.1333333
+[408,] 0.7333333
+[409,] 0.6666667
+[410,] 0.8000000
+[411,] 0.8000000
+[412,] 0.6666667
+[413,] 0.6666667
+[414,] 0.6000000
+[415,] 0.6666667
+[416,] 1.0000000
+[417,] 0.6000000
+[418,] 0.8666667
+[419,] 0.4000000
+[420,] 0.6000000
+[421,] 0.6000000
+[422,] 0.4666667
+[423,] 0.6000000
+[424,] 0.8666667
+[425,] 0.6000000
+[426,] 0.6000000
+[427,] 0.8666667
+[428,] 0.3333333
+[429,] 0.7333333
+[430,] 0.7333333
+[431,] 0.6666667
+[432,] 0.8000000
+[433,] 0.7333333
+[434,] 0.8666667
+[435,] 0.6666667
+[436,] 0.9333333
+[437,] 0.7333333
+[438,] 0.6666667
+[439,] 0.5333333
+[440,] 0.7333333
+[441,] 0.7333333
+[442,] 0.6666667
+[443,] 0.7333333
+[444,] 0.7333333
+[445,] 0.5333333
+[446,] 0.4000000
+[447,] 0.9333333
+[448,] 0.8000000
+[449,] 0.6666667
+[450,] 0.8666667
+[451,] 0.6666667
+[452,] 0.8666667
+[453,] 0.5333333
+[454,] 0.8000000
+[455,] 0.8666667
+[456,] 0.2666667
+[457,] 0.8666667
+[458,] 0.7333333
+[459,] 0.6666667
+[460,] 0.4000000
+[461,] 0.4666667
+[462,] 0.5333333
+[463,] 0.4000000
+[464,] 0.2000000
+[465,] 0.6666667
+[466,] 0.8666667
+[467,] 0.8000000
+[468,] 0.8666667
+[469,] 0.3333333
+[470,] 0.4000000
+[471,] 0.3333333
+[472,] 0.4000000
+[473,] 0.6666667
+[474,] 0.4000000
+[475,] 0.8000000
+[476,] 0.6000000
+[477,] 0.7333333
+[478,] 0.9333333
+[479,] 0.4666667
+[480,] 0.8000000
+[481,] 0.4666667
+[482,] 0.8666667
+[483,] 0.6000000
+[484,] 0.7333333
+[485,] 0.9333333
+[486,] 0.8666667
+[487,] 0.7333333
+[488,] 0.7333333
+[489,] 0.7333333
+[490,] 0.6000000
+[491,] 0.4000000
+[492,] 0.8000000
+[493,] 0.6000000
+[494,] 0.6000000
+[495,] 0.4666667
+[496,] 0.4000000
+[497,] 0.4666667
+[498,] 0.4666667
+[499,] 0.6666667
+[500,] 0.4666667</code></pre>
+</div>
+</div>
+</section>
+<section id="パーセンタイル" class="level3" data-number="3.1.6">
+<h3 data-number="3.1.6" class="anchored" data-anchor-id="パーセンタイル"><span class="header-section-number">3.1.6</span> パーセンタイル</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">percentile</span>(dat) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 32 57 57 74 15 87 42 57 99 42</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="項目統計量" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="項目統計量"><span class="header-section-number">3.2</span> 項目統計量</h2>
+<section id="itemstatistics" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="itemstatistics"><span class="header-section-number">3.2.1</span> ItemStatistics</h3>
+<p>項目ごとの統計量（通過率，点双列相関等）をまとめて算出します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ItemStatistics</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Item Statistics
+   ItemLabel  NR   CRR  ODDs Threshold Entropy ITCrr
+1     Item01 500 0.746 2.937    -0.662   0.818 0.375
+2     Item02 500 0.754 3.065    -0.687   0.805 0.393
+3     Item03 500 0.726 2.650    -0.601   0.847 0.321
+4     Item04 500 0.776 3.464    -0.759   0.767 0.503
+5     Item05 500 0.804 4.102    -0.856   0.714 0.329
+6     Item06 500 0.864 6.353    -1.098   0.574 0.377
+7     Item07 500 0.716 2.521    -0.571   0.861 0.483
+8     Item08 500 0.588 1.427    -0.222   0.978 0.405
+9     Item09 500 0.364 0.572     0.348   0.946 0.225
+10    Item10 500 0.662 1.959    -0.418   0.923 0.314
+11    Item11 500 0.286 0.401     0.565   0.863 0.455
+12    Item12 500 0.274 0.377     0.601   0.847 0.468
+13    Item13 500 0.634 1.732    -0.342   0.948 0.471
+14    Item14 500 0.764 3.237    -0.719   0.788 0.485
+15    Item15 500 0.706 2.401    -0.542   0.874 0.413</code></pre>
+</div>
+</div>
+</section>
+<section id="studentanalysis" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="studentanalysis"><span class="header-section-number">3.2.2</span> StudentAnalysis</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">StudentAnalysis</span>(dat) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           ID NR NRS        PR         SS Percentile Stanine
+1  Student001 15   8 0.5333333 -0.6249599         32       4
+2  Student002 15  10 0.6666667  0.1261938         57       5
+3  Student003 15  10 0.6666667  0.1261938         57       5
+4  Student004 15  11 0.7333333  0.5017707         74       6
+5  Student005 15   6 0.4000000 -1.3761137         15       3
+6  Student006 15  12 0.8000000  0.8773476         87       7
+7  Student007 15   9 0.6000000 -0.2493831         42       5
+8  Student008 15  10 0.6666667  0.1261938         57       5
+9  Student009 15  14 0.9333333  1.6285014         99       9
+10 Student010 15   9 0.6000000 -0.2493831         42       5</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="項目間分析" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="項目間分析"><span class="header-section-number">3.3</span> 項目間分析</h2>
+<section id="interitemanalysis" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="interitemanalysis"><span class="header-section-number">3.3.1</span> InterItemAnalysis</h3>
+<p>項目間の関連指標をまとめて算出します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>IIA <span class="ot">&lt;-</span> <span class="fu">InterItemAnalysis</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="同時正答率joint-correct-response-rate" class="level4" data-number="3.3.1.1">
+<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="同時正答率joint-correct-response-rate"><span class="header-section-number">3.3.1.1</span> 同時正答率（Joint Correct Response Rate）</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>IIA<span class="sc">$</span>JCRR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+Item01  0.746  0.576  0.542  0.592  0.624  0.664  0.548  0.466  0.284  0.502
+Item02  0.576  0.754  0.566  0.620  0.620  0.668  0.560  0.460  0.274  0.510
+Item03  0.542  0.566  0.726  0.590  0.598  0.642  0.548  0.438  0.264  0.490
+Item04  0.592  0.620  0.590  0.776  0.640  0.690  0.604  0.484  0.286  0.526
+Item05  0.624  0.620  0.598  0.640  0.804  0.702  0.594  0.482  0.284  0.542
+Item06  0.664  0.668  0.642  0.690  0.702  0.864  0.644  0.534  0.310  0.584
+Item07  0.548  0.560  0.548  0.604  0.594  0.644  0.716  0.456  0.270  0.500
+Item08  0.466  0.460  0.438  0.484  0.482  0.534  0.456  0.588  0.210  0.396
+Item09  0.284  0.274  0.264  0.286  0.284  0.310  0.270  0.210  0.364  0.226
+Item10  0.502  0.510  0.490  0.526  0.542  0.584  0.500  0.396  0.226  0.662
+Item11  0.238  0.244  0.220  0.254  0.244  0.256  0.238  0.206  0.112  0.208
+Item12  0.224  0.230  0.212  0.254  0.234  0.248  0.230  0.188  0.132  0.190
+Item13  0.496  0.498  0.482  0.532  0.538  0.564  0.484  0.404  0.242  0.446
+Item14  0.596  0.604  0.560  0.624  0.632  0.686  0.572  0.470  0.294  0.534
+Item15  0.546  0.554  0.520  0.586  0.580  0.638  0.536  0.432  0.254  0.478
+       Item11 Item12 Item13 Item14 Item15
+Item01  0.238  0.224  0.496  0.596  0.546
+Item02  0.244  0.230  0.498  0.604  0.554
+Item03  0.220  0.212  0.482  0.560  0.520
+Item04  0.254  0.254  0.532  0.624  0.586
+Item05  0.244  0.234  0.538  0.632  0.580
+Item06  0.256  0.248  0.564  0.686  0.638
+Item07  0.238  0.230  0.484  0.572  0.536
+Item08  0.206  0.188  0.404  0.470  0.432
+Item09  0.112  0.132  0.242  0.294  0.254
+Item10  0.208  0.190  0.446  0.534  0.478
+Item11  0.286  0.126  0.198  0.260  0.222
+Item12  0.126  0.274  0.202  0.244  0.216
+Item13  0.198  0.202  0.634  0.524  0.488
+Item14  0.260  0.244  0.524  0.764  0.568
+Item15  0.222  0.216  0.488  0.568  0.706</code></pre>
+</div>
+</div>
+</section>
+<section id="条件付き正答率conditional-correct-response-rate" class="level4" data-number="3.3.1.2">
+<h4 data-number="3.3.1.2" class="anchored" data-anchor-id="条件付き正答率conditional-correct-response-rate"><span class="header-section-number">3.3.1.2</span> 条件付き正答率（Conditional Correct Response Rate）</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>IIA<span class="sc">$</span>CCRR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+Item01  1.000  0.772  0.727  0.794  0.836  0.890  0.735  0.625  0.381  0.673
+Item02  0.764  1.000  0.751  0.822  0.822  0.886  0.743  0.610  0.363  0.676
+Item03  0.747  0.780  1.000  0.813  0.824  0.884  0.755  0.603  0.364  0.675
+Item04  0.763  0.799  0.760  1.000  0.825  0.889  0.778  0.624  0.369  0.678
+Item05  0.776  0.771  0.744  0.796  1.000  0.873  0.739  0.600  0.353  0.674
+Item06  0.769  0.773  0.743  0.799  0.812  1.000  0.745  0.618  0.359  0.676
+Item07  0.765  0.782  0.765  0.844  0.830  0.899  1.000  0.637  0.377  0.698
+Item08  0.793  0.782  0.745  0.823  0.820  0.908  0.776  1.000  0.357  0.673
+Item09  0.780  0.753  0.725  0.786  0.780  0.852  0.742  0.577  1.000  0.621
+Item10  0.758  0.770  0.740  0.795  0.819  0.882  0.755  0.598  0.341  1.000
+Item11  0.832  0.853  0.769  0.888  0.853  0.895  0.832  0.720  0.392  0.727
+Item12  0.818  0.839  0.774  0.927  0.854  0.905  0.839  0.686  0.482  0.693
+Item13  0.782  0.785  0.760  0.839  0.849  0.890  0.763  0.637  0.382  0.703
+Item14  0.780  0.791  0.733  0.817  0.827  0.898  0.749  0.615  0.385  0.699
+Item15  0.773  0.785  0.737  0.830  0.822  0.904  0.759  0.612  0.360  0.677
+       Item11 Item12 Item13 Item14 Item15
+Item01  0.319  0.300  0.665  0.799  0.732
+Item02  0.324  0.305  0.660  0.801  0.735
+Item03  0.303  0.292  0.664  0.771  0.716
+Item04  0.327  0.327  0.686  0.804  0.755
+Item05  0.303  0.291  0.669  0.786  0.721
+Item06  0.296  0.287  0.653  0.794  0.738
+Item07  0.332  0.321  0.676  0.799  0.749
+Item08  0.350  0.320  0.687  0.799  0.735
+Item09  0.308  0.363  0.665  0.808  0.698
+Item10  0.314  0.287  0.674  0.807  0.722
+Item11  1.000  0.441  0.692  0.909  0.776
+Item12  0.460  1.000  0.737  0.891  0.788
+Item13  0.312  0.319  1.000  0.826  0.770
+Item14  0.340  0.319  0.686  1.000  0.743
+Item15  0.314  0.306  0.691  0.805  1.000</code></pre>
+</div>
+</div>
+</section>
+<section id="項目リフトitem-lift" class="level4" data-number="3.3.1.3">
+<h4 data-number="3.3.1.3" class="anchored" data-anchor-id="項目リフトitem-lift"><span class="header-section-number">3.3.1.3</span> 項目リフト（Item Lift）</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>IIA<span class="sc">$</span>IL</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+Item01   1.34  1.024  1.001   1.02   1.04  1.030   1.03  1.062  1.046  1.016
+Item02   1.02  1.326  1.034   1.06   1.02  1.025   1.04  1.038  0.998  1.022
+Item03   1.00  1.034  1.377   1.05   1.02  1.023   1.05  1.026  0.999  1.020
+Item04   1.02  1.060  1.047   1.29   1.03  1.029   1.09  1.061  1.013  1.024
+Item05   1.04  1.023  1.024   1.03   1.24  1.011   1.03  1.020  0.970  1.018
+Item06   1.03  1.025  1.023   1.03   1.01  1.157   1.04  1.051  0.986  1.021
+Item07   1.03  1.037  1.054   1.09   1.03  1.041   1.40  1.083  1.036  1.055
+Item08   1.06  1.038  1.026   1.06   1.02  1.051   1.08  1.701  0.981  1.017
+Item09   1.05  0.998  0.999   1.01   0.97  0.986   1.04  0.981  2.747  0.938
+Item10   1.02  1.022  1.020   1.02   1.02  1.021   1.05  1.017  0.938  1.511
+Item11   1.12  1.131  1.060   1.14   1.06  1.036   1.16  1.225  1.076  1.099
+Item12   1.10  1.113  1.066   1.19   1.06  1.048   1.17  1.167  1.323  1.047
+Item13   1.05  1.042  1.047   1.08   1.06  1.030   1.07  1.084  1.049  1.063
+Item14   1.05  1.049  1.010   1.05   1.03  1.039   1.05  1.046  1.057  1.056
+Item15   1.04  1.041  1.015   1.07   1.02  1.046   1.06  1.041  0.988  1.023
+       Item11 Item12 Item13 Item14 Item15
+Item01   1.12   1.10   1.05   1.05  1.037
+Item02   1.13   1.11   1.04   1.05  1.041
+Item03   1.06   1.07   1.05   1.01  1.015
+Item04   1.14   1.19   1.08   1.05  1.070
+Item05   1.06   1.06   1.06   1.03  1.022
+Item06   1.04   1.05   1.03   1.04  1.046
+Item07   1.16   1.17   1.07   1.05  1.060
+Item08   1.22   1.17   1.08   1.05  1.041
+Item09   1.08   1.32   1.05   1.06  0.988
+Item10   1.10   1.05   1.06   1.06  1.023
+Item11   3.50   1.61   1.09   1.19  1.099
+Item12   1.61   3.65   1.16   1.17  1.117
+Item13   1.09   1.16   1.58   1.08  1.090
+Item14   1.19   1.17   1.08   1.31  1.053
+Item15   1.10   1.12   1.09   1.05  1.416</code></pre>
+</div>
+</div>
+</section>
+<section id="相互情報量mutual-information" class="level4" data-number="3.3.1.4">
+<h4 data-number="3.3.1.4" class="anchored" data-anchor-id="相互情報量mutual-information"><span class="header-section-number">3.3.1.4</span> 相互情報量（Mutual Information）</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>IIA<span class="sc">$</span>MI</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Item01   Item02   Item03   Item04  Item05   Item06  Item07   Item08
+Item01 8.18e-01 3.65e-03 3.12e-06 0.003643 0.01330 0.011319 0.00352 0.011631
+Item02 3.65e-03 8.05e-01 6.54e-03 0.025339 0.00450 0.008408 0.00751 0.004412
+Item03 3.12e-06 6.54e-03 8.47e-01 0.014072 0.00454 0.006334 0.01368 0.001839
+Item04 3.64e-03 2.53e-02 1.41e-02 0.767404 0.00646 0.012223 0.04463 0.012990
+Item05 1.33e-02 4.50e-03 4.54e-03 0.006457 0.71386 0.001994 0.00726 0.001604
+Item06 1.13e-02 8.41e-03 6.33e-03 0.012223 0.00199 0.573667 0.01797 0.016802
+Item07 3.52e-03 7.51e-03 1.37e-02 0.044626 0.00726 0.017970 0.86084 0.017757
+Item08 1.16e-02 4.41e-03 1.84e-03 0.012990 0.00160 0.016802 0.01776 0.977539
+Item09 2.59e-03 3.49e-06 1.09e-06 0.000225 0.00146 0.000531 0.00136 0.000209
+Item10 1.12e-03 2.02e-03 1.41e-03 0.002754 0.00191 0.003855 0.01051 0.000604
+Item11 1.20e-02 1.65e-02 2.78e-03 0.023124 0.00463 0.002486 0.02052 0.021517
+Item12 7.70e-03 1.14e-02 3.20e-03 0.042072 0.00453 0.004170 0.02200 0.011050
+Item13 8.55e-03 6.57e-03 7.26e-03 0.027819 0.01532 0.006766 0.01357 0.012440
+Item14 1.36e-02 1.59e-02 5.66e-04 0.020775 0.00756 0.020448 0.01178 0.007050
+Item15 6.66e-03 8.53e-03 9.58e-04 0.027525 0.00329 0.021479 0.01540 0.004058
+         Item09   Item10   Item11  Item12  Item13   Item14   Item15
+Item01 2.59e-03 0.001119 0.011986 0.00770 0.00855 0.013613 0.006661
+Item02 3.49e-06 0.002021 0.016462 0.01139 0.00657 0.015904 0.008525
+Item03 1.09e-06 0.001415 0.002775 0.00320 0.00726 0.000566 0.000958
+Item04 2.25e-04 0.002754 0.023124 0.04207 0.02782 0.020775 0.027525
+Item05 1.46e-03 0.001914 0.004630 0.00453 0.01532 0.007563 0.003286
+Item06 5.31e-04 0.003855 0.002486 0.00417 0.00677 0.020448 0.021479
+Item07 1.36e-03 0.010505 0.020521 0.02200 0.01357 0.011781 0.015395
+Item08 2.09e-04 0.000604 0.021517 0.01105 0.01244 0.007050 0.004058
+Item09 9.46e-01 0.003098 0.000946 0.01598 0.00170 0.004467 0.000133
+Item10 3.10e-03 0.922892 0.005627 0.00121 0.00950 0.013835 0.001738
+Item11 9.46e-04 0.005627 0.863498 0.03838 0.00430 0.038606 0.007099
+Item12 1.60e-02 0.001214 0.038381 0.84715 0.01292 0.027044 0.009269
+Item13 1.70e-03 0.009501 0.004301 0.01292 0.94755 0.026346 0.023977
+Item14 4.47e-03 0.013835 0.038606 0.02704 0.02635 0.788325 0.015130
+Item15 1.33e-04 0.001738 0.007099 0.00927 0.02398 0.015130 0.873832</code></pre>
+</div>
+</div>
+</section>
+<section id="ファイ係数phi-coefficient" class="level4" data-number="3.3.1.5">
+<h4 data-number="3.3.1.5" class="anchored" data-anchor-id="ファイ係数phi-coefficient"><span class="header-section-number">3.3.1.5</span> ファイ係数（Phi Coefficient）</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>IIA<span class="sc">$</span>Phi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Item01  Item02   Item03 Item04  Item05  Item06 Item07  Item08   Item09
+Item01 1.00000  0.0721  0.00208 0.0722  0.1401  0.1304 0.0706  0.1277  0.05947
+Item02 0.07210  1.0000  0.09681 0.1943  0.0806  0.1121 0.1037  0.0785 -0.00220
+Item03 0.00208  0.0968  1.00000 0.1432  0.0807  0.0964 0.1401  0.0506 -0.00123
+Item04 0.07220  0.1943  0.14318 1.0000  0.0973  0.1367 0.2574  0.1350  0.01763
+Item05 0.14014  0.0806  0.08074 0.0973  1.0000  0.0540 0.1024  0.0473 -0.04532
+Item06 0.13039  0.1121  0.09639 0.1367  0.0540  1.0000 0.1642  0.1539 -0.02726
+Item07 0.07063  0.1037  0.14013 0.2574  0.1024  0.1642 1.0000  0.1577  0.04321
+Item08 0.12766  0.0785  0.05062 0.1350  0.0473  0.1539 0.1577  1.0000 -0.01703
+Item09 0.05947 -0.0022 -0.00123 0.0176 -0.0453 -0.0273 0.0432 -0.0170  1.00000
+Item10 0.03957  0.0533  0.04450 0.0623  0.0519  0.0742 0.1219  0.0290 -0.06577
+Item11 0.12528  0.1457  0.06135 0.1702  0.0784  0.0574 0.1630  0.1701  0.03632
+Item12 0.10093  0.1218  0.06573 0.2225  0.0774  0.0737 0.1681  0.1225  0.15035
+Item13 0.10986  0.0962  0.10108 0.1992  0.1478  0.0983 0.1384  0.1316  0.04843
+Item14 0.14097  0.1528  0.02818 0.1759  0.1053  0.1780 0.1304  0.0994  0.07784
+Item15 0.09744  0.1105  0.03663 0.2008  0.0684  0.1794 0.1485  0.0752 -0.01361
+        Item10 Item11 Item12 Item13 Item14  Item15
+Item01  0.0396 0.1253 0.1009 0.1099 0.1410  0.0974
+Item02  0.0533 0.1457 0.1218 0.0962 0.1528  0.1105
+Item03  0.0445 0.0613 0.0657 0.1011 0.0282  0.0366
+Item04  0.0623 0.1702 0.2225 0.1992 0.1759  0.2008
+Item05  0.0519 0.0784 0.0774 0.1478 0.1053  0.0684
+Item06  0.0742 0.0574 0.0737 0.0983 0.1780  0.1794
+Item07  0.1219 0.1630 0.1681 0.1384 0.1304  0.1485
+Item08  0.0290 0.1701 0.1225 0.1316 0.0994  0.0752
+Item09 -0.0658 0.0363 0.1503 0.0484 0.0778 -0.0136
+Item10  1.0000 0.0873 0.0408 0.1154 0.1406  0.0493
+Item11  0.0873 1.0000 0.2364 0.0766 0.2163  0.0976
+Item12  0.0408 0.2364 1.0000 0.1316 0.1830  0.1110
+Item13  0.1154 0.0766 0.1316 1.0000 0.1937  0.1841
+Item14  0.1406 0.2163 0.1830 0.1937 1.0000  0.1479
+Item15  0.0493 0.0976 0.1110 0.1841 0.1479  1.0000</code></pre>
+</div>
+</div>
+</section>
+<section id="四分相関係数tetrachoric-correlation" class="level4" data-number="3.3.1.6">
+<h4 data-number="3.3.1.6" class="anchored" data-anchor-id="四分相関係数tetrachoric-correlation"><span class="header-section-number">3.3.1.6</span> 四分相関係数（Tetrachoric Correlation）</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>IIA<span class="sc">$</span>Tetrachoric</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Item01   Item02   Item03 Item04  Item05  Item06 Item07  Item08   Item09
+Item01 1.00000  0.12990  0.00378 0.1322  0.2540  0.2544 0.1246  0.2149  0.10468
+Item02 0.12990  1.00000  0.17081 0.3373  0.1513  0.2219 0.1816  0.1342 -0.00385
+Item03 0.00378  0.17081  1.00000 0.2516  0.1493  0.1907 0.2386  0.0852 -0.00211
+Item04 0.13217  0.33732  0.25155 1.0000  0.1833  0.2687 0.4291  0.2325  0.03161
+Item05 0.25397  0.15131  0.14930 0.1833  1.0000  0.1154 0.1867  0.0852 -0.08231
+Item06 0.25443  0.22191  0.19073 0.2687  0.1154  1.0000 0.3121  0.2957 -0.05430
+Item07 0.12457  0.18162  0.23858 0.4291  0.1867  0.3121 1.0000  0.2589  0.07417
+Item08 0.21492  0.13418  0.08517 0.2325  0.0852  0.2957 0.2589  1.0000 -0.02755
+Item09 0.10468 -0.00385 -0.00211 0.0316 -0.0823 -0.0543 0.0742 -0.0276  1.00000
+Item10 0.06887  0.09292  0.07633 0.1103  0.0948  0.1460 0.2040  0.0473 -0.10802
+Item11 0.23607  0.27919  0.11117 0.3397  0.1552  0.1248 0.3017  0.2887  0.06143
+Item12 0.19055  0.23396  0.12039 0.4670  0.1549  0.1640 0.3154  0.2095  0.24969
+Item13 0.18651  0.16483  0.16982 0.3373  0.2606  0.1909 0.2292  0.2101  0.07976
+Item14 0.24813  0.26860  0.05143 0.3094  0.1961  0.3387 0.2276  0.1705  0.13977
+Item15 0.16949  0.19225  0.06418 0.3424  0.1261  0.3381 0.2500  0.1247 -0.02301
+        Item10 Item11 Item12 Item13 Item14  Item15
+Item01  0.0689 0.2361 0.1906 0.1865 0.2481  0.1695
+Item02  0.0929 0.2792 0.2340 0.1648 0.2686  0.1922
+Item03  0.0763 0.1112 0.1204 0.1698 0.0514  0.0642
+Item04  0.1103 0.3397 0.4670 0.3373 0.3094  0.3424
+Item05  0.0948 0.1552 0.1549 0.2606 0.1961  0.1261
+Item06  0.1460 0.1248 0.1640 0.1909 0.3387  0.3381
+Item07  0.2040 0.3017 0.3154 0.2292 0.2276  0.2500
+Item08  0.0473 0.2887 0.2095 0.2101 0.1705  0.1247
+Item09 -0.1080 0.0614 0.2497 0.0798 0.1398 -0.0230
+Item10  1.0000 0.1526 0.0713 0.1878 0.2408  0.0835
+Item11  0.1526 1.0000 0.3881 0.1318 0.4345  0.1758
+Item12  0.0713 0.3881 1.0000 0.2302 0.3667  0.2028
+Item13  0.1878 0.1318 0.2302 1.0000 0.3255  0.2999
+Item14  0.2408 0.4345 0.3667 0.3255 1.0000  0.2555
+Item15  0.0835 0.1758 0.2028 0.2999 0.2555  1.0000</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="相関係数" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="相関係数"><span class="header-section-number">3.4</span> 相関係数</h2>
+<section id="項目-合計相関双列相関" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="項目-合計相関双列相関"><span class="header-section-number">3.4.1</span> 項目-合計相関（双列相関）</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ITBiserial</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.4830380 0.4985034 0.4130636 0.6332807 0.4444282 0.5178833 0.5907845
+ [8] 0.4938693 0.2866633 0.3933372 0.6278208 0.6513541 0.5675060 0.6171171
+[15] 0.5104599</code></pre>
+</div>
+</div>
+</section>
+<section id="四分相関係数行列" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="四分相関係数行列"><span class="header-section-number">3.4.2</span> 四分相関係数行列</h3>
+<p><code>TetrachoricCorrelationMatrix</code>で四分相関係数行列を算出します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TetrachoricCorrelationMatrix</span>(dat) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+Item01  1.000  0.130  0.004  0.132  0.254  0.254  0.125  0.215  0.105  0.069
+Item02  0.130  1.000  0.171  0.337  0.151  0.222  0.182  0.134 -0.004  0.093
+Item03  0.004  0.171  1.000  0.252  0.149  0.191  0.239  0.085 -0.002  0.076
+Item04  0.132  0.337  0.252  1.000  0.183  0.269  0.429  0.232  0.032  0.110
+Item05  0.254  0.151  0.149  0.183  1.000  0.115  0.187  0.085 -0.082  0.095
+Item06  0.254  0.222  0.191  0.269  0.115  1.000  0.312  0.296 -0.054  0.146
+Item07  0.125  0.182  0.239  0.429  0.187  0.312  1.000  0.259  0.074  0.204
+Item08  0.215  0.134  0.085  0.232  0.085  0.296  0.259  1.000 -0.028  0.047
+Item09  0.105 -0.004 -0.002  0.032 -0.082 -0.054  0.074 -0.028  1.000 -0.108
+Item10  0.069  0.093  0.076  0.110  0.095  0.146  0.204  0.047 -0.108  1.000
+Item11  0.236  0.279  0.111  0.340  0.155  0.125  0.302  0.289  0.061  0.153
+Item12  0.191  0.234  0.120  0.467  0.155  0.164  0.315  0.209  0.250  0.071
+Item13  0.187  0.165  0.170  0.337  0.261  0.191  0.229  0.210  0.080  0.188
+Item14  0.248  0.269  0.051  0.309  0.196  0.339  0.228  0.170  0.140  0.241
+Item15  0.169  0.192  0.064  0.342  0.126  0.338  0.250  0.125 -0.023  0.084
+       Item11 Item12 Item13 Item14 Item15
+Item01  0.236  0.191  0.187  0.248  0.169
+Item02  0.279  0.234  0.165  0.269  0.192
+Item03  0.111  0.120  0.170  0.051  0.064
+Item04  0.340  0.467  0.337  0.309  0.342
+Item05  0.155  0.155  0.261  0.196  0.126
+Item06  0.125  0.164  0.191  0.339  0.338
+Item07  0.302  0.315  0.229  0.228  0.250
+Item08  0.289  0.209  0.210  0.170  0.125
+Item09  0.061  0.250  0.080  0.140 -0.023
+Item10  0.153  0.071  0.188  0.241  0.084
+Item11  1.000  0.388  0.132  0.435  0.176
+Item12  0.388  1.000  0.230  0.367  0.203
+Item13  0.132  0.230  1.000  0.326  0.300
+Item14  0.435  0.367  0.326  1.000  0.256
+Item15  0.176  0.203  0.300  0.256  1.000</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="テスト統計量" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="テスト統計量"><span class="header-section-number">3.5</span> テスト統計量</h2>
+<section id="teststatistics" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="teststatistics"><span class="header-section-number">3.5.1</span> TestStatistics</h3>
+<p>テスト全体の統計量（平均点，標準偏差，信頼性等）をまとめて表示します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TestStatistics</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test Statistics
+                  value
+TestLength   15.0000000
+SampleSize  500.0000000
+Mean          9.6640000
+SEofMean      0.1190738
+Variance      7.0892826
+SD            2.6625707
+Skewness     -0.4116220
+Kurtosis     -0.4471624
+Min           2.0000000
+Max          15.0000000
+Range        13.0000000
+Q1.25%        8.0000000
+Median.50%   10.0000000
+Q3.75%       12.0000000
+IQR           4.0000000
+Stanine.4%    5.0000000
+Stanine.11%   6.0000000
+Stanine.23%   7.0000000
+Stanine.40%   9.0000000
+Stanine.60%  11.0000000
+Stanine.77%  12.0000000
+Stanine.89%  13.0000000
+Stanine.96%  14.0000000</code></pre>
+</div>
+</div>
+</section>
+<section id="次元性分析" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="次元性分析"><span class="header-section-number">3.5.2</span> 次元性分析</h3>
+<p>四分相関係数行列の固有値分解により，テストの次元性を検討します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Dimensionality</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Dimensionality Analyeis
+Eigenvalues
+ [1] 3.8366590 1.3048215 1.1469063 1.0349574 1.0165470 0.9819001 0.9238333
+ [8] 0.8371888 0.7538090 0.6547426 0.6289304 0.5884245 0.5092354 0.4175506
+[15] 0.3644943
+Percentage Of Variance
+ [1] 25.577726  8.698810  7.646042  6.899716  6.776980  6.546001  6.158888
+ [8]  5.581259  5.025393  4.364951  4.192869  3.922830  3.394903  2.783670
+[15]  2.429962
+Cummurative Percentage
+ [1]  25.57773  34.27654  41.92258  48.82229  55.59927  62.14527  68.30416
+ [8]  73.88542  78.91081  83.27577  87.46863  91.39146  94.78637  97.57004
+[15] 100.00000</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="chap02_descriptive_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="古典的テスト理論ctt" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="古典的テスト理論ctt"><span class="header-section-number">3.6</span> 古典的テスト理論（CTT）</h2>
+<p>テストの信頼性に関する指標をまとめて算出します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CTT</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Realiability
+                name value
+1  Alpha(Covariance) 0.625
+2         Alpha(Phi) 0.630
+3 Alpha(Tetrachoric) 0.771
+4  Omega(Covariance) 0.632
+5         Omega(Phi) 0.637
+6 Omega(Tetrachoric) 0.779
+
+Reliability Excluding Item
+   IfDeleted Alpha.Covariance Alpha.Phi Alpha.Tetrachoric
+1     Item01            0.613     0.618             0.762
+2     Item02            0.609     0.615             0.759
+3     Item03            0.622     0.628             0.770
+4     Item04            0.590     0.595             0.742
+5     Item05            0.617     0.624             0.766
+6     Item06            0.608     0.613             0.754
+7     Item07            0.594     0.600             0.748
+8     Item08            0.611     0.616             0.762
+9     Item09            0.642     0.645             0.785
+10    Item10            0.626     0.630             0.773
+11    Item11            0.599     0.606             0.751
+12    Item12            0.597     0.603             0.748
+13    Item13            0.597     0.604             0.753
+14    Item14            0.593     0.598             0.745
+15    Item15            0.607     0.612             0.759</code></pre>
+</div>
+</div>
+<section id="個別の信頼性係数" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="個別の信頼性係数"><span class="header-section-number">3.6.1</span> 個別の信頼性係数</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AlphaCoefficient</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$AlphaCov
+[1] 0.6251902
+
+$AlphaPhi
+[1] 0.6304294
+
+$AlphaTetrachoric
+[1] 0.7713707</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">OmegaCoefficient</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$OmegaCov
+[1] 0.6319018
+
+$OmegaPhi
+[1] 0.6368384
+
+$OmegaTetrachoric
+[1] 0.7787818</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="多値データの項目分析" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="多値データの項目分析"><span class="header-section-number">3.7</span> 多値データの項目分析</h2>
+<p>多値データでもほぼ同じ関数が使えます。サンプルデータ<code>J5S1000</code>（5項目・1000人の順序データ）を例にします。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>dat_poly <span class="ot">&lt;-</span> J5S1000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="テスト統計量-1" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="テスト統計量-1"><span class="header-section-number">3.7.1</span> テスト統計量</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TestStatistics</span>(dat_poly)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test Statistics
+                   value
+SampleSize 1000.00000000
+TestLength    5.00000000
+Median       12.00000000
+Max          18.00000000
+Min           4.00000000
+Range        14.00000000
+Mean         11.45700000
+SD            2.92107578
+Skewness     -0.08836075
+Kurtosis     -0.55776379
+Alpha         0.59462241</code></pre>
+</div>
+</div>
+</section>
+<section id="項目統計量-1" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="項目統計量-1"><span class="header-section-number">3.7.2</span> 項目統計量</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ItemStatistics</span>(dat_poly)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Item Statistics
+  ItemLabel  NR Threshold.1 Threshold.2 Threshold.3 Entropy ITCrr
+1        V1 993      -0.805      0.0290       0.805   0.991 0.670
+2        V2 990      -0.580      0.6697          NA   0.964 0.635
+3        V3 996      -0.832     -0.0403       0.665   0.995 0.675
+4        V4 997      -0.638      0.5803          NA   0.970 0.679
+5        V5 998      -0.714      0.0126       0.795   0.996 0.686</code></pre>
+</div>
+</div>
+</section>
+<section id="itemreport-scorereport多値データ専用" class="level3" data-number="3.7.3">
+<h3 data-number="3.7.3" class="anchored" data-anchor-id="itemreport-scorereport多値データ専用"><span class="header-section-number">3.7.3</span> ItemReport / ScoreReport（多値データ専用）</h3>
+<p><code>ItemReport</code>と<code>ScoreReport</code>は多値データ専用の関数です。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ItemReport</span>(dat_poly)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Item Statistics
+  ItemLabel Obs ObsRatio ItemMean ItemSD ItemCORR ItemCORR_R
+1        V1 993    0.993     2.49  1.045    0.632      0.332
+2        V2 990    0.990     1.97  0.729    0.575      0.368
+3        V3 996    0.996     2.57  1.076    0.633      0.323
+4        V4 997    0.997     2.02  0.736    0.615      0.417
+5        V5 998    0.998     2.47  1.073    0.643      0.339</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ScoreReport</span>(dat_poly)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test Statistics
+                   value
+SampleSize 1000.00000000
+TestLength    5.00000000
+Median       12.00000000
+Max          18.00000000
+Min           4.00000000
+Range        14.00000000
+Mean         11.45700000
+SD            2.92107578
+Skewness     -0.08836075
+Kurtosis     -0.55776379
+Alpha         0.59462241</code></pre>
+</div>
+</div>
+</section>
+<section id="項目間分析多値データ" class="level3" data-number="3.7.4">
+<h3 data-number="3.7.4" class="anchored" data-anchor-id="項目間分析多値データ"><span class="header-section-number">3.7.4</span> 項目間分析（多値データ）</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>IIA_poly <span class="ot">&lt;-</span> <span class="fu">InterItemAnalysis</span>(dat_poly)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="同時選択率joint-selection-size" class="level4" data-number="3.7.4.1">
+<h4 data-number="3.7.4.1" class="anchored" data-anchor-id="同時選択率joint-selection-size"><span class="header-section-number">3.7.4.1</span> 同時選択率（Joint Selection Size）</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>IIA_poly<span class="sc">$</span>JSS</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    V1  V2  V3  V4  V5
+V1 993 983 989 990 991
+V2 983 990 986 987 988
+V3 989 986 996 993 994
+V4 990 987 993 997 995
+V5 991 988 994 995 998</code></pre>
+</div>
+</div>
+</section>
+<section id="同時選択率行列joint-selection-ratio" class="level4" data-number="3.7.4.2">
+<h4 data-number="3.7.4.2" class="anchored" data-anchor-id="同時選択率行列joint-selection-ratio"><span class="header-section-number">3.7.4.2</span> 同時選択率行列（Joint Selection Ratio）</h4>
+<p>項目Jと項目Kの同時選択率行列は<code>JSR[[J]][[K]]</code>で参照します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>IIA_poly<span class="sc">$</span>JSR[[<span class="dv">1</span>]][[<span class="dv">2</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         
+             V2-Cat1    V2-Cat2    V2-Cat3
+  V1-Cat1 0.09053917 0.08443540 0.03560529
+  V1-Cat2 0.07934893 0.16073245 0.06103764
+  V1-Cat3 0.07222787 0.13326551 0.07426246
+  V1-Cat4 0.03865717 0.08952187 0.08036623</code></pre>
+</div>
+</div>
+</section>
+<section id="条件付き選択率conditional-selection-ratio" class="level4" data-number="3.7.4.3">
+<h4 data-number="3.7.4.3" class="anchored" data-anchor-id="条件付き選択率conditional-selection-ratio"><span class="header-section-number">3.7.4.3</span> 条件付き選択率（Conditional Selection Ratio）</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>IIA_poly<span class="sc">$</span>CSR[[<span class="dv">1</span>]][[<span class="dv">2</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          V2-Cat1   V2-Cat2   V2-Cat3
+V1-Cat1 0.4299517 0.4009662 0.1690821
+V1-Cat2 0.2635135 0.5337838 0.2027027
+V1-Cat3 0.2581818 0.4763636 0.2654545
+V1-Cat4 0.1853659 0.4292683 0.3853659</code></pre>
+</div>
+</div>
+</section>
+<section id="相互情報量" class="level4" data-number="3.7.4.4">
+<h4 data-number="3.7.4.4" class="anchored" data-anchor-id="相互情報量"><span class="header-section-number">3.7.4.4</span> 相互情報量</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>IIA_poly<span class="sc">$</span>MI</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]       [,2]       [,3]       [,4]       [,5]
+[1,]        NaN 0.03668416 0.03935180 0.04826507 0.04651449
+[2,] 0.03668416        NaN 0.03870059 0.08680066 0.04694270
+[3,] 0.03935180 0.03870059        NaN 0.06223498 0.03452874
+[4,] 0.04826507 0.08680066 0.06223498        NaN 0.04703299
+[5,] 0.04651449 0.04694270 0.03452874 0.04703299        NaN</code></pre>
+</div>
+</div>
+</section>
+<section id="多分相関係数polychoric-correlation" class="level4" data-number="3.7.4.5">
+<h4 data-number="3.7.4.5" class="anchored" data-anchor-id="多分相関係数polychoric-correlation"><span class="header-section-number">3.7.4.5</span> 多分相関係数（Polychoric Correlation）</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>IIA_poly<span class="sc">$</span>Polychoric</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          V1        V2        V3        V4        V5
+V1 1.0000000 0.2456615 0.2452778 0.2906535 0.2766477
+V2 0.2456615 1.0000000 0.2557498 0.4055238 0.2831193
+V3 0.2452778 0.2557498 1.0000000 0.3237882 0.2087903
+V4 0.2906535 0.4055238 0.3237882 1.0000000 0.2942859
+V5 0.2766477 0.2831193 0.2087903 0.2942859 1.0000000</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="多分相関係数行列" class="level3" data-number="3.7.5">
+<h3 data-number="3.7.5" class="anchored" data-anchor-id="多分相関係数行列"><span class="header-section-number">3.7.5</span> 多分相関係数行列</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PolychoricCorrelationMatrix</span>(dat_poly) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      V1    V2    V3    V4    V5
+V1 1.000 0.246 0.245 0.291 0.277
+V2 0.246 1.000 0.256 0.406 0.283
+V3 0.245 0.256 1.000 0.324 0.209
+V4 0.291 0.406 0.324 1.000 0.294
+V5 0.277 0.283 0.209 0.294 1.000</code></pre>
+</div>
+</div>
+</section>
+<section id="次元性分析多値データ" class="level3" data-number="3.7.6">
+<h3 data-number="3.7.6" class="anchored" data-anchor-id="次元性分析多値データ"><span class="header-section-number">3.7.6</span> 次元性分析（多値データ）</h3>
+<p>多分相関係数行列の固有値分解により次元性を検討します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Dimensionality</span>(dat_poly)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Dimensionality Analyeis
+Eigenvalues
+[1] 2.1397364 0.8040387 0.7746612 0.6995032 0.5820605
+Percentage Of Variance
+[1] 42.79473 16.08077 15.49322 13.99006 11.64121
+Cummurative Percentage
+[1]  42.79473  58.87550  74.36873  88.35879 100.00000</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="chap02_descriptive_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./chap01_data.html" class="pagination-link" aria-label="データ準備">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">データ準備</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./chap03_IRT.html" class="pagination-link" aria-label="項目反応理論">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">項目反応理論</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

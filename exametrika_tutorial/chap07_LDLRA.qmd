@@ -1,0 +1,363 @@
+---
+title: "局所依存モデル"
+---
+
+```{r}
+#| include: false
+library(exametrika)
+library(igraph)
+```
+
+この章では，テストデータにおける局所依存性をモデル化する3つのアプローチを紹介します。
+
+| モデル | ノード | ロケーション | 特徴 |
+|:-------|:-------|:-------------|:-----|
+| **LDLRA** | 項目 | ランク | 項目間の依存関係がランクにより変化 |
+| **LDB** | フィールド | ランク | フィールド間の依存関係をランク内で分析 |
+| **BINET** | クラス | フィールド | フィールド内でのクラス遷移を検討 |
+
+## 局所依存潜在ランク分析（LDLRA）
+
+LDLRAは，LRAとBNMを組み合わせたモデルです。項目間の依存関係が異なる習熟度ランクでどのように変化するかを分析します。各ランクに異なるDAGを指定する必要があります。
+
+### ランクごとのDAG設定
+
+DAGはCSVファイルで指定します。`From`, `To`, `Rank`の3列を持つデータを準備します。
+
+```{r}
+DAG_dat <- matrix(c(
+  "From", "To", "Rank",
+  "Item01", "Item02", 1,
+  "Item04", "Item05", 1,
+  "Item01", "Item02", 2,
+  "Item02", "Item03", 2,
+  "Item04", "Item05", 2,
+  "Item08", "Item09", 2,
+  "Item08", "Item10", 2,
+  "Item09", "Item10", 2,
+  "Item08", "Item11", 2,
+  "Item01", "Item02", 3,
+  "Item02", "Item03", 3,
+  "Item04", "Item05", 3,
+  "Item08", "Item09", 3,
+  "Item08", "Item10", 3,
+  "Item09", "Item10", 3,
+  "Item08", "Item11", 3,
+  "Item02", "Item03", 4,
+  "Item04", "Item06", 4,
+  "Item04", "Item07", 4,
+  "Item05", "Item06", 4,
+  "Item05", "Item07", 4,
+  "Item08", "Item10", 4,
+  "Item08", "Item11", 4,
+  "Item09", "Item11", 4,
+  "Item02", "Item03", 5,
+  "Item04", "Item06", 5,
+  "Item04", "Item07", 5,
+  "Item05", "Item06", 5,
+  "Item05", "Item07", 5,
+  "Item09", "Item11", 5,
+  "Item10", "Item11", 5,
+  "Item10", "Item12", 5
+), ncol = 3, byrow = TRUE)
+
+edgeFile <- tempfile(fileext = ".csv")
+write.csv(DAG_dat, edgeFile, row.names = FALSE, quote = TRUE)
+```
+
+### LDLRAの実行
+
+サンプルデータ`J12S5000`（12項目・5000人）を使用します。
+
+```{r}
+result.LDLRA <- LDLRA(J12S5000, ncls = 5, adj_file = edgeFile)
+result.LDLRA
+```
+
+### 可視化（baseグラフィックス）
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LDLRA, type = "IRP", nc = 4, nr = 3)
+```
+
+```{r}
+plot(result.LDLRA, type = "TRP")
+```
+
+```{r}
+plot(result.LDLRA, type = "LRD")
+```
+
+### 可視化（ggExametrika）
+
+```{r}
+#| message: false
+library(ggExametrika)
+```
+
+```{r}
+plotIRP_gg(result.LDLRA)[[1]]
+```
+
+```{r}
+plotTRP_gg(result.LDLRA)
+```
+
+```{r}
+plotLRD_gg(result.LDLRA)
+```
+
+```{r}
+plotGraph_gg(result.LDLRA)
+```
+
+```{r}
+#| include: false
+unlink(edgeFile)
+```
+
+### 構造学習：LDLRA_PBIL
+
+DAGの構造が未知の場合は，`LDLRA_PBIL()`でPBILにより各ランクのDAGを自動学習できます。
+
+```{r}
+result.LDLRA.PBIL <- LDLRA_PBIL(J35S515,
+  seed = 123, ncls = 5, method = "R",
+  elitism = 1, successiveLimit = 15
+)
+result.LDLRA.PBIL
+```
+
+## 局所依存バイクラスタリング（LDB）
+
+LDBは，バイクラスタリングとBNMを組み合わせたモデルです。各ランク内における項目フィールド間の関係を分析します。ノードはフィールドであり，項目が自然なグループを形成し階層的な関係を持つ場合に最適です。
+
+### 設定
+
+`conf`で項目のフィールド割り当てを指定し，DAGファイルでフィールド間の依存関係をランクごとに指定します。
+
+```{r}
+conf <- c(
+  1, 6, 6, 8, 9, 9, 4, 7, 7, 7, 5, 8, 9, 10, 10,
+  9, 9, 10, 10, 10, 2, 2, 3, 3, 5, 5, 6, 9, 9, 10,
+  1, 1, 7, 9, 10
+)
+
+edges_data <- data.frame(
+  "From Field (Parent) >>>" = c(
+    6, 4, 5, 1, 1, 4,
+    3, 4, 6, 2, 4, 4,
+    3, 6, 4, 1,
+    7, 9, 6, 7
+  ),
+  ">>> To Field (Child)" = c(
+    8, 7, 8, 7, 2, 5,
+    5, 8, 8, 4, 6, 7,
+    5, 8, 5, 8,
+    10, 10, 8, 9
+  ),
+  "At Class/Rank (Locus)" = c(
+    2, 2, 2, 2, 2, 2,
+    3, 3, 3, 3, 3, 3,
+    4, 4, 4, 4,
+    5, 5, 5, 5
+  )
+)
+
+edgeFile <- tempfile(fileext = ".csv")
+write.csv(edges_data, file = edgeFile, row.names = FALSE)
+```
+
+### LDBの実行
+
+サンプルデータ`J35S515`を使用します。
+
+```{r}
+result.LDB <- LDB(U = J35S515, ncls = 5, conf = conf, adj_file = edgeFile)
+result.LDB
+```
+
+### 可視化（baseグラフィックス）
+
+```{r}
+plot(result.LDB, type = "Array")
+```
+
+```{r}
+plot(result.LDB, type = "TRP")
+```
+
+```{r}
+plot(result.LDB, type = "LRD")
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LDB, type = "RMP", students = 1:9, nc = 3, nr = 3)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LDB, type = "FRP", nc = 3, nr = 2)
+```
+
+FieldPIRPは，各ランクとフィールドにおける正答数を可視化します。
+
+```{r}
+plot(result.LDB, type = "FieldPIRP")
+```
+
+### 可視化（ggExametrika）
+
+```{r}
+plotArray_gg(result.LDB)
+```
+
+```{r}
+plotTRP_gg(result.LDB)
+```
+
+```{r}
+plotLRD_gg(result.LDB)
+```
+
+```{r}
+plotRMP_gg(result.LDB)[[1]]
+```
+
+```{r}
+plotFRP_gg(result.LDB, fields = 1)
+```
+
+```{r}
+plotFieldPIRP_gg(result.LDB)
+```
+
+```{r}
+#| include: false
+unlink(edgeFile)
+```
+
+## バイクラスターネットワークモデル（BINET）
+
+BINETは，バイクラスタリングとクラスレベルのネットワーク分析を組み合わせたモデルです。LDBではノードがフィールドでしたが，BINETではノードがクラスであり，各フィールド内でのクラス遷移を検討します。
+
+### 設定
+
+```{r}
+conf <- c(
+  1, 5, 5, 5, 9, 9, 6, 6, 6, 6, 2, 7, 7, 11, 11,
+  7, 7, 12, 12, 12, 2, 2, 3, 3, 4, 4, 4, 8, 8, 12,
+  1, 1, 6, 10, 10
+)
+
+edges_data <- data.frame(
+  "From Class (Parent) >>>" = c(
+    1, 2, 3, 4, 5, 7,
+    2, 4, 6, 8, 10,
+    6, 6, 11, 8, 9, 12
+  ),
+  ">>> To Class (Child)" = c(
+    2, 4, 5, 5, 6, 11,
+    3, 7, 9, 12, 12,
+    10, 8, 12, 12, 11, 13
+  ),
+  "At Field (Locus)" = c(
+    1, 2, 2, 3, 4, 4,
+    5, 5, 5, 5, 5,
+    7, 8, 8, 9, 9, 12
+  )
+)
+
+edgeFile <- tempfile(fileext = ".csv")
+write.csv(edges_data, file = edgeFile, row.names = FALSE)
+```
+
+### BINETの実行
+
+サンプルデータ`J35S515`を使用します。
+
+```{r}
+result.BINET <- BINET(
+  U = J35S515, ncls = 13, nfld = 12,
+  conf = conf, adj_file = edgeFile
+)
+result.BINET
+```
+
+### 可視化（baseグラフィックス）
+
+```{r}
+plot(result.BINET, type = "Array")
+```
+
+```{r}
+plot(result.BINET, type = "TRP")
+```
+
+```{r}
+plot(result.BINET, type = "LRD")
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.BINET, type = "RMP", students = 1:9, nc = 3, nr = 3)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.BINET, type = "FRP", nc = 3, nr = 2)
+```
+
+LDPSRは，局所依存クラスの通過受検者率を表示します。
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.BINET, type = "LDPSR", nc = 3, nr = 2)
+```
+
+### 可視化（ggExametrika）
+
+```{r}
+plotArray_gg(result.BINET)
+```
+
+```{r}
+plotTRP_gg(result.BINET)
+```
+
+```{r}
+plotLRD_gg(result.BINET)
+```
+
+```{r}
+plotRMP_gg(result.BINET)[[1]]
+```
+
+```{r}
+plotFRP_gg(result.BINET, fields = 1)
+```
+
+```{r}
+plotLDPSR_gg(result.BINET)[[1]]
+```
+
+```{r}
+#| include: false
+unlink(edgeFile)
+```
+
+## モデル選択ガイド
+
+| モデル | 主な焦点 | 適用場面 |
+|:-------|:---------|:---------|
+| **LDLRA** | 項目レベルの依存関係 | 項目間の関係が習熟度ランクによって変化する場合 |
+| **LDB** | フィールドレベルの構造 | 項目が自然なグループを形成し，依存関係を持つ場合 |
+| **BINET** | クラス進行 | フィールド内に複雑な学習パターンが存在する場合 |

@@ -1,0 +1,170 @@
+---
+title: "データ準備"
+---
+
+```{r}
+#| include: false
+library(exametrika)
+```
+
+## データ形式の概要
+
+`exametrika`は以下の4種類のデータ型に対応しています。
+
+| データ型 | `response.type` | 説明 | 例 |
+|:---------|:----------------|:-----|:---|
+| 二値 | `binary` | 正答(1)/誤答(0) | テストの採点結果 |
+| 名義 | `nominal` | 順序性のないカテゴリ | 複数選択肢（順序なし） |
+| 順序 | `ordinal` | 順序のあるカテゴリ | リッカート法（3件法, 5件法等） |
+| 多肢選択 | `rated` | 名義データ + 正答指定 | 多肢選択式テスト |
+
+## dataFormat関数
+
+`dataFormat`関数はデータを`exametrika`の内部形式に変換します。各分析関数の内部でも自動的に呼ばれますが，データの構造を確認するために明示的に実行することもできます。
+
+### 二値データの例
+
+```{r}
+dat <- dataFormat(J15S500)
+dat
+```
+
+変換されたオブジェクトには以下の情報が含まれます。
+
+- `$U`：データ行列（二値データの場合は正答/誤答）
+- `$Z`：欠測指示子行列（1 = 観測あり, 0 = 欠測）
+- `$ItemLabel`：項目ラベル
+- `$ID`：受検者ID
+- `$response.type`：データ型
+
+```{r}
+dat$U |> head()
+dat$Z |> head()
+dat$response.type
+```
+
+### 欠測値の指定
+
+欠測値がNA以外のコード（例: -99, 99）で表されている場合は，`na`引数で指定します。
+
+```{r}
+data_with_na <- data.frame(
+  item1 = c(0, 1, 1, 0, 1, 1, 1, 0, 0, 1),
+  item2 = c(1, 0, 1, 0, 99, 99, 1, 1, 99, 0),
+  id = paste0("student", 1:10)
+)
+result <- dataFormat(data_with_na, id = 3, na = 99)
+result
+```
+
+### ID列の指定
+
+ID列は基本的に第1列目が参照されますが，`id`引数で列番号を指定することもできます。
+
+```{r}
+result$ID
+result$U
+```
+
+### 順序データの例
+
+サンプルデータ`J15S3810`は4件法の順序データです。順序データの場合，データ行列は`$Q`に格納されます。
+
+```{r}
+dat_ord <- J15S3810
+dat_ord$response.type
+dat_ord$Q |> head()
+```
+
+### 多肢選択（rated）データの例
+
+サンプルデータ`J35S5000`は正答指定付きの多肢選択データです。`$CA`に正答反応が格納され，正誤判定された結果が`$U`に入ります。
+
+```{r}
+dat_rated <- J35S5000
+dat_rated$response.type
+dat_rated$Q |> head(3)
+dat_rated$CA
+dat_rated$U |> head(3)
+```
+
+### 自分のデータを変換する
+
+`response.type`引数でデータ型を明示的に指定できます。
+
+```{r}
+#| message: false
+# 順序データとして指定
+result_ord <- dataFormat(ltm::Science[1:20, ], response.type = "ordinal")
+result_ord
+result_ord$CategoryLabel[1]
+```
+
+正答がある場合は`CA`引数で指定します。
+
+```{r}
+data_ca <- data.frame(
+  id = 1:10,
+  item1 = c(1, NA, 2, 4, 1, 3, 5, 2, 2, 1),
+  item2 = c(1, 3, 2, 4, 5, 1, 1, 2, 3, 5)
+)
+result_ca <- dataFormat(data_ca, CA = c(4, 2))
+result_ca
+result_ca$U
+```
+
+## longdataFormat関数
+
+ロング形式（1行1反応）のデータを`exametrika`形式に変換する関数です。`Sid`（受検者ID列），`Qid`（項目ID列），`Resp`（反応列）を列番号または列名で指定します。
+
+```{r}
+# ロング形式のデータ例
+long_data <- data.frame(
+  ID = rep(paste0("S", 1:5), each = 3),
+  Item = rep(paste0("Item", 1:3), times = 5),
+  Response = c(1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0)
+)
+long_data
+```
+
+```{r}
+#| eval: false
+result_long <- longdataFormat(long_data, Sid = "ID", Qid = "Item", Resp = "Response")
+result_long
+```
+
+## CSVファイルからの読み込み
+
+CSVファイルからデータを読み込んで`dataFormat`で変換する例です。
+
+```{r}
+#| eval: false
+rawData <- read.csv("your_data.csv")
+dat <- dataFormat(rawData, na = -99)
+```
+
+## サンプルデータ一覧
+
+`exametrika`パッケージには以下のサンプルデータが含まれています。命名規則は`JxxSxxx`（J: 項目数, S: 受検者数）です。
+
+| データセット | 項目数 | 受検者数 | 種別 | 主な用途 |
+|:------------|-------:|---------:|:-----|:---------|
+| `J5S10` | 5 | 10 | 二値 | クイックテスト，BNM |
+| `J5S1000` | 5 | 1,000 | 順序 | GRM |
+| `J12S5000` | 12 | 5,000 | 二値 | LDLRA |
+| `J15S500` | 15 | 500 | 二値 | IRT, LCA, LRA |
+| `J15S3810` | 15 | 3,810 | 順序（4件法） | 順序LRA |
+| `J20S400` | 20 | 400 | 二値 | BNM |
+| `J20S600` | 20 | 600 | 名義（4カテゴリ） | 名義Biclustering |
+| `J35S500` | 35 | 500 | 順序（5件法） | 順序Biclustering |
+| `J35S515` | 35 | 515 | 二値 | Biclustering, Network |
+| `J35S5000` | 35 | 5,000 | 多肢選択 | 名義LRA |
+| `J50S100` | 50 | 100 | 二値（シミュレーション） | 大規模テスト |
+
+各データセットはパッケージを読み込むだけで利用可能です。
+
+```{r}
+# サンプルデータの利用例
+dat <- J15S500
+dat$U |> head()
+```

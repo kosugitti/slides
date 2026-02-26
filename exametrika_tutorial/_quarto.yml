@@ -1,0 +1,28 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "exametrikaパッケージ チュートリアル"
+  author:
+  - name: "Koji Kosugi"
+    orcid: 0000-0001-5816-0099
+    email: kosugitti@gmail.com
+  page-navigation: true
+  search: true
+  cover-image: exametrika.png
+  date: ""
+  chapters:
+    - index.qmd
+    - chap01_data.qmd
+    - chap02_descriptive.qmd
+    - chap03_IRT.qmd
+    - chap04_LCA_LRA.qmd
+    - chap05_Biclustering.qmd
+    - chap06_BNM.qmd
+    - chap07_LDLRA.qmd
+
+format:
+  html:
+    theme: cosmo
+    dev: ragg_png

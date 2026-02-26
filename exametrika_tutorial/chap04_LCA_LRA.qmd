@@ -1,0 +1,284 @@
+---
+title: "潜在クラス / ランク分析"
+---
+
+```{r}
+#| include: false
+library(exametrika)
+```
+
+この章では，潜在クラス分析（LCA）と潜在ランク分析（LRA）を紹介します。サンプルデータ`J15S500`（15項目・500人の二値データ）を使用します。
+
+```{r}
+dat <- J15S500
+TestStatistics(dat)
+```
+
+## 潜在クラス分析（LCA）
+
+潜在クラス分析は，受検者を潜在的なグループに分類するモデルです。`ncls`引数でクラス数を指定します。
+
+```{r}
+result.LCA <- LCA(dat, ncls = 6)
+result.LCA
+```
+
+### 受検者情報
+
+```{r}
+result.LCA$Students |> head()
+```
+
+### 項目参照プロファイル（IRP）
+
+項目ごと・クラスごとの正答率を示します。
+
+```{r}
+result.LCA$IRP
+```
+
+### 可視化（baseグラフィックス）
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LCA, type = "IRP", items = 1:4, nr = 2, nc = 2)
+```
+
+クラスメンバーシッププロファイル（CMP）は，受検者がどのクラスに所属しやすいかの確率を表します。
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LCA, type = "CMP", students = 1:6, nr = 2, nc = 3)
+```
+
+テスト参照プロファイル（TRP）は，テスト得点とクラスの分類を可視化します。
+
+```{r}
+plot(result.LCA, type = "TRP")
+```
+
+潜在クラス分布（LCD）は，クラスの分布を表示します。棒グラフがLatent Class Distribution，折れ線グラフがClass Membership Distributionです。
+
+```{r}
+plot(result.LCA, type = "LCD")
+```
+
+### 可視化（ggExametrika）
+
+```{r}
+#| message: false
+library(ggExametrika)
+```
+
+```{r}
+plotIRP_gg(result.LCA)[[1]]
+```
+
+```{r}
+plotCMP_gg(result.LCA)[[1]]
+```
+
+```{r}
+plotTRP_gg(result.LCA)
+```
+
+```{r}
+plotLCD_gg(result.LCA)
+```
+
+## 潜在ランク分析（LRA）
+
+LCAの潜在クラスに序列性を持たせたものが潜在ランク分析（LRA）です。`nrank`引数でランク数を指定し，`mic = TRUE`で単調増加制約を課します。
+
+```{r}
+result.LRA <- LRA(dat, nrank = 6, mic = TRUE)
+result.LRA
+```
+
+### 受検者情報
+
+Rank-Up OddsやRank-Down Oddsが表示され，上のランクへの上がりやすさ・下のランクへの落ちやすさを示します。
+
+```{r}
+result.LRA$Students |> head()
+```
+
+### 項目参照プロファイル（IRP）
+
+```{r}
+result.LRA$IRP
+```
+
+### IRPIndex
+
+IRPの要約指標として，以下の3つのインデックスが算出されます。
+
+- **A（Item Slope Index）**：識別力に相当する指標
+- **B（Item Location Index）**：困難度に相当する指標
+- **C（Item Monotonicity Index）**：単調増加性の指標
+
+```{r}
+result.LRA$IRPIndex
+```
+
+### 可視化（baseグラフィックス）
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LRA, type = "IRP", items = 1:4, nr = 2, nc = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LRA, type = "RMP", students = 1:6, nr = 2, nc = 3)
+```
+
+```{r}
+plot(result.LRA, type = "TRP")
+```
+
+```{r}
+plot(result.LRA, type = "LRD")
+```
+
+### 可視化（ggExametrika）
+
+```{r}
+plotIRP_gg(result.LRA)[[1]]
+```
+
+```{r}
+plotRMP_gg(result.LRA)[[1]]
+```
+
+```{r}
+plotTRP_gg(result.LRA)
+```
+
+```{r}
+plotLRD_gg(result.LRA)
+```
+
+## 推定法の選択：GTM vs SOM
+
+### GTM（Generative Topographic Mapping）
+
+デフォルトの推定法です。項目とランクとの関係を表す行列$\Pi_R$（サイズ $J \times R$）に，緩やかな順序制約をつけたフィルタ行列$S$（サイズ $R \times R$）を乗算しながらEMアルゴリズムで推定します。データサイズが大きくなっても安定的に推定が進みます。
+
+### SOM（Self-Organizing Map）
+
+自己組織化マップの方法も選択可能です。最初にランダムに生成した行列$\Pi_R$に対し，データ行列に近い勝者ベクトルが周囲の重みをアップデートしていきます。乱数による近似なので，再現性のためにはシード値の設定が必要です。
+
+```{r}
+result.SOM <- LRA(dat, nrank = 6, method = "SOM", seed = 12345)
+result.SOM
+```
+
+### 結果の比較
+
+```{r}
+result.LRA$TestFitIndices
+result.SOM$TestFitIndices
+```
+
+## 多値データへの展開
+
+### 多肢選択（rated）データ
+
+サンプルデータ`J35S5000`で多肢選択データの分析例を示します。
+
+```{r}
+result.LRArated <- LRA(J35S5000, nrank = 10, mic = TRUE)
+result.LRArated
+```
+
+#### 可視化（baseグラフィックス）
+
+```{r}
+plot(result.LRArated, type = "ScoreFreq")
+```
+
+```{r}
+plot(result.LRArated, type = "ScoreRank")
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LRArated, type = "ICRP", items = 1:6, nc = 3, nr = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LRArated, type = "RMP", students = 1:6, nc = 3, nr = 2)
+```
+
+#### 可視化（ggExametrika）
+
+```{r}
+plotScoreFreq_gg(result.LRArated)
+```
+
+```{r}
+plotScoreRank_gg(result.LRArated)
+```
+
+```{r}
+plotICRP_gg(result.LRArated, items = 1)
+```
+
+### 順序データ
+
+サンプルデータ`J15S3810`（4件法）で順序データの分析例を示します。
+
+```{r}
+result.LRAord <- LRA(J15S3810, nrank = 3, mic = TRUE)
+result.LRAord
+```
+
+#### 可視化（baseグラフィックス）
+
+```{r}
+plot(result.LRAord, type = "ScoreFreq")
+```
+
+```{r}
+plot(result.LRAord, type = "ScoreRank")
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LRAord, type = "ICBR", items = 1:6, nc = 3, nr = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LRAord, type = "ICRP", items = 1:6, nc = 3, nr = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.LRAord, type = "RMP", students = 1:6, nc = 3, nr = 2)
+```
+
+#### 可視化（ggExametrika）
+
+```{r}
+plotICBR_gg(result.LRAord, items = 1)
+```
+
+```{r}
+plotICRP_gg(result.LRAord, items = 1)
+```
+
+```{r}
+plotRMP_gg(result.LRAord)[[1]]
+```

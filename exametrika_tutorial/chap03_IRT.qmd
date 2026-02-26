@@ -1,0 +1,263 @@
+---
+title: "項目反応理論"
+---
+
+```{r}
+#| include: false
+library(exametrika)
+```
+
+この章では，項目反応理論（IRT）の各モデルとその可視化について紹介します。
+
+## IRTの実行
+
+サンプルデータ`J15S500`（15項目・500人の二値データ）を使用します。
+
+```{r}
+dat <- J15S500
+```
+
+### IRT関数
+
+`IRT()`関数は，`model`引数で2PLM（デフォルト），3PLM，4PLMを指定できます。
+
+```{r}
+result <- IRT(dat)
+result
+```
+
+### モデルの指定
+
+`model`引数で推定するパラメータ数を指定します。ショートカット関数`RaschModel()`, `TwoPLM()`, `ThreePLM()`も利用可能です。
+
+```{r}
+# 2パラメータ・ロジスティックモデル（デフォルト）
+result.2PL <- IRT(dat, model = 2)
+
+# 3パラメータ・ロジスティックモデル
+result.3PL <- IRT(dat, model = 3)
+```
+
+## モデル適合度
+
+`exametrika`はモデル適合度として，飽和モデルとヌルモデルを基準にした各種指標を算出します。
+
+- **飽和モデル（Saturated Model）**：データに完璧に当てはまるモデル
+- **ヌルモデル（Null Model）**：データ構造を全く仮定しないモデル
+- 推定したモデルは，この両モデルの間のどこかに位置します
+
+![飽和モデルとヌルモデル（Test Data Engineering, P.139）](modelFItinSEM.png)
+
+カイ二乗（$\chi^2$）値は，対数尤度に変換した後のモデル間の距離として解釈できます。
+
+![カイ二乗変換（Test Data Engineering, P.144）](ChisqTransFormation.png)
+
+SEMで用いられる標準化指標は，カイ二乗値を変換・標準化して表現したものです。
+
+![適合度指標（Test Data Engineering, P.148）](otherIndices.png)
+
+情報量基準も同様に，カイ二乗値に基づいて考えることができます。
+
+![情報量基準（Test Data Engineering, P.150）](InformationCriteria.png)
+
+### 適合度指標の確認
+
+テスト全体の適合度指標にアクセスします。
+
+```{r}
+result$TestFitIndices
+```
+
+項目ごとの適合度指標にアクセスします。
+
+```{r}
+result$ItemFitIndices
+```
+
+## 可視化（baseグラフィックス）
+
+`plot()`関数の`type`引数で表示する図の種類を選択します。
+
+### 項目反応関数（IRF / ICC）
+
+```{r}
+plot(result, items = 1, type = "IRF")
+```
+
+`overlay = TRUE`で複数項目を重ね描きできます。
+
+```{r}
+plot(result, items = 1:6, type = "IRF", overlay = TRUE)
+```
+
+`nr`（行数）と`nc`（列数）でレイアウトを指定できます。
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result, items = 1:6, type = "IRF", nr = 3, nc = 2)
+```
+
+### テスト反応関数（TRF）
+
+```{r}
+plot(result, type = "TRF")
+```
+
+### 項目情報関数（IIF / IIC）
+
+```{r}
+plot(result, items = 1:15, type = "IIC", overlay = TRUE)
+```
+
+### テスト情報関数（TIF / TIC）
+
+```{r}
+plot(result, type = "TIC")
+```
+
+## 可視化（ggExametrika）
+
+`ggExametrika`パッケージを使うと，`ggplot2`ベースの図が得られます。
+
+```{r}
+#| message: false
+library(ggExametrika)
+```
+
+### plotICC_gg / plotICC_overlay_gg
+
+```{r}
+plotICC_gg(result, items = 1)
+```
+
+```{r}
+plotICC_overlay_gg(result, items = 1:6)
+```
+
+### plotTRF_gg
+
+```{r}
+plotTRF_gg(result)
+```
+
+### plotIIC_gg / plotIIC_overlay_gg
+
+```{r}
+plotIIC_gg(result, items = 1)
+```
+
+```{r}
+plotIIC_overlay_gg(result, items = 1:6)
+```
+
+### plotTIC_gg
+
+```{r}
+plotTIC_gg(result)
+```
+
+## 受検者能力推定
+
+EAP（期待事後）推定値とPSD（事後標準偏差）が出力されます。
+
+```{r}
+result$ability |> head(20)
+```
+
+## Q3行列
+
+局所独立の仮定が満たされているかどうかを判断する指標です。項目残差間の相関行列であり，値が高すぎると局所独立の仮定に問題がある可能性があります。
+
+```{r}
+result$Q3mat
+```
+
+## 段階反応モデル（GRM）
+
+Graded Response Model（Samejima, 1969）は，順序カテゴリの反応データに対するIRTモデルです。K段階のカテゴリデータに対して，k以上のカテゴリに反応する確率を2PLモデルのように推定します。
+
+サンプルデータ`J5S1000`（5項目・1000人の順序データ）を使用します。
+
+```{r}
+dat_grm <- J5S1000
+TestStatistics(dat_grm)
+```
+
+```{r}
+result.GRM <- GRM(dat_grm)
+result.GRM
+```
+
+### GRMの可視化（baseグラフィックス）
+
+```{r}
+plot(result.GRM, type = "IRF", items = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.GRM, type = "IRF", items = c(1, 3, 4, 5), nc = 2, nr = 2)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+plot(result.GRM, type = "IIF", nr = 2, nc = 2)
+```
+
+```{r}
+plot(result.GRM, type = "TIF")
+```
+
+### GRMの可視化（ggExametrika）
+
+```{r}
+plotICRF_gg(result.GRM, items = 1)
+```
+
+```{r}
+plotTIC_gg(result.GRM)
+```
+
+## 補助関数
+
+`exametrika`には，IRTモデルの計算に用いる補助関数も公開されています。
+
+```{r}
+# ロジスティックモデルの確率
+# ggExametrikaがマスクするため exametrika:: で呼び出す
+exametrika::LogisticModel(a = 1, b = 0, c = 0, d = 1, theta = 0)
+```
+
+```{r}
+# 2PLMの項目情報関数
+exametrika::IIF2PLM(a = 1.5, b = 0.5, theta = 0)
+```
+
+```{r}
+# 3PLMの項目情報関数
+exametrika::IIF3PLM(a = 1.5, b = 0.5, c = 0.2, theta = 0)
+```
+
+```{r}
+# GRMの反応確率
+exametrika::grm_prob(theta = 0, a = 1.5, b = c(-1, 0, 1))
+```
+
+```{r}
+# GRMの項目情報関数
+exametrika::grm_iif(theta = 0, a = 1.5, b = c(-1, 0, 1))
+```
+
+## コラム：態度測定論
+
+- **社会的態度**は社会心理学の分野で考えられてきた連続的潜在変数です
+    - サーストンの考えた測定方法（等現間隔法）を使って測定する一次元モデルです
+    - リッカートの方法はサーストン法の簡易版として出てきた態度モデルです
+- 昨今は「心の測定」「心理学的連続体」「心理尺度の妥当性」が問題になっています
+- 心理尺度（リッカート法）は一朝一夕に作れるものではありません
+- 心理尺度は領域・方法・標準化など，使用法によく注意して利用しましょう
+
+GRMは正規分布する連続的潜在変数$\theta$を仮定し，数値が高くなるとより上位のカテゴリに反応しやすくなるモデルです。リッカート法のIRT版とも言え，反応カテゴリに順序性を仮定した因子分析と数学的に等価です。カテゴリ反応で多因子モデルの場合は，`mirt`パッケージ（Multidimensional IRT）や`lavaan`パッケージ（Latent Variable Analysis）で推定しましょう。

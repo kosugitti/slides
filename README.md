@@ -17,3 +17,5 @@
 ## 2025年度
 
 + [Tokyo.R117回初心者セッション・はじめようR](TokyoR117/RforBeginner.html)
+
++ [exametrikaパッケージ チュートリアル](exametrika_tutorial/docs/)
