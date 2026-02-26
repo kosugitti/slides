@@ -286,11 +286,11 @@ print(m1)
 
 ```{r matrix2}
 m2 <- matrix(1:9,
-    nrow = 3, ncol = 3,
-    dimnames = list(
-        c("A", "B", "C"),
-        c("X", "Y", "Z")
-    )
+  nrow = 3, ncol = 3,
+  dimnames = list(
+    c("A", "B", "C"),
+    c("X", "Y", "Z")
+  )
 )
 print(m2)
 ```
@@ -312,10 +312,10 @@ print(arr)
 
 ```{r lists}
 my_list <- list(
-    numbers = c(1, 2, 3),
-    text = "Hello",
-    logical = TRUE,
-    matrix = matrix(1:4, 2, 2)
+  numbers = c(1, 2, 3),
+  text = "Hello",
+  logical = TRUE,
+  matrix = matrix(1:4, 2, 2)
 )
 print(my_list)
 ```
@@ -340,10 +340,10 @@ my_list$matrix
 
 ```{r dataframe}
 df <- data.frame(
-    name = c("田中", "鈴木", "佐藤"),
-    age = c(25, 30, 28),
-    gender = c("M", "F", "M"),
-    height = c(170, 160, 175)
+  name = c("田中", "鈴木", "佐藤"),
+  age = c(25, 30, 28),
+  gender = c("M", "F", "M"),
+  height = c(170, 160, 175)
 )
 
 print(df)
@@ -389,10 +389,10 @@ result <- sum(sqrt(abs(log(c(1:10)))))
 
 ```{r pipe}
 result <- c(1:10) |>
-    log() |>
-    abs() |>
-    sqrt() |>
-    sum()
+  log() |>
+  abs() |>
+  sqrt() |>
+  sum()
 ```
 
 + パイプ演算子はショートカット`Ctrl/Cmd + Shift + M`で入力できます
@@ -568,10 +568,10 @@ plot(baseball$height, baseball$weight)
 ```{r ggplot1}
 library(ggplot2)
 baseball |>
-    ggplot(aes(x = weight, y = height, color = team)) +
-    geom_point() +
-    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE) +
-    facet_wrap(~team)
+  ggplot(aes(x = weight, y = height, color = team)) +
+  geom_point() +
+  geom_smooth(formula = "y ~ x", method = "lm", se = FALSE) +
+  facet_wrap(~team)
 ```
 
 

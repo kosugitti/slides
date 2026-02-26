@@ -175,7 +175,7 @@ result.LRA$IRPIndex
 
 ```{r}
 result.SOM <- LRA(dat,
-    nrank = 6, method = "SOM", seed = 12345
+  nrank = 6, method = "SOM", seed = 12345
 )
 result.SOM
 ```
@@ -211,8 +211,8 @@ plot(result.LRArated, type = "ScoreRank")
 plot(result.LRArated, type = "ICRP", items = 1:6, nc = 3, nr = 2)
 # plot Rank membership profile
 plot(result.LRArated,
-    type = "RMP", students = 1:6,
-    nc = 3, nr = 2
+  type = "RMP", students = 1:6,
+  nc = 3, nr = 2
 )
 ```
 
@@ -238,7 +238,7 @@ plot(result.LRAord, type = "ICBR", items = 1:6, nc = 3, nr = 2)
 plot(result.LRAord, type = "ICRP", items = 1:6, nc = 3, nr = 2)
 # plot Rank membership profile
 plot(result.LRAord,
-    type = "RMP", students = 1:6,
-    nc = 3, nr = 2
+  type = "RMP", students = 1:6,
+  nc = 3, nr = 2
 )
 ```

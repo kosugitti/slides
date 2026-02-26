@@ -3,32 +3,32 @@ library(quarto)
 # スクリプトのディレクトリを取得して、そこに移動
 # インタラクティブに実行されているかをチェック
 if (interactive()) {
-    # インタラクティブな場合には、現在のスクリプトのパスを取得（rstudioapiが利用可能な場合）
-    if (requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable()) {
-        script_path <- rstudioapi::getSourceEditorContext()$path
-        if (!is.null(script_path) && script_path != "") {
-            script_dir <- dirname(normalizePath(script_path))
-            cat("スクリプトディレクトリ (RStudio):", script_dir, "\n")
-            setwd(script_dir)
-        } else {
-            cat("RStudioエディタでスクリプトを実行してください、またはソースファイルを保存してください。\n")
-        }
+  # インタラクティブな場合には、現在のスクリプトのパスを取得（rstudioapiが利用可能な場合）
+  if (requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable()) {
+    script_path <- rstudioapi::getSourceEditorContext()$path
+    if (!is.null(script_path) && script_path != "") {
+      script_dir <- dirname(normalizePath(script_path))
+      cat("スクリプトディレクトリ (RStudio):", script_dir, "\n")
+      setwd(script_dir)
     } else {
-        cat("インタラクティブセッションで実行中です。現在のディレクトリを使用します。\n")
+      cat("RStudioエディタでスクリプトを実行してください、またはソースファイルを保存してください。\n")
     }
+  } else {
+    cat("インタラクティブセッションで実行中です。現在のディレクトリを使用します。\n")
+  }
 } else {
-    # Rscriptから実行された場合
-    args <- commandArgs(trailingOnly = FALSE)
-    file_arg <- args[grep("--file=", args)]
+  # Rscriptから実行された場合
+  args <- commandArgs(trailingOnly = FALSE)
+  file_arg <- args[grep("--file=", args)]
 
-    if (length(file_arg) > 0) {
-        script_path <- gsub("--file=", "", file_arg[1])
-        script_dir <- dirname(normalizePath(script_path))
-        cat("スクリプトディレクトリ (Rscript):", script_dir, "\n")
-        setwd(script_dir)
-    } else {
-        cat("スクリプトパスを特定できません。現在のディレクトリを使用します。\n")
-    }
+  if (length(file_arg) > 0) {
+    script_path <- gsub("--file=", "", file_arg[1])
+    script_dir <- dirname(normalizePath(script_path))
+    cat("スクリプトディレクトリ (Rscript):", script_dir, "\n")
+    setwd(script_dir)
+  } else {
+    cat("スクリプトパスを特定できません。現在のディレクトリを使用します。\n")
+  }
 }
 
 # 現在の作業ディレクトリを表示（確認用）

@@ -164,7 +164,7 @@ result.GRM
 
 ```{r}
 plot(result.GRM, type = "IRF", items = 2)
-plot(result.GRM, type = "IRF", items = c(1, 3, 4, 5))
+plot(result.GRM, type = "IRF", items = c(1, 3, 4, 5), nc = 2, nr = 2)
 ```
 
 + IRTモデルと同じように，IIFを出力することができます。

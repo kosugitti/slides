@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -66,15 +67,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <link href="./chap8_Biclustering.html" rel="next">
 <link href="./chap4_IRT.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -117,7 +120,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -135,7 +138,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -300,29 +303,9 @@ window.Quarto = {
 <li><code>exametrika</code>が持っている<code>J15S500</code>を例にします</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(exametrika)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: mvtnorm</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: igraph</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'igraph'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    decompose, spectrum</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:base':
-
-    union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> J15S500</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TestStatistics</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(exametrika)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> J15S500</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">TestStatistics</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test Statistics
                   value
@@ -359,8 +342,110 @@ Stanine.96%  14.0000000</code></pre>
 <li><code>LCA</code>関数で実行できます</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>result.LCA <span class="ot">&lt;-</span> <span class="fu">LCA</span>(dat, <span class="at">ncls =</span> <span class="dv">6</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>result.LCA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>result.LCA <span class="ot">&lt;-</span> <span class="fu">LCA</span>(dat, <span class="at">ncls =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+iter 1 log_lik -3913.28 
+iter 2 log_lik -3858.5 
+iter 3 log_lik -3845.86 
+iter 4
+log_lik -3835.63 
+iter 5 log_lik -3824.35 
+iter 6 log_lik -3812.01 
+iter 7 log_lik
+-3798.71 
+iter 8 log_lik -3784.46 
+iter 9 log_lik -3769.5 
+iter 10 log_lik
+-3754.47 
+iter 11 log_lik -3740.19 
+iter 12 log_lik -3727.32 
+iter 13 log_lik
+-3716.2 
+iter 14 log_lik -3706.78 
+iter 15 log_lik -3698.75 
+iter 16 log_lik
+-3691.64 
+iter 17 log_lik -3684.99 
+iter 18 log_lik -3678.42 
+iter 19 log_lik
+-3671.75 
+iter 20 log_lik -3664.97 
+iter 21 log_lik -3658.2 
+iter 22 log_lik
+-3651.66 
+iter 23 log_lik -3645.58 
+iter 24 log_lik -3640.08 
+iter 25 log_lik
+-3635.22 
+iter 26 log_lik -3630.97 
+iter 27 log_lik -3627.26 
+iter 28 log_lik
+-3624 
+iter 29 log_lik -3621.09 
+iter 30 log_lik -3618.46 
+iter 31 log_lik
+-3616.05 
+iter 32 log_lik -3613.8 
+iter 33 log_lik -3611.69 
+iter 34 log_lik
+-3609.7 
+iter 35 log_lik -3607.81 
+iter 36 log_lik -3606.02 
+iter 37 log_lik
+-3604.32 
+iter 38 log_lik -3602.72 
+iter 39 log_lik -3601.21 
+iter 40 log_lik
+-3599.79 
+iter 41 log_lik -3598.46 
+iter 42 log_lik -3597.22 
+iter 43 log_lik
+-3596.06 
+iter 44 log_lik -3594.98 
+iter 45 log_lik -3593.97 
+iter 46 log_lik
+-3593.03 
+iter 47 log_lik -3592.14 
+iter 48 log_lik -3591.32 
+iter 49 log_lik
+-3590.54 
+iter 50 log_lik -3589.8 
+iter 51 log_lik -3589.11 
+iter 52 log_lik
+-3588.44 
+iter 53 log_lik -3587.81 
+iter 54 log_lik -3587.2 
+iter 55 log_lik
+-3586.62 
+iter 56 log_lik -3586.06 
+iter 57 log_lik -3585.52 
+iter 58 log_lik
+-3584.99 
+iter 59 log_lik -3584.48 
+iter 60 log_lik -3583.98 
+iter 61 log_lik
+-3583.5 
+iter 62 log_lik -3583.03 
+iter 63 log_lik -3582.56 
+iter 64 log_lik
+-3582.11 
+iter 65 log_lik -3581.67 
+iter 66 log_lik -3581.24 
+iter 67 log_lik
+-3580.82 
+iter 68 log_lik -3580.41 
+iter 69 log_lik -3580 
+iter 70 log_lik
+-3579.61 
+iter 71 log_lik -3579.22 
+iter 72 log_lik -3578.84 
+iter 73 log_lik
+-3578.47 
+iter 74 log_lik -3578.11 
+iter 75 log_lik -3577.75</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>result.LCA</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Item Reference Profile
@@ -405,21 +490,21 @@ Item13       -257.389       -262.031      -328.396       -9.282     132.730
 Item14       -193.802       -204.953      -273.212      -22.302     136.519
 Item15       -267.063       -254.764      -302.847       24.598      96.166
        model_df null_df   NFI   RFI   IFI   TLI   CFI RMSEA      AIC     CAIC
-Item01        8      13 0.567 0.296 0.624 0.348 0.599 0.086   21.414  -12.319
-Item02        8      13 1.000 1.000 1.000 1.000 1.000 0.000  -16.032  -49.765
-Item03        8      13 0.955 0.927 1.000 1.000 1.000 0.000  -13.066  -46.799
-Item04        8      13 0.876 0.798 0.926 0.875 0.923 0.051    2.369  -31.364
-Item05        8      13 0.426 0.067 0.472 0.079 0.434 0.099   30.935   -2.798
-Item06        8      13 0.920 0.869 1.000 1.000 1.000 0.000   -8.777  -42.510
-Item07        8      13 0.812 0.694 0.861 0.765 0.856 0.068   10.338  -23.395
-Item08        8      13 0.828 0.721 0.908 0.841 0.902 0.044   -0.366  -34.099
-Item09        8      13 1.000 1.000 1.000 1.000 1.000 0.000 -123.100 -156.833
-Item10        8      13 0.532 0.239 0.609 0.301 0.570 0.074   13.641  -20.092
-Item11        8      13 1.000 1.000 1.000 1.000 1.000 0.000  -75.931 -109.664
-Item12        8      13 0.841 0.742 0.886 0.808 0.882 0.065    9.054  -24.679
-Item13        8      13 1.000 1.000 1.000 1.000 1.000 0.000  -25.282  -59.015
-Item14        8      13 1.000 1.000 1.000 1.000 1.000 0.000  -38.302  -72.035
-Item15        8      13 0.744 0.584 0.812 0.676 0.800 0.064    8.598  -25.135
+Item01        8      13 0.567 0.296 0.624 0.348 0.599 0.086   21.414  -20.303
+Item02        8      13 1.000 1.000 1.000 1.000 1.000 0.000  -16.032  -57.749
+Item03        8      13 0.955 0.927 1.000 1.000 1.000 0.000  -13.066  -54.783
+Item04        8      13 0.876 0.798 0.926 0.875 0.923 0.051    2.369  -39.348
+Item05        8      13 0.426 0.067 0.472 0.079 0.434 0.099   30.935  -10.782
+Item06        8      13 0.920 0.869 1.000 1.000 1.000 0.000   -8.777  -50.494
+Item07        8      13 0.812 0.694 0.861 0.765 0.856 0.068   10.338  -31.379
+Item08        8      13 0.828 0.721 0.908 0.841 0.902 0.044   -0.366  -42.083
+Item09        8      13 1.000 1.000 1.000 1.000 1.000 0.000 -123.100 -164.817
+Item10        8      13 0.532 0.239 0.609 0.301 0.570 0.074   13.641  -28.076
+Item11        8      13 1.000 1.000 1.000 1.000 1.000 0.000  -75.931 -117.648
+Item12        8      13 0.841 0.742 0.886 0.808 0.882 0.065    9.054  -32.663
+Item13        8      13 1.000 1.000 1.000 1.000 1.000 0.000  -25.282  -66.999
+Item14        8      13 1.000 1.000 1.000 1.000 1.000 0.000  -38.302  -80.019
+Item15        8      13 0.744 0.584 0.812 0.676 0.800 0.064    8.598  -33.119
             BIC
 Item01  -12.303
 Item02  -49.749
@@ -455,7 +540,7 @@ TLI                1.000
 CFI                1.000
 RMSEA              0.000
 AIC             -204.506
-CAIC            -710.499
+CAIC            -830.259
 BIC             -710.259</code></pre>
 </div>
 </div>
@@ -469,7 +554,7 @@ BIC             -710.259</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>result.LCA<span class="sc">$</span>IRP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>result.LCA<span class="sc">$</span>IRP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             IRP1       IRP2        IRP3      IRP4       IRP5      IRP6
 Item01 0.43697714 0.76082606 0.736182286 0.7888704 0.84587512 0.8833284
@@ -490,7 +575,7 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"IRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"IRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -506,7 +591,7 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 <li>受検者がどのクラスに所属しやすいかの確率を表します</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>result.LCA<span class="sc">$</span>Students <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>result.LCA<span class="sc">$</span>Students <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Membership 1 Membership 2 Membership 3 Membership 4 Membership 5
 Student001 0.7260153212 0.1695828123 0.0191959227  0.048856576 3.634937e-02
@@ -528,7 +613,7 @@ Student006 6.013617e-02        5</code></pre>
 <li><code>CMP</code>もプロットできます(しましょう)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"CMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"CMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -545,7 +630,7 @@ Student006 6.013617e-02        5</code></pre>
 <li>テストの得点とクラスの分類を可視化します</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"TRP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"TRP"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -565,7 +650,7 @@ Student006 6.013617e-02        5</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"LCD"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"LCD"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -587,11 +672,8 @@ Student006 6.013617e-02        5</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>result.LRA <span class="ot">&lt;-</span> <span class="fu">LRA</span>(dat, <span class="at">nrank =</span> <span class="dv">6</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Strongly ordinal alignment condition was satisfied.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>result.LRA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>result.LRA <span class="ot">&lt;-</span> <span class="fu">LRA</span>(dat, <span class="at">nrank =</span> <span class="dv">6</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>result.LRA</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>estimating method is  GTM 
 
@@ -656,21 +738,21 @@ Item13       -287.805       -262.031      -328.396       51.549     132.730
 Item14       -222.496       -204.953      -273.212       35.086     136.519
 Item15       -268.522       -254.764      -302.847       27.518      96.166
        model_df null_df   NFI   RFI   IFI   TLI   CFI RMSEA    AIC    CAIC
-Item01    9.233      13 0.436 0.206 0.488 0.243 0.462 0.093 30.197  -8.734
-Item02    9.233      13 0.587 0.419 0.657 0.493 0.640 0.076 17.443 -21.487
-Item03    9.233      13 0.333 0.062 0.388 0.077 0.344 0.086 25.114 -13.817
-Item04    9.233      13 0.803 0.722 0.856 0.792 0.852 0.066 10.704 -28.227
-Item05    9.233      13 0.312 0.031 0.352 0.037 0.316 0.101 37.758  -1.173
-Item06    9.233      13 0.597 0.433 0.666 0.506 0.649 0.076 17.676 -21.255
-Item07    9.233      13 0.693 0.568 0.742 0.626 0.734 0.086 24.489 -14.442
-Item08    9.233      13 0.566 0.390 0.630 0.454 0.612 0.081 21.044 -17.886
-Item09    9.233      13 0.211 0.000 0.254 0.000 0.186 0.086 24.694 -14.237
-Item10    9.233      13 0.301 0.016 0.353 0.020 0.304 0.087 25.775 -13.156
-Item11    9.233      13 0.740 0.634 0.789 0.694 0.783 0.080 20.606 -18.325
-Item12    9.233      13 0.690 0.564 0.733 0.614 0.726 0.093 30.382  -8.549
-Item13    9.233      13 0.612 0.453 0.657 0.502 0.647 0.096 33.084  -5.847
-Item14    9.233      13 0.743 0.638 0.797 0.705 0.791 0.075 16.621 -22.310
-Item15    9.233      13 0.714 0.597 0.790 0.690 0.780 0.063  9.052 -29.879
+Item01    9.233      13 0.436 0.206 0.488 0.243 0.462 0.093 30.197 -17.948
+Item02    9.233      13 0.587 0.419 0.657 0.493 0.640 0.076 17.443 -30.702
+Item03    9.233      13 0.333 0.062 0.388 0.077 0.344 0.086 25.114 -23.031
+Item04    9.233      13 0.803 0.722 0.856 0.792 0.852 0.066 10.704 -37.441
+Item05    9.233      13 0.312 0.031 0.352 0.037 0.316 0.101 37.758 -10.387
+Item06    9.233      13 0.597 0.433 0.666 0.506 0.649 0.076 17.676 -30.469
+Item07    9.233      13 0.693 0.568 0.742 0.626 0.734 0.086 24.489 -23.656
+Item08    9.233      13 0.566 0.390 0.630 0.454 0.612 0.081 21.044 -27.101
+Item09    9.233      13 0.211 0.000 0.254 0.000 0.186 0.086 24.694 -23.451
+Item10    9.233      13 0.301 0.016 0.353 0.020 0.304 0.087 25.775 -22.370
+Item11    9.233      13 0.740 0.634 0.789 0.694 0.783 0.080 20.606 -27.539
+Item12    9.233      13 0.690 0.564 0.733 0.614 0.726 0.093 30.382 -17.763
+Item13    9.233      13 0.612 0.453 0.657 0.502 0.647 0.096 33.084 -15.062
+Item14    9.233      13 0.743 0.638 0.797 0.705 0.791 0.075 16.621 -31.524
+Item15    9.233      13 0.714 0.597 0.790 0.690 0.780 0.063  9.052 -39.093
            BIC
 Item01  -8.716
 Item02 -21.469
@@ -706,7 +788,7 @@ TLI                0.509
 CFI                0.651
 RMSEA              0.084
 AIC              344.638
-CAIC            -239.324
+CAIC            -377.538
 BIC             -239.047</code></pre>
 </div>
 </div>
@@ -714,13 +796,13 @@ BIC             -239.047</code></pre>
 <section id="項目参照プロファイル-1" class="level3" data-number="5.4.2">
 <h3 data-number="5.4.2" class="anchored" data-anchor-id="項目参照プロファイル-1"><span class="header-section-number">5.4.2</span> 項目参照プロファイル</h3>
 <ul>
-<li>項目参照プロファイル(Item Reference Profile)は，項目と潜在クラスの関係を表しています
+<li>項目参照プロファイル(Item Reference Profile)は，項目と潜在ランクの関係を表しています
 <ul>
-<li>項目ごと・クラスごとの正答率を返します</li>
+<li>項目ごと・ランクごとの正答率を返します</li>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>IRP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>IRP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             IRP1       IRP2      IRP3      IRP4      IRP5      IRP6
 Item01 0.58134579 0.63703070 0.7105624 0.7799727 0.8488455 0.9005402
@@ -741,7 +823,7 @@ Item15 0.40437730 0.56707341 0.7507473 0.8243016 0.8346267 0.8378010</code></pre
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"IRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"IRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -754,14 +836,14 @@ Item15 0.40437730 0.56707341 0.7507473 0.8243016 0.8346267 0.8378010</code></pre
 <section id="ランクメンバーシッププロファイル" class="level3" data-number="5.4.3">
 <h3 data-number="5.4.3" class="anchored" data-anchor-id="ランクメンバーシッププロファイル"><span class="header-section-number">5.4.3</span> ランクメンバーシッププロファイル</h3>
 <ul>
-<li>受検者がどのクラスに所属しやすいかの確率を表します
+<li>受検者がどのランクに所属しやすいかの確率を表します
 <ul>
 <li><code>Rank-Up Odds</code>や<code>Rank-Down Odds</code>が表示されています</li>
 <li>上のランクへの上がりやすさ，下のランクへの落ちやすさの指標です</li>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>Students <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>Students <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Membership 1 Membership 2 Membership 3 Membership 4 Membership 5
 Student001 0.2649442154  0.401777727   0.25199194  0.069833913  0.010587063
@@ -786,7 +868,7 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 <li><code>CMP</code>のランク版，<code>RMP</code>もプロットできます(しましょう)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -802,7 +884,7 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 <li>テストの得点とランクの分類を可視化します</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"TRP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"TRP"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -822,7 +904,7 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"LRD"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"LRD"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -835,7 +917,7 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 <li>ランクの分布をプロットします</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"LRD"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"LRD"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -855,8 +937,8 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 <li><span class="math inline">\(\alpha\)</span>；Aの最大値が出たランク</li>
 <li><div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="ItemLocationIndex.png" class="img-fluid figure-img"></p>
-<figcaption>Test Data Enginieering,P.224</figcaption>
+<p><img src="ItemSlopeIndex.png" class="img-fluid figure-img"></p>
+<figcaption>Test Data Engineering,P.224</figcaption>
 </figure>
 </div></li>
 </ul></li>
@@ -865,8 +947,8 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 <li><span class="math inline">\(\beta\)</span>；0.5に最も近い値が出たランク</li>
 <li><div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="ItemSlopeIndex.png" class="img-fluid figure-img"></p>
-<figcaption>Test Data Enginieering,P.226</figcaption>
+<p><img src="ItemLocationIndex.png" class="img-fluid figure-img"></p>
+<figcaption>Test Data Engineering,P.226</figcaption>
 </figure>
 </div></li>
 </ul></li>
@@ -876,14 +958,14 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 <li><div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="MonotonicityIndex.png" class="img-fluid figure-img"></p>
-<figcaption>Test Data Enginieering,P.227</figcaption>
+<figcaption>Test Data Engineering,P.227</figcaption>
 </figure>
 </div></li>
 </ul></li>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>IRPIndex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>IRPIndex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Alpha          A Beta         B Gamma C
 Item01     2 0.07353170    1 0.5813458     0 0
@@ -919,7 +1001,7 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 <li><div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="LRA_SOM.png" class="img-fluid figure-img"></p>
-<figcaption>Test Data Enginieering,P.202</figcaption>
+<figcaption>Test Data Engineering,P.202</figcaption>
 </figure>
 </div></li>
 <li>乱数による近似なので，再現性のためにはシード値などを設定する必要があります。</li>
@@ -928,10 +1010,17 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 <section id="somによる推定の例" class="level3" data-number="5.5.1">
 <h3 data-number="5.5.1" class="anchored" data-anchor-id="somによる推定の例"><span class="header-section-number">5.5.1</span> SOMによる推定の例</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>result.SOM <span class="ot">&lt;-</span> <span class="fu">LRA</span>(dat,</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrank =</span> <span class="dv">6</span>, <span class="at">method =</span> <span class="st">"SOM"</span>, <span class="at">seed =</span> <span class="dv">12345</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>result.SOM</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>result.SOM <span class="ot">&lt;-</span> <span class="fu">LRA</span>(dat,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrank =</span> <span class="dv">6</span>, <span class="at">method =</span> <span class="st">"SOM"</span>, <span class="at">seed =</span> <span class="dv">12345</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Reached the maximum number of iterations.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Algorithm may not have converged. Interpret results with caution.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>result.SOM</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>estimating method is  SOM 
 Item Reference Profile
@@ -994,21 +1083,21 @@ Item13       -295.624       -262.031      -328.396       67.186     132.730
 Item14       -223.067       -204.953      -273.212       36.228     136.519
 Item15       -273.041       -254.764      -302.847       36.555      96.166
        model_df null_df   NFI   RFI   IFI   TLI   CFI RMSEA    AIC    CAIC
-Item01        8      13 0.424 0.064 0.467 0.075 0.431 0.102 33.729  -0.004
-Item02        8      13 0.607 0.362 0.669 0.425 0.646 0.081 18.183 -15.550
-Item03        8      13 0.350 0.000 0.399 0.000 0.341 0.093 26.495  -7.237
-Item04        8      13 0.743 0.582 0.785 0.638 0.777 0.087 22.005 -11.728
-Item05        8      13 0.281 0.000 0.312 0.000 0.262 0.113 42.727   8.995
-Item06        8      13 0.599 0.349 0.658 0.408 0.635 0.084 19.980 -13.753
-Item07        8      13 0.674 0.471 0.715 0.519 0.704 0.097 29.579  -4.154
-Item08        8      13 0.520 0.220 0.570 0.257 0.542 0.095 27.745  -5.988
-Item09        8      13 0.160 0.000 0.187 0.000 0.089 0.098 29.972  -3.761
-Item10        8      13 0.287 0.000 0.328 0.000 0.261 0.096 29.164  -4.568
-Item11        8      13 0.788 0.656 0.833 0.718 0.827 0.077 15.806 -17.927
-Item12        8      13 0.643 0.420 0.678 0.458 0.667 0.110 40.222   6.489
-Item13        8      13 0.494 0.177 0.525 0.197 0.506 0.122 51.186  17.453
-Item14        8      13 0.735 0.569 0.780 0.629 0.771 0.084 20.228 -13.505
-Item15        8      13 0.620 0.382 0.676 0.442 0.657 0.085 20.555 -13.178
+Item01        8      13 0.424 0.064 0.467 0.075 0.431 0.102 33.729  -7.988
+Item02        8      13 0.607 0.362 0.669 0.425 0.646 0.081 18.183 -23.534
+Item03        8      13 0.350 0.000 0.399 0.000 0.341 0.093 26.495 -15.221
+Item04        8      13 0.743 0.582 0.785 0.638 0.777 0.087 22.005 -19.712
+Item05        8      13 0.281 0.000 0.312 0.000 0.262 0.113 42.727   1.011
+Item06        8      13 0.599 0.349 0.658 0.408 0.635 0.084 19.980 -21.737
+Item07        8      13 0.674 0.471 0.715 0.519 0.704 0.097 29.579 -12.138
+Item08        8      13 0.520 0.220 0.570 0.257 0.542 0.095 27.745 -13.972
+Item09        8      13 0.160 0.000 0.187 0.000 0.089 0.098 29.972 -11.745
+Item10        8      13 0.287 0.000 0.328 0.000 0.261 0.096 29.164 -12.552
+Item11        8      13 0.788 0.656 0.833 0.718 0.827 0.077 15.806 -25.911
+Item12        8      13 0.643 0.420 0.678 0.458 0.667 0.110 40.222  -1.495
+Item13        8      13 0.494 0.177 0.525 0.197 0.506 0.122 51.186   9.469
+Item14        8      13 0.735 0.569 0.780 0.629 0.771 0.084 20.228 -21.489
+Item15        8      13 0.620 0.382 0.676 0.442 0.657 0.085 20.555 -21.162
            BIC
 Item01   0.012
 Item02 -15.534
@@ -1044,7 +1133,7 @@ TLI                0.358
 CFI                0.605
 RMSEA              0.096
 AIC              427.575
-CAIC             -78.417
+CAIC            -198.178
 BIC              -78.178</code></pre>
 </div>
 </div>
@@ -1052,23 +1141,23 @@ BIC              -78.178</code></pre>
 <section id="結果の比較" class="level3" data-number="5.5.2">
 <h3 data-number="5.5.2" class="anchored" data-anchor-id="結果の比較"><span class="header-section-number">5.5.2</span> 結果の比較</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>TestFitIndices</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>TestFitIndices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  model_log_like bench_log_like null_log_like model_Chi_sq null_Chi_sq model_df
 1      -3870.815      -3560.005     -4350.217     621.6196    1580.424 138.4909
   null_df       NFI       RFI       IFI       TLI       CFI      RMSEA      AIC
 1     195 0.6066754 0.4461853 0.6649437 0.5089864 0.6512774 0.08361236 344.6378
        CAIC       BIC
-1 -239.3239 -239.0471</code></pre>
+1 -377.5381 -239.0471</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>result.SOM<span class="sc">$</span>TestFitIndices</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>result.SOM<span class="sc">$</span>TestFitIndices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  model_log_like bench_log_like null_log_like model_Chi_sq null_Chi_sq model_df
 1      -3893.793      -3560.005     -4350.217     667.5754    1580.424      120
   null_df       NFI       RFI       IFI       TLI       CFI      RMSEA      AIC
 1     195 0.5775972 0.3135955 0.6250572 0.3577344 0.6047596 0.09562712 427.5754
        CAIC       BIC
-1 -78.41729 -78.17753</code></pre>
+1 -198.1775 -78.17753</code></pre>
 </div>
 </div>
 </section>
@@ -1082,23 +1171,8 @@ BIC              -78.178</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>result.LRArated <span class="ot">&lt;-</span> <span class="fu">LRA</span>(J35S5000, <span class="at">nrank =</span> <span class="dv">10</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Starting EM estimation for Saturation Model...</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-iter 1 logLik -0.394564                                                         
-iter 2 logLik -0.394427                                                         
-iter 3 logLik -0.394516                                                         
-iter 4 logLik -0.394547                                                         
-Starting EM estimation for Restricted Model...
-
-iter 1 logLik -1.19393                                                          
-iter 2 logLik -1.19566                                                          
-iter 3 logLik -1.1957                                                           </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>result.LRArated</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>result.LRArated <span class="ot">&lt;-</span> <span class="fu">LRA</span>(J35S5000, <span class="at">nrank =</span> <span class="dv">10</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>result.LRArated</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Monotonic increasing IRP option is TRUE.
@@ -1560,87 +1634,122 @@ Latent Rank Ditribution      494.000 533.000 460.000 527.000
 Rank Membership Distribution 502.493 483.411 442.111 482.205
 
 Item Fit Indices
-    model_Chi_sq null_Chi_sq model_df null_df   NFI   RFI  IFI   TLI  CFI RMSEA
-V1        46.668     252.286    114.8     136 0.815 0.781 1.00 1.000 1.00 0.000
-V2       103.997     691.883     86.1     102 0.850 0.822 0.97 0.964 0.97 0.006
-V3        42.242     410.777     86.1     102 0.897 0.878 1.00 1.000 1.00 0.000
-V4        18.967     624.521    143.5     170 0.970 0.964 1.00 1.000 1.00 0.000
-V5        62.565     425.253     86.1     102 0.853 0.826 1.00 1.000 1.00 0.000
-V6        26.693     226.759    143.5     170 0.882 0.861 1.00 1.000 1.00 0.000
-V7         0.000      94.022     86.1     102 1.000 1.000 1.00 0.000 0.00 0.000
-V8        16.581     843.079    143.5     170 0.980 0.977 1.00 1.000 1.00 0.000
-V9        38.062     613.589    143.5     170 0.938 0.927 1.00 1.000 1.00 0.000
-V10       62.603     892.400    114.8     136 0.930 0.917 1.00 1.000 1.00 0.000
-V11       50.942     360.761    114.8     136 0.859 0.833 1.00 1.000 1.00 0.000
-V12       23.911     778.557    143.5     170 0.969 0.964 1.00 1.000 1.00 0.000
-V13       32.460     752.556    143.5     170 0.957 0.949 1.00 1.000 1.00 0.000
-V14       15.430     438.773    143.5     170 0.965 0.958 1.00 1.000 1.00 0.000
-V15       24.191     378.339    143.5     170 0.936 0.924 1.00 1.000 1.00 0.000
-V16       36.096     510.108    143.5     170 0.929 0.916 1.00 1.000 1.00 0.000
-V17       40.415     384.469    143.5     170 0.895 0.875 1.00 1.000 1.00 0.000
-V18       25.415     655.498     86.1     102 0.961 0.954 1.00 1.000 1.00 0.000
-V19       60.497     789.305     86.1     102 0.923 0.909 1.00 1.000 1.00 0.000
-V20       18.303     263.243     86.1     102 0.930 0.918 1.00 1.000 1.00 0.000
-V21       28.956     442.284    143.5     170 0.935 0.922 1.00 1.000 1.00 0.000
-V22       23.221     340.988     86.1     102 0.932 0.919 1.00 1.000 1.00 0.000
-V23       57.792     496.868    143.5     170 0.884 0.862 1.00 1.000 1.00 0.000
-V24       56.632     763.708     86.1     102 0.926 0.912 1.00 1.000 1.00 0.000
-V25       20.426     587.487     86.1     102 0.965 0.959 1.00 1.000 1.00 0.000
-V26       36.208     785.201    114.8     136 0.954 0.945 1.00 1.000 1.00 0.000
-V27       35.843     598.773    114.8     136 0.940 0.929 1.00 1.000 1.00 0.000
-V28       87.841     980.807    143.5     170 0.910 0.894 1.00 1.000 1.00 0.000
-V29       78.381     738.173    143.5     170 0.894 0.874 1.00 1.000 1.00 0.000
-V30       19.755     626.346    114.8     136 0.968 0.963 1.00 1.000 1.00 0.000
-V31       65.710     493.023    143.5     170 0.867 0.842 1.00 1.000 1.00 0.000
-V32       35.664     192.786     86.1     102 0.815 0.781 1.00 1.000 1.00 0.000
-V33       30.696     288.392    143.5     170 0.894 0.874 1.00 1.000 1.00 0.000
-V34       66.922     296.598     86.1     102 0.774 0.733 1.00 1.000 1.00 0.000
-V35       34.183     346.546     86.1     102 0.901 0.883 1.00 1.000 1.00 0.000
-         AIC      CAIC       BIC
-V1  -182.932  -930.738  -930.715
-V2   -68.203  -629.230  -629.213
-V3  -129.958  -689.944  -689.926
-V4  -268.033 -1203.193 -1203.164
-V5  -109.635  -670.731  -670.714
-V6  -260.307 -1195.409 -1195.380
-V7  -172.200  -733.037  -733.020
-V8  -270.419 -1205.636 -1205.608
-V9  -248.938 -1184.155 -1184.127
-V10 -166.997  -914.987  -914.964
-V11 -178.658  -926.809  -926.786
-V12 -263.089 -1198.220 -1198.191
-V13 -254.540 -1189.700 -1189.671
-V14 -271.570 -1206.154 -1206.126
-V15 -262.809 -1198.026 -1197.997
-V16 -250.904 -1186.035 -1186.006
-V17 -246.585 -1179.254 -1179.225
-V18 -146.785  -707.915  -707.898
-V19 -111.703  -672.712  -672.695
-V20 -153.897  -714.976  -714.958
-V21 -258.044 -1193.146 -1193.118
-V22 -148.979  -709.851  -709.833
-V23 -229.208 -1164.253 -1164.224
-V24 -115.568  -676.681  -676.664
-V25 -151.774  -712.852  -712.835
-V26 -193.392  -941.381  -941.358
-V27 -193.757  -941.240  -941.217
-V28 -199.159 -1134.319 -1134.290
-V29 -208.619 -1143.808 -1143.779
-V30 -209.845  -957.903  -957.880
-V31 -221.290 -1156.479 -1156.450
-V32 -136.536  -697.235  -697.218
-V33 -256.304 -1191.435 -1191.406
-V34 -105.278  -666.356  -666.339
-V35 -138.017  -699.079  -699.061
+    model_log_like bench_log_like null_log_like model_Chi_sq null_Chi_sq
+V1       -7567.150      -7543.816     -7669.959       46.668     252.286
+V2       -6199.571      -6147.573     -6493.515      103.997     691.883
+V3       -3648.104      -3626.982     -3832.371       42.242     410.777
+V4       -7511.898      -7502.414     -7814.675       18.967     624.521
+V5       -5899.644      -5868.361     -6080.987       62.565     425.253
+V6       -2519.741      -2506.394     -2619.774       26.693     226.759
+V7       -5955.665      -6002.712     -6049.723        0.000      94.022
+V8       -7502.169      -7493.878     -7915.418       16.581     843.079
+V9       -5363.749      -5344.718     -5651.512       38.062     613.589
+V10      -5863.850      -5832.549     -6278.749       62.603     892.400
+V11      -4584.566      -4559.094     -4739.475       50.942     360.761
+V12      -5957.646      -5945.691     -6334.969       23.911     778.557
+V13      -6692.829      -6676.599     -7052.877       32.460     752.556
+V14      -7272.464      -7264.750     -7484.136       15.430     438.773
+V15      -5494.622      -5482.526     -5671.696       24.191     378.339
+V16      -7695.819      -7677.771     -7932.825       36.096     510.108
+V17      -7668.913      -7648.705     -7840.940       40.415     384.469
+V18      -3796.026      -3783.318     -4111.067       25.415     655.498
+V19      -5510.826      -5480.577     -5875.229       60.497     789.305
+V20      -6408.038      -6398.886     -6530.508       18.303     263.243
+V21      -7059.259      -7044.781     -7265.923       28.956     442.284
+V22      -5566.685      -5555.075     -5725.569       23.221     340.988
+V23      -7106.103      -7077.207     -7325.641       57.792     496.868
+V24      -5624.034      -5595.718     -5977.572       56.632     763.708
+V25      -4929.768      -4919.555     -5213.298       20.426     587.487
+V26      -6249.252      -6231.147     -6623.748       36.208     785.201
+V27      -4811.700      -4793.779     -5093.165       35.843     598.773
+V28      -7120.441      -7076.521     -7566.925       87.841     980.807
+V29      -4785.925      -4746.734     -5115.821       78.381     738.173
+V30      -3467.230      -3457.352     -3770.525       19.755     626.346
+V31      -7343.773      -7310.918     -7557.430       65.710     493.023
+V32      -6628.563      -6610.731     -6707.124       35.664     192.786
+V33      -8455.109      -8439.761     -8583.957       30.696     288.392
+V34      -6061.489      -6028.028     -6176.327       66.922     296.598
+V35      -4914.306      -4897.214     -5070.488       34.183     346.546
+    model_df null_df   NFI   RFI  IFI   TLI  CFI RMSEA      AIC      CAIC
+V1     114.8     136 0.815 0.781 1.00 1.000 1.00 0.000 -182.932 -1045.515
+V2      86.1     102 0.850 0.822 0.97 0.964 0.97 0.006  -68.203  -715.313
+V3      86.1     102 0.897 0.878 1.00 1.000 1.00 0.000 -129.958  -776.026
+V4     143.5     170 0.970 0.964 1.00 1.000 1.00 0.000 -268.033 -1346.664
+V5      86.1     102 0.853 0.826 1.00 1.000 1.00 0.000 -109.635  -756.814
+V6     143.5     170 0.882 0.861 1.00 1.000 1.00 0.000 -260.307 -1338.880
+V7      86.1     102 1.000 1.000 1.00 0.000 0.00 0.000 -172.200  -819.120
+V8     143.5     170 0.980 0.977 1.00 1.000 1.00 0.000 -270.419 -1349.108
+V9     143.5     170 0.938 0.927 1.00 1.000 1.00 0.000 -248.938 -1327.627
+V10    114.8     136 0.930 0.917 1.00 1.000 1.00 0.000 -166.997 -1029.764
+V11    114.8     136 0.859 0.833 1.00 1.000 1.00 0.000 -178.658 -1041.586
+V12    143.5     170 0.969 0.964 1.00 1.000 1.00 0.000 -263.089 -1341.691
+V13    143.5     170 0.957 0.949 1.00 1.000 1.00 0.000 -254.540 -1333.171
+V14    143.5     170 0.965 0.958 1.00 1.000 1.00 0.000 -271.570 -1349.626
+V15    143.5     170 0.936 0.924 1.00 1.000 1.00 0.000 -262.809 -1341.497
+V16    143.5     170 0.929 0.916 1.00 1.000 1.00 0.000 -250.904 -1329.506
+V17    143.5     170 0.895 0.875 1.00 1.000 1.00 0.000 -246.585 -1322.725
+V18     86.1     102 0.961 0.954 1.00 1.000 1.00 0.000 -146.785  -793.998
+V19     86.1     102 0.923 0.909 1.00 1.000 1.00 0.000 -111.703  -758.795
+V20     86.1     102 0.930 0.918 1.00 1.000 1.00 0.000 -153.897  -801.058
+V21    143.5     170 0.935 0.922 1.00 1.000 1.00 0.000 -258.044 -1336.618
+V22     86.1     102 0.932 0.919 1.00 1.000 1.00 0.000 -148.979  -795.933
+V23    143.5     170 0.884 0.862 1.00 1.000 1.00 0.000 -229.208 -1307.724
+V24     86.1     102 0.926 0.912 1.00 1.000 1.00 0.000 -115.568  -762.764
+V25     86.1     102 0.965 0.959 1.00 1.000 1.00 0.000 -151.774  -798.935
+V26    114.8     136 0.954 0.945 1.00 1.000 1.00 0.000 -193.392 -1056.158
+V27    114.8     136 0.940 0.929 1.00 1.000 1.00 0.000 -193.757 -1056.017
+V28    143.5     170 0.910 0.894 1.00 1.000 1.00 0.000 -199.159 -1277.790
+V29    143.5     170 0.894 0.874 1.00 1.000 1.00 0.000 -208.619 -1287.279
+V30    114.8     136 0.968 0.963 1.00 1.000 1.00 0.000 -209.845 -1072.680
+V31    143.5     170 0.867 0.842 1.00 1.000 1.00 0.000 -221.290 -1299.950
+V32     86.1     102 0.815 0.781 1.00 1.000 1.00 0.000 -136.536  -783.318
+V33    143.5     170 0.894 0.874 1.00 1.000 1.00 0.000 -256.304 -1334.906
+V34     86.1     102 0.774 0.733 1.00 1.000 1.00 0.000 -105.278  -752.439
+V35     86.1     102 0.901 0.883 1.00 1.000 1.00 0.000 -138.017  -785.161
+          BIC
+V1   -930.715
+V2   -629.213
+V3   -689.926
+V4  -1203.164
+V5   -670.714
+V6  -1195.380
+V7   -733.020
+V8  -1205.608
+V9  -1184.127
+V10  -914.964
+V11  -926.786
+V12 -1198.191
+V13 -1189.671
+V14 -1206.126
+V15 -1197.997
+V16 -1186.006
+V17 -1179.225
+V18  -707.898
+V19  -672.695
+V20  -714.958
+V21 -1193.118
+V22  -709.833
+V23 -1164.224
+V24  -676.664
+V25  -712.835
+V26  -941.358
+V27  -941.217
+V28 -1134.290
+V29 -1143.779
+V30  -957.880
+V31 -1156.450
+V32  -697.218
+V33 -1191.406
+V34  -666.339
+V35  -699.061
 
 Model Fit Indices
 Number of Latent rank: 10
 Number of EM cycle: 3 
                      value
-ScoreRankCorr        0.910
-RankQuantCorr        0.906
 model_log_like -209248.370
-null_log_like   -69045.771
+bench_log_like -208571.836
+null_log_like  -217753.915
 model_Chi_sq      1424.270
 null_Chi_sq      18364.158
 model_df          4104.100
@@ -1652,7 +1761,7 @@ TLI                  1.000
 CFI                  1.000
 RMSEA                0.000
 AIC              -6783.930
-CAIC            -48113.373
+CAIC            -52217.449
 BIC             -48113.349</code></pre>
 </div>
 </div>
@@ -1665,7 +1774,7 @@ BIC             -48113.349</code></pre>
 <li><code>RMP</code>すなわちランクメンバーシッププロファイルも表示します</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ScoreFreq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ScoreFreq"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1673,7 +1782,7 @@ BIC             -48113.349</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ScoreRank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ScoreRank"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1681,8 +1790,8 @@ BIC             -48113.349</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot ICBR/ICRP</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ICRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot ICBR/ICRP</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ICRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1690,11 +1799,11 @@ BIC             -48113.349</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot Rank membership profile</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated,</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot Rank membership profile</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1714,123 +1823,8 @@ BIC             -48113.349</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>result.LRAord <span class="ot">&lt;-</span> <span class="fu">LRA</span>(J15S3810, <span class="at">nrank =</span> <span class="dv">3</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Starting EM estimation for Saturation Model...</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-iter 1 logLik -0.715286                                                         
-iter 2 logLik -0.658925                                                         
-iter 3 logLik -0.650981                                                         
-iter 4 logLik -0.648033                                                         
-iter 5 logLik -0.646591                                                         
-iter 6 logLik -0.645385                                                         
-iter 7 logLik -0.644218                                                         
-iter 8 logLik -0.64299                                                          
-iter 9 logLik -0.641574                                                         
-iter 10 logLik -0.639918                                                        
-iter 11 logLik -0.638005                                                        
-iter 12 logLik -0.635832                                                        
-iter 13 logLik -0.63343                                                         
-iter 14 logLik -0.63086                                                         
-iter 15 logLik -0.628207                                                        
-iter 16 logLik -0.625554                                                        
-iter 17 logLik -0.622973                                                        
-iter 18 logLik -0.620517                                                        
-iter 19 logLik -0.618217                                                        
-iter 20 logLik -0.616089                                                        
-iter 21 logLik -0.614138                                                        
-iter 22 logLik -0.612356                                                        
-iter 23 logLik -0.610732                                                        
-iter 24 logLik -0.609254                                                        
-iter 25 logLik -0.607906                                                        
-iter 26 logLik -0.606672                                                        
-iter 27 logLik -0.605536                                                        
-iter 28 logLik -0.604488                                                        
-iter 29 logLik -0.603515                                                        
-iter 30 logLik -0.602612                                                        
-iter 31 logLik -0.601771                                                        
-iter 32 logLik -0.600989                                                        
-iter 33 logLik -0.600262                                                        
-iter 34 logLik -0.599589                                                        
-iter 35 logLik -0.598965                                                        
-iter 36 logLik -0.598389                                                        
-iter 37 logLik -0.597857                                                        
-iter 38 logLik -0.597367                                                        
-iter 39 logLik -0.596914                                                        
-iter 40 logLik -0.596497                                                        
-iter 41 logLik -0.596113                                                        
-iter 42 logLik -0.595757                                                        
-iter 43 logLik -0.595428                                                        
-iter 44 logLik -0.595121                                                        
-iter 45 logLik -0.594836                                                        
-iter 46 logLik -0.594568                                                        
-iter 47 logLik -0.594316                                                        
-iter 48 logLik -0.594078                                                        
-iter 49 logLik -0.59385                                                         
-iter 50 logLik -0.593631                                                        
-iter 51 logLik -0.593418                                                        
-iter 52 logLik -0.593211                                                        
-iter 53 logLik -0.59301                                                         
-iter 54 logLik -0.592816                                                        
-iter 55 logLik -0.59263                                                         
-iter 56 logLik -0.592452                                                        
-iter 57 logLik -0.592281                                                        
-iter 58 logLik -0.592118                                                        
-iter 59 logLik -0.591962                                                        
-iter 60 logLik -0.591813                                                        
-iter 61 logLik -0.591671                                                        
-iter 62 logLik -0.591534                                                        
-iter 63 logLik -0.591403                                                        
-iter 64 logLik -0.591277                                                        
-iter 65 logLik -0.591156                                                        
-iter 66 logLik -0.59104                                                         
-iter 67 logLik -0.590927                                                        
-iter 68 logLik -0.590819                                                        
-iter 69 logLik -0.590714                                                        
-iter 70 logLik -0.590613                                                        
-iter 71 logLik -0.590515                                                        
-iter 72 logLik -0.59042                                                         
-iter 73 logLik -0.590328                                                        
-iter 74 logLik -0.590238                                                        
-iter 75 logLik -0.590151                                                        
-iter 76 logLik -0.590065                                                        
-iter 77 logLik -0.589982                                                        
-iter 78 logLik -0.589899                                                        
-iter 79 logLik -0.589818                                                        
-iter 80 logLik -0.589738                                                        
-iter 81 logLik -0.589659                                                        
-iter 82 logLik -0.589581                                                        
-iter 83 logLik -0.589504                                                        
-iter 84 logLik -0.589427                                                        
-iter 85 logLik -0.589352                                                        
-iter 86 logLik -0.589277                                                        
-iter 87 logLik -0.589203                                                        
-iter 88 logLik -0.58913                                                         
-iter 89 logLik -0.589059                                                        
-iter 90 logLik -0.588988                                                        
-iter 91 logLik -0.588919                                                        
-iter 92 logLik -0.588851                                                        
-iter 93 logLik -0.588785                                                        
-iter 94 logLik -0.588721                                                        
-iter 95 logLik -0.588658                                                        
-iter 96 logLik -0.588597                                                        
-iter 97 logLik -0.588537                                                        
-iter 98 logLik -0.58848                                                         
-Starting EM estimation for Restricted Model...
-
-iter 1 logLik -0.667764                                                         
-iter 2 logLik -0.670426                                                         
-iter 3 logLik -0.671721                                                         
-iter 4 logLik -0.672335                                                         
-iter 5 logLik -0.672663                                                         
-iter 6 logLik -0.672853                                                         
-iter 7 logLik -0.67297                                                          
-iter 8 logLik -0.673045                                                         
-iter 9 logLik -0.673092                                                         </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>result.LRAord</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>result.LRAord <span class="ot">&lt;-</span> <span class="fu">LRA</span>(J15S3810, <span class="at">nrank =</span> <span class="dv">3</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>result.LRAord</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Monotonic increasing IRP option is TRUE.
@@ -1934,47 +1928,62 @@ Latent Rank Ditribution      1400.000 1360.000 1050.000
 Rank Membership Distribution 1390.233 1326.565 1093.202
 
 Item Fit Indices
-    model_Chi_sq null_Chi_sq model_df null_df   NFI   RFI   IFI   TLI   CFI
-V1       111.139    1567.180   36.616      42 0.929 0.919 0.951 0.944 0.951
-V2        68.203     956.188   36.616      42 0.929 0.918 0.966 0.960 0.965
-V3       163.711     699.705   36.616      42 0.766 0.732 0.808 0.778 0.807
-V4       183.221     917.331   36.616      42 0.800 0.771 0.834 0.808 0.833
-V5       112.395     714.576   36.616      42 0.843 0.820 0.888 0.871 0.887
-V6       195.972    1309.416   36.616      42 0.850 0.828 0.875 0.856 0.874
-V7       110.888     339.167   36.616      42 0.673 0.625 0.755 0.713 0.750
-V8        47.061     170.085   36.616      42 0.723 0.683 0.922 0.906 0.918
-V9       110.228     254.833   36.616      42 0.567 0.504 0.663 0.603 0.654
-V10      147.434     380.274   36.616      42 0.612 0.555 0.678 0.624 0.672
-V11       57.482     504.624   36.616      42 0.886 0.869 0.955 0.948 0.955
-V12       71.183     134.393   36.616      42 0.470 0.392 0.646 0.571 0.626
-V13      227.532    1329.547   36.616      42 0.829 0.804 0.852 0.830 0.852
-V14        5.304     120.643   36.616      42 0.956 0.950 1.000 1.000 1.000
-V15      148.893     837.988   36.616      42 0.822 0.796 0.860 0.838 0.859
-    RMSEA     AIC     CAIC      BIC
-V1  0.023  37.907 -190.782 -190.773
-V2  0.015  -5.029 -233.718 -233.708
-V3  0.030  90.479 -138.210 -138.200
-V4  0.044 109.990  -95.942  -95.925
-V5  0.032  39.163 -166.769 -166.751
-V6  0.046 122.741  -83.191  -83.173
-V7  0.045  37.656 -141.529 -141.492
-V8  0.017 -26.170 -205.355 -205.318
-V9  0.045  36.996 -142.189 -142.152
-V10 0.045  74.202 -120.686 -120.662
-V11 0.019 -15.750 -210.638 -210.614
-V12 0.025  -2.049 -196.937 -196.912
-V13 0.041 154.301  -66.555  -66.543
-V14 0.000 -67.927 -288.783 -288.771
-V15 0.032  75.661 -145.195 -145.183
+    model_log_like bench_log_like null_log_like model_Chi_sq null_Chi_sq
+V1       -4194.252      -4138.683     -4922.273      111.139    1567.180
+V2       -4130.419      -4096.318     -4574.412       68.203     956.188
+V3       -4294.276      -4212.421     -4562.273      163.711     699.705
+V4       -2308.585      -2216.974     -2675.639      183.221     917.331
+V5       -2351.710      -2295.513     -2652.801      112.395     714.576
+V6       -2266.300      -2168.314     -2823.022      195.972    1309.416
+V7       -1070.247      -1014.803     -1184.386      110.888     339.167
+V8       -1006.878       -983.347     -1068.390       47.061     170.085
+V9       -1198.215      -1143.101     -1270.518      110.228     254.833
+V10      -1668.660      -1594.943     -1785.080      147.434     380.274
+V11      -1791.440      -1762.699     -2015.011       57.482     504.624
+V12      -1782.452      -1746.861     -1814.057       71.183     134.393
+V13      -3450.743      -3336.976     -4001.750      227.532    1329.547
+V14      -3810.641      -3807.989     -3868.310        5.304     120.643
+V15      -3144.090      -3069.644     -3488.638      148.893     837.988
+    model_df null_df   NFI   RFI   IFI   TLI   CFI RMSEA     AIC     CAIC
+V1    36.616      42 0.929 0.919 0.951 0.944 0.951 0.023  37.907 -227.388
+V2    36.616      42 0.929 0.918 0.966 0.960 0.965 0.015  -5.029 -270.324
+V3    36.616      42 0.766 0.732 0.808 0.778 0.807 0.030  90.479 -174.816
+V4    36.616      42 0.800 0.771 0.834 0.808 0.833 0.044 109.990 -132.540
+V5    36.616      42 0.843 0.820 0.888 0.871 0.887 0.032  39.163 -203.367
+V6    36.616      42 0.850 0.828 0.875 0.856 0.874 0.046 122.741 -119.789
+V7    36.616      42 0.673 0.625 0.755 0.713 0.750 0.045  37.656 -178.107
+V8    36.616      42 0.723 0.683 0.922 0.906 0.918 0.017 -26.170 -241.934
+V9    36.616      42 0.567 0.504 0.663 0.603 0.654 0.045  36.996 -178.768
+V10   36.616      42 0.612 0.555 0.678 0.624 0.672 0.045  74.202 -157.277
+V11   36.616      42 0.886 0.869 0.955 0.948 0.955 0.019 -15.750 -247.229
+V12   36.616      42 0.470 0.392 0.646 0.571 0.626 0.025  -2.049 -233.528
+V13   36.616      42 0.829 0.804 0.852 0.830 0.852 0.041 154.301 -103.159
+V14   36.616      42 0.956 0.950 1.000 1.000 1.000 0.000 -67.927 -325.387
+V15   36.616      42 0.822 0.796 0.860 0.838 0.859 0.032  75.661 -181.798
+         BIC
+V1  -190.773
+V2  -233.708
+V3  -138.200
+V4   -95.925
+V5  -166.751
+V6   -83.173
+V7  -141.492
+V8  -205.318
+V9  -142.152
+V10 -120.662
+V11 -210.614
+V12 -196.912
+V13  -66.543
+V14 -288.771
+V15 -145.183
 
 Model Fit Indices
 Number of Latent rank: 3
 Number of EM cycle: 9 
                     value
-ScoreRankCorr       0.911
-RankQuantCorr       0.898
 model_log_like -38467.180
-null_log_like  -33631.631
+bench_log_like -37588.585
+null_log_like  -42706.560
 model_Chi_sq     1760.646
 null_Chi_sq     10235.950
 model_df          549.237
@@ -1986,14 +1995,14 @@ TLI                 0.855
 CFI                 0.874
 RMSEA               0.008
 AIC               662.172
-CAIC            -3974.836
+CAIC            -4524.057
 BIC             -3974.820</code></pre>
 </div>
 </div>
 <section id="出力は名義モデルと同様です" class="level3" data-number="5.7.1">
 <h3 data-number="5.7.1" class="anchored" data-anchor-id="出力は名義モデルと同様です"><span class="header-section-number">5.7.1</span> 出力は名義モデルと同様です</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ScoreFreq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ScoreFreq"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2001,7 +2010,7 @@ BIC             -3974.820</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ScoreRank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ScoreRank"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2009,8 +2018,8 @@ BIC             -3974.820</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot ICBR/ICRP</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ICBR"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot ICBR/ICRP</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ICBR"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2018,7 +2027,7 @@ BIC             -3974.820</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ICRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ICRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2026,11 +2035,11 @@ BIC             -3974.820</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot Rank membership profile</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord,</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span></span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot Rank membership profile</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord,</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2046,236 +2055,243 @@ BIC             -3974.820</code></pre>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -2283,185 +2299,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./chap4_IRT.html" class="pagination-link" aria-label="Rをつかった項目反応理論の実習">
