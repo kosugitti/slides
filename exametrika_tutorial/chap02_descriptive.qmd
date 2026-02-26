@@ -42,7 +42,7 @@ crr(dat) |> head(10)
 ### 通過率（Passage Rate）
 
 ```{r}
-passage(dat)
+passage(dat) |> head(10)
 ```
 
 ### パーセンタイル

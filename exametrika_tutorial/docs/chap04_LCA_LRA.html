@@ -217,7 +217,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chap07_LDLRA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデル</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデルとBINET</span></span></a>
   </div>
 </li>
     </ul>
@@ -317,110 +317,8 @@ Stanine.96%  14.0000000</code></pre>
 <h2 data-number="5.1" class="anchored" data-anchor-id="潜在クラス分析lca"><span class="header-section-number">5.1</span> 潜在クラス分析（LCA）</h2>
 <p>潜在クラス分析は，受検者を潜在的なグループに分類するモデルです。<code>ncls</code>引数でクラス数を指定します。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>result.LCA <span class="ot">&lt;-</span> <span class="fu">LCA</span>(dat, <span class="at">ncls =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-iter 1 log_lik -3913.28 
-iter 2 log_lik -3858.5 
-iter 3 log_lik -3845.86 
-iter 4
-log_lik -3835.63 
-iter 5 log_lik -3824.35 
-iter 6 log_lik -3812.01 
-iter 7 log_lik
--3798.71 
-iter 8 log_lik -3784.46 
-iter 9 log_lik -3769.5 
-iter 10 log_lik
--3754.47 
-iter 11 log_lik -3740.19 
-iter 12 log_lik -3727.32 
-iter 13 log_lik
--3716.2 
-iter 14 log_lik -3706.78 
-iter 15 log_lik -3698.75 
-iter 16 log_lik
--3691.64 
-iter 17 log_lik -3684.99 
-iter 18 log_lik -3678.42 
-iter 19 log_lik
--3671.75 
-iter 20 log_lik -3664.97 
-iter 21 log_lik -3658.2 
-iter 22 log_lik
--3651.66 
-iter 23 log_lik -3645.58 
-iter 24 log_lik -3640.08 
-iter 25 log_lik
--3635.22 
-iter 26 log_lik -3630.97 
-iter 27 log_lik -3627.26 
-iter 28 log_lik
--3624 
-iter 29 log_lik -3621.09 
-iter 30 log_lik -3618.46 
-iter 31 log_lik
--3616.05 
-iter 32 log_lik -3613.8 
-iter 33 log_lik -3611.69 
-iter 34 log_lik
--3609.7 
-iter 35 log_lik -3607.81 
-iter 36 log_lik -3606.02 
-iter 37 log_lik
--3604.32 
-iter 38 log_lik -3602.72 
-iter 39 log_lik -3601.21 
-iter 40 log_lik
--3599.79 
-iter 41 log_lik -3598.46 
-iter 42 log_lik -3597.22 
-iter 43 log_lik
--3596.06 
-iter 44 log_lik -3594.98 
-iter 45 log_lik -3593.97 
-iter 46 log_lik
--3593.03 
-iter 47 log_lik -3592.14 
-iter 48 log_lik -3591.32 
-iter 49 log_lik
--3590.54 
-iter 50 log_lik -3589.8 
-iter 51 log_lik -3589.11 
-iter 52 log_lik
--3588.44 
-iter 53 log_lik -3587.81 
-iter 54 log_lik -3587.2 
-iter 55 log_lik
--3586.62 
-iter 56 log_lik -3586.06 
-iter 57 log_lik -3585.52 
-iter 58 log_lik
--3584.99 
-iter 59 log_lik -3584.48 
-iter 60 log_lik -3583.98 
-iter 61 log_lik
--3583.5 
-iter 62 log_lik -3583.03 
-iter 63 log_lik -3582.56 
-iter 64 log_lik
--3582.11 
-iter 65 log_lik -3581.67 
-iter 66 log_lik -3581.24 
-iter 67 log_lik
--3580.82 
-iter 68 log_lik -3580.41 
-iter 69 log_lik -3580 
-iter 70 log_lik
--3579.61 
-iter 71 log_lik -3579.22 
-iter 72 log_lik -3578.84 
-iter 73 log_lik
--3578.47 
-iter 74 log_lik -3578.11 
-iter 75 log_lik -3577.75</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>result.LCA</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>result.LCA <span class="ot">&lt;-</span> <span class="fu">LCA</span>(dat, <span class="at">ncls =</span> <span class="dv">6</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>result.LCA</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Item Reference Profile
@@ -522,7 +420,7 @@ BIC             -710.259</code></pre>
 <section id="受検者情報" class="level3" data-number="5.1.1">
 <h3 data-number="5.1.1" class="anchored" data-anchor-id="受検者情報"><span class="header-section-number">5.1.1</span> 受検者情報</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>result.LCA<span class="sc">$</span>Students <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>result.LCA<span class="sc">$</span>Students <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Membership 1 Membership 2 Membership 3 Membership 4 Membership 5
 Student001 0.7260153212 0.1695828123 0.0191959227  0.048856576 3.634937e-02
@@ -545,7 +443,7 @@ Student006 6.013617e-02        5</code></pre>
 <h3 data-number="5.1.2" class="anchored" data-anchor-id="項目参照プロファイルirp"><span class="header-section-number">5.1.2</span> 項目参照プロファイル（IRP）</h3>
 <p>項目ごと・クラスごとの正答率を示します。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>result.LCA<span class="sc">$</span>IRP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>result.LCA<span class="sc">$</span>IRP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             IRP1       IRP2        IRP3      IRP4       IRP5      IRP6
 Item01 0.43697714 0.76082606 0.736182286 0.7888704 0.84587512 0.8833284
@@ -569,7 +467,7 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 <section id="可視化baseグラフィックス" class="level3" data-number="5.1.3">
 <h3 data-number="5.1.3" class="anchored" data-anchor-id="可視化baseグラフィックス"><span class="header-section-number">5.1.3</span> 可視化（baseグラフィックス）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"IRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"IRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -580,7 +478,7 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 </div>
 <p>クラスメンバーシッププロファイル（CMP）は，受検者がどのクラスに所属しやすいかの確率を表します。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"CMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"CMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -591,7 +489,7 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 </div>
 <p>テスト参照プロファイル（TRP）は，テスト得点とクラスの分類を可視化します。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"TRP"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"TRP"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -602,7 +500,7 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 </div>
 <p>潜在クラス分布（LCD）は，クラスの分布を表示します。棒グラフがLatent Class Distribution，折れ線グラフがClass Membership Distributionです。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"LCD"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LCA, <span class="at">type =</span> <span class="st">"LCD"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -615,10 +513,10 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 <section id="可視化ggexametrika" class="level3" data-number="5.1.4">
 <h3 data-number="5.1.4" class="anchored" data-anchor-id="可視化ggexametrika"><span class="header-section-number">5.1.4</span> 可視化（ggExametrika）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExametrika)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExametrika)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIRP_gg</span>(result.LCA)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIRP_gg</span>(result.LCA)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -628,7 +526,7 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCMP_gg</span>(result.LCA)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCMP_gg</span>(result.LCA)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -638,7 +536,7 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTRP_gg</span>(result.LCA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTRP_gg</span>(result.LCA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -648,7 +546,7 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLCD_gg</span>(result.LCA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLCD_gg</span>(result.LCA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -663,8 +561,8 @@ Item15 0.39351809 0.53891044 0.860504438 0.7168047 0.82195096 0.8628674</code></
 <h2 data-number="5.2" class="anchored" data-anchor-id="潜在ランク分析lra"><span class="header-section-number">5.2</span> 潜在ランク分析（LRA）</h2>
 <p>LCAの潜在クラスに序列性を持たせたものが潜在ランク分析（LRA）です。<code>nrank</code>引数でランク数を指定し，<code>mic = TRUE</code>で単調増加制約を課します。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>result.LRA <span class="ot">&lt;-</span> <span class="fu">LRA</span>(dat, <span class="at">nrank =</span> <span class="dv">6</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>result.LRA</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>result.LRA <span class="ot">&lt;-</span> <span class="fu">LRA</span>(dat, <span class="at">nrank =</span> <span class="dv">6</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>result.LRA</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>estimating method is  GTM 
 
@@ -787,7 +685,7 @@ BIC             -239.047</code></pre>
 <h3 data-number="5.2.1" class="anchored" data-anchor-id="受検者情報-1"><span class="header-section-number">5.2.1</span> 受検者情報</h3>
 <p>Rank-Up OddsやRank-Down Oddsが表示され，上のランクへの上がりやすさ・下のランクへの落ちやすさを示します。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>Students <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>Students <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Membership 1 Membership 2 Membership 3 Membership 4 Membership 5
 Student001 0.2649442154  0.401777727   0.25199194  0.069833913  0.010587063
@@ -809,7 +707,7 @@ Student006 0.3489584503        5    0.8755811      0.5079491</code></pre>
 <section id="項目参照プロファイルirp-1" class="level3" data-number="5.2.2">
 <h3 data-number="5.2.2" class="anchored" data-anchor-id="項目参照プロファイルirp-1"><span class="header-section-number">5.2.2</span> 項目参照プロファイル（IRP）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>IRP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>IRP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             IRP1       IRP2      IRP3      IRP4      IRP5      IRP6
 Item01 0.58134579 0.63703070 0.7105624 0.7799727 0.8488455 0.9005402
@@ -839,7 +737,7 @@ Item15 0.40437730 0.56707341 0.7507473 0.8243016 0.8346267 0.8378010</code></pre
 <li><strong>C（Item Monotonicity Index）</strong>：単調増加性の指標</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>IRPIndex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>IRPIndex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Alpha          A Beta         B Gamma C
 Item01     2 0.07353170    1 0.5813458     0 0
@@ -863,7 +761,7 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 <section id="可視化baseグラフィックス-1" class="level3" data-number="5.2.4">
 <h3 data-number="5.2.4" class="anchored" data-anchor-id="可視化baseグラフィックス-1"><span class="header-section-number">5.2.4</span> 可視化（baseグラフィックス）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"IRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"IRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -873,7 +771,7 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -883,7 +781,7 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"TRP"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"TRP"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -893,7 +791,7 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"LRD"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRA, <span class="at">type =</span> <span class="st">"LRD"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -906,7 +804,7 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 <section id="可視化ggexametrika-1" class="level3" data-number="5.2.5">
 <h3 data-number="5.2.5" class="anchored" data-anchor-id="可視化ggexametrika-1"><span class="header-section-number">5.2.5</span> 可視化（ggExametrika）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIRP_gg</span>(result.LRA)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIRP_gg</span>(result.LRA)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -916,7 +814,7 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotRMP_gg</span>(result.LRA)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotRMP_gg</span>(result.LRA)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -926,7 +824,7 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTRP_gg</span>(result.LRA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTRP_gg</span>(result.LRA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -936,7 +834,7 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLRD_gg</span>(result.LRA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLRD_gg</span>(result.LRA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -957,7 +855,7 @@ Item15     2 0.18367392    2 0.5670734     0 0</code></pre>
 <h3 data-number="5.3.2" class="anchored" data-anchor-id="somself-organizing-map"><span class="header-section-number">5.3.2</span> SOM（Self-Organizing Map）</h3>
 <p>自己組織化マップの方法も選択可能です。最初にランダムに生成した行列<span class="math inline">\(\Pi_R\)</span>に対し，データ行列に近い勝者ベクトルが周囲の重みをアップデートしていきます。乱数による近似なので，再現性のためにはシード値の設定が必要です。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>result.SOM <span class="ot">&lt;-</span> <span class="fu">LRA</span>(dat, <span class="at">nrank =</span> <span class="dv">6</span>, <span class="at">method =</span> <span class="st">"SOM"</span>, <span class="at">seed =</span> <span class="dv">12345</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>result.SOM <span class="ot">&lt;-</span> <span class="fu">LRA</span>(dat, <span class="at">nrank =</span> <span class="dv">6</span>, <span class="at">method =</span> <span class="st">"SOM"</span>, <span class="at">seed =</span> <span class="dv">12345</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Reached the maximum number of iterations.</code></pre>
@@ -965,7 +863,7 @@ Reached the maximum number of iterations.</code></pre>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Algorithm may not have converged. Interpret results with caution.</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>result.SOM</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>result.SOM</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>estimating method is  SOM 
 Item Reference Profile
@@ -1086,7 +984,7 @@ BIC              -78.178</code></pre>
 <section id="結果の比較" class="level3" data-number="5.3.3">
 <h3 data-number="5.3.3" class="anchored" data-anchor-id="結果の比較"><span class="header-section-number">5.3.3</span> 結果の比較</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>TestFitIndices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>result.LRA<span class="sc">$</span>TestFitIndices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  model_log_like bench_log_like null_log_like model_Chi_sq null_Chi_sq model_df
 1      -3870.815      -3560.005     -4350.217     621.6196    1580.424 138.4909
@@ -1095,7 +993,7 @@ BIC              -78.178</code></pre>
        CAIC       BIC
 1 -377.5381 -239.0471</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>result.SOM<span class="sc">$</span>TestFitIndices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>result.SOM<span class="sc">$</span>TestFitIndices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  model_log_like bench_log_like null_log_like model_Chi_sq null_Chi_sq model_df
 1      -3893.793      -3560.005     -4350.217     667.5754    1580.424      120
@@ -1113,8 +1011,8 @@ BIC              -78.178</code></pre>
 <h3 data-number="5.4.1" class="anchored" data-anchor-id="多肢選択ratedデータ"><span class="header-section-number">5.4.1</span> 多肢選択（rated）データ</h3>
 <p>サンプルデータ<code>J35S5000</code>で多肢選択データの分析例を示します。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>result.LRArated <span class="ot">&lt;-</span> <span class="fu">LRA</span>(J35S5000, <span class="at">nrank =</span> <span class="dv">10</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>result.LRArated</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>result.LRArated <span class="ot">&lt;-</span> <span class="fu">LRA</span>(J35S5000, <span class="at">nrank =</span> <span class="dv">10</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>result.LRArated</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Monotonic increasing IRP option is TRUE.
@@ -1710,7 +1608,7 @@ BIC             -48113.349</code></pre>
 <section id="可視化baseグラフィックス-2" class="level4" data-number="5.4.1.1">
 <h4 data-number="5.4.1.1" class="anchored" data-anchor-id="可視化baseグラフィックス-2"><span class="header-section-number">5.4.1.1</span> 可視化（baseグラフィックス）</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ScoreFreq"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ScoreFreq"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1720,7 +1618,7 @@ BIC             -48113.349</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ScoreRank"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ScoreRank"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1730,7 +1628,7 @@ BIC             -48113.349</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ICRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"ICRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1740,7 +1638,7 @@ BIC             -48113.349</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRArated, <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1753,7 +1651,7 @@ BIC             -48113.349</code></pre>
 <section id="可視化ggexametrika-2" class="level4" data-number="5.4.1.2">
 <h4 data-number="5.4.1.2" class="anchored" data-anchor-id="可視化ggexametrika-2"><span class="header-section-number">5.4.1.2</span> 可視化（ggExametrika）</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotScoreFreq_gg</span>(result.LRArated)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotScoreFreq_gg</span>(result.LRArated)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1763,7 +1661,7 @@ BIC             -48113.349</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotScoreRank_gg</span>(result.LRArated)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotScoreRank_gg</span>(result.LRArated)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1773,7 +1671,7 @@ BIC             -48113.349</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICRP_gg</span>(result.LRArated, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICRP_gg</span>(result.LRArated, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1788,8 +1686,8 @@ BIC             -48113.349</code></pre>
 <h3 data-number="5.4.2" class="anchored" data-anchor-id="順序データ"><span class="header-section-number">5.4.2</span> 順序データ</h3>
 <p>サンプルデータ<code>J15S3810</code>（4件法）で順序データの分析例を示します。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>result.LRAord <span class="ot">&lt;-</span> <span class="fu">LRA</span>(J15S3810, <span class="at">nrank =</span> <span class="dv">3</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>result.LRAord</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>result.LRAord <span class="ot">&lt;-</span> <span class="fu">LRA</span>(J15S3810, <span class="at">nrank =</span> <span class="dv">3</span>, <span class="at">mic =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>result.LRAord</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Monotonic increasing IRP option is TRUE.
@@ -1967,7 +1865,7 @@ BIC             -3974.820</code></pre>
 <section id="可視化baseグラフィックス-3" class="level4" data-number="5.4.2.1">
 <h4 data-number="5.4.2.1" class="anchored" data-anchor-id="可視化baseグラフィックス-3"><span class="header-section-number">5.4.2.1</span> 可視化（baseグラフィックス）</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ScoreFreq"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ScoreFreq"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1977,7 +1875,7 @@ BIC             -3974.820</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ScoreRank"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ScoreRank"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1987,7 +1885,7 @@ BIC             -3974.820</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ICBR"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ICBR"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1997,7 +1895,7 @@ BIC             -3974.820</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ICRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"ICRP"</span>, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2007,7 +1905,7 @@ BIC             -3974.820</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.LRAord, <span class="at">type =</span> <span class="st">"RMP"</span>, <span class="at">students =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nc =</span> <span class="dv">3</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2020,7 +1918,7 @@ BIC             -3974.820</code></pre>
 <section id="可視化ggexametrika-3" class="level4" data-number="5.4.2.2">
 <h4 data-number="5.4.2.2" class="anchored" data-anchor-id="可視化ggexametrika-3"><span class="header-section-number">5.4.2.2</span> 可視化（ggExametrika）</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICBR_gg</span>(result.LRAord, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICBR_gg</span>(result.LRAord, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2030,7 +1928,7 @@ BIC             -3974.820</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICRP_gg</span>(result.LRAord, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICRP_gg</span>(result.LRAord, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2040,7 +1938,7 @@ BIC             -3974.820</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotRMP_gg</span>(result.LRAord)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotRMP_gg</span>(result.LRAord)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

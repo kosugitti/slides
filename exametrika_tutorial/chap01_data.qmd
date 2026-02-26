@@ -26,7 +26,7 @@ library(exametrika)
 
 ```{r}
 dat <- dataFormat(J15S500)
-dat
+dat |> head(10)
 ```
 
 変換されたオブジェクトには以下の情報が含まれます。
@@ -88,7 +88,7 @@ dat_rated$CA
 dat_rated$U |> head(3)
 ```
 
-### 自分のデータを変換する
+### 自分の多値データを変換する
 
 `response.type`引数でデータ型を明示的に指定できます。
 

@@ -79,7 +79,8 @@ DAGの構造が未知の場合は，`BNM_GA()`で遺伝的アルゴリズムに�
 ```{r}
 result.GA <- BNM_GA(J5S10,
   population = 20, Rs = 0.5, Rm = 0.002, maxParents = 2,
-  maxGeneration = 100, crossover = 2, elitism = 2
+  maxGeneration = 100, crossover = 2, elitism = 2,
+  verbose = FALSE
 )
 result.GA
 ```
@@ -101,7 +102,7 @@ Population-Based Incremental Learning（PBIL）による構造学習も利用で
 ```{r}
 result.PBIL <- BNM_PBIL(J5S10,
   population = 20, Rs = 0.5, Rm = 0.005, maxParents = 2,
-  alpha = 0.05, estimate = 4
+  alpha = 0.05, estimate = 4, verbose = FALSE
 )
 result.PBIL
 ```
@@ -118,7 +119,8 @@ result.PBIL
 ```{r}
 result.GA.large <- BNM_GA(J15S500,
   population = 20, Rs = 0.5, Rm = 0.002, maxParents = 2,
-  maxGeneration = 100, crossover = 2, elitism = 2
+  maxGeneration = 100, crossover = 2, elitism = 2,
+  verbose = FALSE
 )
 result.GA.large
 ```

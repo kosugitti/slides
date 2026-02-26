@@ -220,7 +220,7 @@ plot(result.R.conf, type = "TRP")
 最適なフィールド数とクラス数がわからない場合は，グリッドサーチで総当たり探索ができます。`index`引数で最適化基準（BIC, AIC等）を指定します。
 
 ```{r}
-result.GS <- GridSearch(dat, method = "R", max_ncls = 10, max_nfld = 10, index = "BIC")
+result.GS <- GridSearch(dat, method = "R", max_ncls = 10, max_nfld = 10, index = "BIC", verbose = FALSE)
 result.GS$optimal_ncls
 result.GS$optimal_nfld
 ```
@@ -234,7 +234,7 @@ plot(result.GS$optimal_result, type = "Array")
 `Biclustering_IRM()`は，ノンパラメトリックベイズの手法により潜在的なクラスとフィールドの数を自動で推定します。`gamma_c`と`gamma_f`はCRP（Chinese Restaurant Process）の集中度パラメータです。
 
 ```{r}
-result.IRM <- Biclustering_IRM(dat, gamma_c = 1, gamma_f = 1, verbose = TRUE)
+result.IRM <- Biclustering_IRM(dat, gamma_c = 1, gamma_f = 1, verbose = FALSE)
 result.IRM
 ```
 

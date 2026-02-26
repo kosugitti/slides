@@ -217,7 +217,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chap07_LDLRA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデル</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">局所依存モデルとBINET</span></span></a>
   </div>
 </li>
     </ul>
@@ -298,29 +298,12 @@ window.Quarto = {
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="irt関数"><span class="header-section-number">4.1.1</span> IRT関数</h3>
 <p><code>IRT()</code>関数は，<code>model</code>引数で2PLM（デフォルト），3PLM，4PLMを指定できます。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">IRT</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">IRT</span>(dat, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>No ID column detected. All columns treated as response data. Sequential IDs (Student1, Student2, ...) were generated. Use id= parameter to specify the ID column explicitly.
 No ID column detected. All columns treated as response data. Sequential IDs (Student1, Student2, ...) were generated. Use id= parameter to specify the ID column explicitly.</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-iter 1 LogLik -3915.61 
-iter 2 LogLik -3901.1 
-iter 3 LogLik -3896.89 
-iter 4
-LogLik -3894.98 
-iter 5 LogLik -3894.02 
-iter 6 LogLik -3893.53 
-iter 7 LogLik
--3893.28 
-iter 8 LogLik -3893.15 
-iter 9 LogLik -3893.08 
-iter 10 LogLik -3893.04
-
-iter 11 LogLik -3893.03</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Item Parameters
        slope location PSD(slope) PSD(location)
@@ -367,7 +350,7 @@ Item06       12      13 0.555 0.517 0.640 0.605 0.635 0.068 15.981 -46.595
 Item07       12      13 0.662 0.634 0.724 0.699 0.722 0.077 23.320 -39.255
 Item08       12      13 0.549 0.512 0.633 0.597 0.628 0.070 17.057 -45.518
 Item09       12      13 0.079 0.002 0.101 0.002 0.079 0.080 26.399 -36.177
-Item10       12      13 0.329 0.273 0.405 0.343 0.394 0.071 18.500 -44.076
+Item10       12      13 0.329 0.273 0.405 0.343 0.394 0.071 18.500 -44.075
 Item11       12      13 0.644 0.615 0.700 0.673 0.698 0.083 29.501 -33.075
 Item12       12      13 0.677 0.650 0.733 0.709 0.731 0.081 26.900 -35.675
 Item13       12      13 0.551 0.514 0.606 0.570 0.603 0.089 35.571 -27.004
@@ -383,7 +366,7 @@ Item06 -34.595
 Item07 -27.255
 Item08 -33.518
 Item09 -24.177
-Item10 -32.076
+Item10 -32.075
 Item11 -21.075
 Item12 -23.675
 Item13 -15.004
@@ -415,48 +398,17 @@ BIC             -457.330</code></pre>
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="モデルの指定"><span class="header-section-number">4.1.2</span> モデルの指定</h3>
 <p><code>model</code>引数で推定するパラメータ数を指定します。ショートカット関数<code>RaschModel()</code>, <code>TwoPLM()</code>, <code>ThreePLM()</code>も利用可能です。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2パラメータ・ロジスティックモデル（デフォルト）</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>result<span class="fl">.2</span>PL <span class="ot">&lt;-</span> <span class="fu">IRT</span>(dat, <span class="at">model =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2パラメータ・ロジスティックモデル（デフォルト）</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>result<span class="fl">.2</span>PL <span class="ot">&lt;-</span> <span class="fu">IRT</span>(dat, <span class="at">model =</span> <span class="dv">2</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>No ID column detected. All columns treated as response data. Sequential IDs (Student1, Student2, ...) were generated. Use id= parameter to specify the ID column explicitly.
 No ID column detected. All columns treated as response data. Sequential IDs (Student1, Student2, ...) were generated. Use id= parameter to specify the ID column explicitly.</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-iter 1 LogLik -3915.61 
-iter 2 LogLik -3901.1 
-iter 3 LogLik -3896.89 
-iter 4
-LogLik -3894.98 
-iter 5 LogLik -3894.02 
-iter 6 LogLik -3893.53 
-iter 7 LogLik
--3893.28 
-iter 8 LogLik -3893.15 
-iter 9 LogLik -3893.08 
-iter 10 LogLik -3893.04
-
-iter 11 LogLik -3893.03</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3パラメータ・ロジスティックモデル</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>result<span class="fl">.3</span>PL <span class="ot">&lt;-</span> <span class="fu">IRT</span>(dat, <span class="at">model =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3パラメータ・ロジスティックモデル</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>result<span class="fl">.3</span>PL <span class="ot">&lt;-</span> <span class="fu">IRT</span>(dat, <span class="at">model =</span> <span class="dv">3</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>No ID column detected. All columns treated as response data. Sequential IDs (Student1, Student2, ...) were generated. Use id= parameter to specify the ID column explicitly.
-No ID column detected. All columns treated as response data. Sequential IDs (Student1, Student2, ...) were generated. Use id= parameter to specify the ID column explicitly.
-
-iter 1 LogLik -3960.28                                                          
-iter 2 LogLik -3938.35                                                          
-iter 3 LogLik -3931.82                                                          
-iter 4 LogLik -3928.68                                                          
-iter 5 LogLik -3926.99                                                          
-iter 6 LogLik -3926.05                                                          
-iter 7 LogLik -3925.51                                                          
-iter 8 LogLik -3925.19                                                          
-iter 9 LogLik -3925.01                                                          
-iter 10 LogLik -3924.9                                                          
-iter 11 LogLik -3924.83                                                         
-iter 12 LogLik -3924.8                                                          
-iter 13 LogLik -3924.77                                                         </code></pre>
+No ID column detected. All columns treated as response data. Sequential IDs (Student1, Student2, ...) were generated. Use id= parameter to specify the ID column explicitly.</code></pre>
 </div>
 </div>
 </section>
@@ -500,7 +452,7 @@ iter 13 LogLik -3924.77                                                         
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="適合度指標の確認"><span class="header-section-number">4.2.1</span> 適合度指標の確認</h3>
 <p>テスト全体の適合度指標にアクセスします。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>TestFitIndices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>TestFitIndices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  model_log_like bench_log_like null_log_like model_Chi_sq null_Chi_sq model_df
 1      -3890.655      -3560.005     -4350.217     661.2999    1580.424      180
@@ -512,56 +464,56 @@ iter 13 LogLik -3924.77                                                         
 </div>
 <p>項目ごとの適合度指標にアクセスします。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>ItemFitIndices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>ItemFitIndices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       model_log_like bench_log_like null_log_like model_Chi_sq null_Chi_sq
-Item01      -263.5243      -240.1896     -283.3432     46.66934    86.30724
+Item01      -263.5243      -240.1896     -283.3432     46.66935    86.30724
 Item02      -252.9135      -235.4364     -278.9486     34.95429    87.02454
 Item03      -281.0830      -260.9064     -293.5981     40.35320    65.38341
-Item04      -205.8510      -192.0718     -265.9618     27.55847   147.77999
-Item05      -232.0722      -206.5372     -247.4032     51.06994    81.73195
-Item06      -173.9301      -153.9397     -198.8174     39.98071    89.75530
+Item04      -205.8510      -192.0718     -265.9618     27.55846   147.77999
+Item05      -232.0722      -206.5372     -247.4032     51.06996    81.73195
+Item06      -173.9301      -153.9397     -198.8174     39.98072    89.75530
 Item07      -252.0388      -228.3788     -298.3455     47.32008   139.93348
 Item08      -313.7538      -293.2252     -338.7888     41.05727    91.12723
 Item09      -325.6916      -300.4923     -327.8422     50.39860    54.69970
-Item10      -309.4483      -288.1984     -319.8497     42.49979    63.30265
+Item10      -309.4483      -288.1984     -319.8497     42.49980    63.30265
 Item11      -250.8358      -224.0855     -299.2653     53.50067   150.35960
 Item12      -240.2466      -214.7967     -293.5981     50.89986   157.60288
-Item13      -291.8161      -262.0307     -328.3959     59.57087   132.73044
+Item13      -291.8161      -262.0307     -328.3959     59.57086   132.73044
 Item14      -224.3296      -204.9528     -273.2123     38.75364   136.51897
-Item15      -273.1202      -254.7637     -302.8469     36.71312    96.16648
-       model_df null_df        NFI         RFI       IFI        TLI       CFI
-Item01       12      13 0.45926504 0.414203796 0.5334325 0.48765697 0.5270680
-Item02       12      13 0.59833987 0.564868193 0.6940429 0.66406890 0.6899098
-Item03       12      13 0.38282213 0.331390640 0.4688763 0.41363191 0.4587371
-Item04       12      13 0.81351687 0.797976612 0.8854141 0.87494424 0.8845639
-Item05       12      13 0.37515329 0.323082730 0.4397125 0.38419078 0.4315607
-Item06       12      13 0.55455874 0.517438640 0.6401440 0.60507692 0.6354556
-Item07       12      13 0.66183875 0.633658641 0.7239184 0.69855533 0.7217434
-Item08       12      13 0.54945112 0.511905385 0.6327779 0.59708400 0.6280775
-Item09       12      13 0.07863104 0.001850295 0.1007289 0.00242713 0.0791635
-Item10       12      13 0.32862539 0.272677503 0.4054929 0.34314711 0.3936743
-Item11       12      13 0.64418187 0.614530356 0.7000521 0.67269079 0.6978684
-Item12       12      13 0.67703721 0.650123647 0.7328359 0.70857067 0.7309883
-Item13       12      13 0.55118912 0.513788215 0.6059746 0.56957392 0.6026836
-Item14       12      13 0.71612998 0.692474150 0.7851440 0.76535497 0.7834046
-Item15       12      13 0.61823374 0.586419880 0.7063781 0.67808492 0.7028476
-            RMSEA       AIC      CAIC       BIC
-Item01 0.07609076 22.669343 -39.90595 -27.90595
-Item02 0.06191431 10.954287 -51.62101 -39.62101
-Item03 0.06881135 16.353195 -46.22210 -34.22210
-Item04 0.05097328  3.558475 -59.01682 -47.01682
-Item05 0.08077565 27.069941 -35.50536 -23.50536
-Item06 0.06835786 15.980712 -46.59459 -34.59459
-Item07 0.07680154 23.320080 -39.25522 -27.25522
-Item08 0.06966049 17.057273 -45.51802 -33.51802
-Item09 0.08007866 26.398603 -36.17669 -24.17669
-Item10 0.07136866 18.499789 -44.07551 -32.07551
-Item11 0.08325047 29.500672 -33.07462 -21.07462
-Item12 0.08059965 26.899865 -35.67543 -23.67543
-Item13 0.08913117 35.570865 -27.00443 -15.00443
-Item14 0.06684217 14.753642 -47.82166 -35.82166
-Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
+Item15      -273.1202      -254.7637     -302.8469     36.71311    96.16648
+       model_df null_df        NFI         RFI       IFI        TLI        CFI
+Item01       12      13 0.45926497 0.414203722 0.5334324 0.48765688 0.52706789
+Item02       12      13 0.59833987 0.564868192 0.6940429 0.66406890 0.68990975
+Item03       12      13 0.38282204 0.331390544 0.4688762 0.41363179 0.45873704
+Item04       12      13 0.81351697 0.797976720 0.8854142 0.87494436 0.88456402
+Item05       12      13 0.37515304 0.323082461 0.4397122 0.38419046 0.43156042
+Item06       12      13 0.55455866 0.517438554 0.6401439 0.60507682 0.63545553
+Item07       12      13 0.66183877 0.633658663 0.7239184 0.69855535 0.72174340
+Item08       12      13 0.54945114 0.511905407 0.6327779 0.59708403 0.62807757
+Item09       12      13 0.07863108 0.001850341 0.1007290 0.00242719 0.07916356
+Item10       12      13 0.32862522 0.272677320 0.4054927 0.34314688 0.39367404
+Item11       12      13 0.64418190 0.614530389 0.7000521 0.67269083 0.69786846
+Item12       12      13 0.67703725 0.650123683 0.7328359 0.70857071 0.73098834
+Item13       12      13 0.55118913 0.513788224 0.6059746 0.56957393 0.60268363
+Item14       12      13 0.71613000 0.692474171 0.7851441 0.76535499 0.78340461
+Item15       12      13 0.61823377 0.586419921 0.7063782 0.67808497 0.70284766
+            RMSEA      AIC      CAIC       BIC
+Item01 0.07609076 22.66935 -39.90595 -27.90595
+Item02 0.06191431 10.95429 -51.62101 -39.62101
+Item03 0.06881136 16.35320 -46.22210 -34.22210
+Item04 0.05097326  3.55846 -59.01684 -47.01684
+Item05 0.08077568 27.06996 -35.50534 -23.50534
+Item06 0.06835787 15.98072 -46.59458 -34.59458
+Item07 0.07680154 23.32008 -39.25522 -27.25522
+Item08 0.06966049 17.05727 -45.51803 -33.51803
+Item09 0.08007866 26.39860 -36.17670 -24.17670
+Item10 0.07136867 18.49980 -44.07550 -32.07550
+Item11 0.08325046 29.50067 -33.07463 -21.07463
+Item12 0.08059964 26.89986 -35.67544 -23.67544
+Item13 0.08913117 35.57086 -27.00443 -15.00443
+Item14 0.06684217 14.75364 -47.82166 -35.82166
+Item15 0.06424256 12.71311 -49.86218 -37.86218</code></pre>
 </div>
 </div>
 </section>
@@ -572,7 +524,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 <section id="項目反応関数irf-icc" class="level3" data-number="4.3.1">
 <h3 data-number="4.3.1" class="anchored" data-anchor-id="項目反応関数irf-icc"><span class="header-section-number">4.3.1</span> 項目反応関数（IRF / ICC）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">items =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">"IRF"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">items =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">"IRF"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -583,7 +535,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 </div>
 <p><code>overlay = TRUE</code>で複数項目を重ね描きできます。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">type =</span> <span class="st">"IRF"</span>, <span class="at">overlay =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">type =</span> <span class="st">"IRF"</span>, <span class="at">overlay =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -594,7 +546,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 </div>
 <p><code>nr</code>（行数）と<code>nc</code>（列数）でレイアウトを指定できます。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">type =</span> <span class="st">"IRF"</span>, <span class="at">nr =</span> <span class="dv">3</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">type =</span> <span class="st">"IRF"</span>, <span class="at">nr =</span> <span class="dv">3</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -607,7 +559,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 <section id="テスト反応関数trf" class="level3" data-number="4.3.2">
 <h3 data-number="4.3.2" class="anchored" data-anchor-id="テスト反応関数trf"><span class="header-section-number">4.3.2</span> テスト反応関数（TRF）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">"TRF"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">"TRF"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -620,7 +572,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 <section id="項目情報関数iif-iic" class="level3" data-number="4.3.3">
 <h3 data-number="4.3.3" class="anchored" data-anchor-id="項目情報関数iif-iic"><span class="header-section-number">4.3.3</span> 項目情報関数（IIF / IIC）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="at">type =</span> <span class="st">"IIC"</span>, <span class="at">overlay =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="at">type =</span> <span class="st">"IIC"</span>, <span class="at">overlay =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -633,7 +585,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 <section id="テスト情報関数tif-tic" class="level3" data-number="4.3.4">
 <h3 data-number="4.3.4" class="anchored" data-anchor-id="テスト情報関数tif-tic"><span class="header-section-number">4.3.4</span> テスト情報関数（TIF / TIC）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">"TIC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type =</span> <span class="st">"TIC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -648,12 +600,12 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 <h2 data-number="4.4" class="anchored" data-anchor-id="可視化ggexametrika"><span class="header-section-number">4.4</span> 可視化（ggExametrika）</h2>
 <p><code>ggExametrika</code>パッケージを使うと，<code>ggplot2</code>ベースの図が得られます。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExametrika)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExametrika)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="ploticc_gg-ploticc_overlay_gg" class="level3" data-number="4.4.1">
 <h3 data-number="4.4.1" class="anchored" data-anchor-id="ploticc_gg-ploticc_overlay_gg"><span class="header-section-number">4.4.1</span> plotICC_gg / plotICC_overlay_gg</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICC_gg</span>(result, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICC_gg</span>(result, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
@@ -666,7 +618,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICC_overlay_gg</span>(result, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICC_overlay_gg</span>(result, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -679,7 +631,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 <section id="plottrf_gg" class="level3" data-number="4.4.2">
 <h3 data-number="4.4.2" class="anchored" data-anchor-id="plottrf_gg"><span class="header-section-number">4.4.2</span> plotTRF_gg</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTRF_gg</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTRF_gg</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -692,7 +644,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 <section id="plotiic_gg-plotiic_overlay_gg" class="level3" data-number="4.4.3">
 <h3 data-number="4.4.3" class="anchored" data-anchor-id="plotiic_gg-plotiic_overlay_gg"><span class="header-section-number">4.4.3</span> plotIIC_gg / plotIIC_overlay_gg</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIIC_gg</span>(result, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIIC_gg</span>(result, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
@@ -705,7 +657,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIIC_overlay_gg</span>(result, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIIC_overlay_gg</span>(result, <span class="at">items =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -718,7 +670,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 <section id="plottic_gg" class="level3" data-number="4.4.4">
 <h3 data-number="4.4.4" class="anchored" data-anchor-id="plottic_gg"><span class="header-section-number">4.4.4</span> plotTIC_gg</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTIC_gg</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTIC_gg</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -733,29 +685,29 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 <h2 data-number="4.5" class="anchored" data-anchor-id="受検者能力推定"><span class="header-section-number">4.5</span> 受検者能力推定</h2>
 <p>EAP（期待事後）推定値とPSD（事後標準偏差）が出力されます。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>ability <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>ability <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           ID         EAP       PSD
-1  Student001 -0.66456778 0.5457047
-2  Student002 -0.14853702 0.5626979
-3  Student003  0.01362530 0.5699764
-4  Student004  0.58775682 0.6012839
-5  Student005 -0.97796881 0.5415527
-6  Student006  0.85892500 0.6187224
-7  Student007  0.05696137 0.5720482
-8  Student008  0.04790633 0.5716114
-9  Student009  1.23035679 0.6433918
-10 Student010 -0.19705225 0.5606753
-11 Student011 -0.34067162 0.5551509
-12 Student012 -0.51385233 0.5495270
-13 Student013  1.05114794 0.6316587
-14 Student014  0.81625127 0.6158908
-15 Student015 -1.35345894 0.5440715
-16 Student016 -1.53285006 0.5476038
-17 Student017  0.62954572 0.6038740
-18 Student018 -0.96955173 0.5415908
-19 Student019  0.73791234 0.6107655
-20 Student020 -0.80866497 0.5431158</code></pre>
+1  Student001 -0.66456793 0.5457047
+2  Student002 -0.14853714 0.5626979
+3  Student003  0.01362519 0.5699764
+4  Student004  0.58775684 0.6012839
+5  Student005 -0.97796889 0.5415528
+6  Student006  0.85892506 0.6187224
+7  Student007  0.05696158 0.5720482
+8  Student008  0.04790645 0.5716114
+9  Student009  1.23035675 0.6433918
+10 Student010 -0.19705232 0.5606753
+11 Student011 -0.34067176 0.5551509
+12 Student012 -0.51385243 0.5495270
+13 Student013  1.05114789 0.6316587
+14 Student014  0.81625127 0.6158909
+15 Student015 -1.35345911 0.5440715
+16 Student016 -1.53285020 0.5476038
+17 Student017  0.62954564 0.6038740
+18 Student018 -0.96955165 0.5415908
+19 Student019  0.73791235 0.6107655
+20 Student020 -0.80866483 0.5431159</code></pre>
 </div>
 </div>
 </section>
@@ -763,7 +715,7 @@ Item15 0.06424256 12.713117 -49.86218 -37.86218</code></pre>
 <h2 data-number="4.6" class="anchored" data-anchor-id="q3行列"><span class="header-section-number">4.6</span> Q3行列</h2>
 <p>局所独立の仮定が満たされているかどうかを判断する指標です。項目残差間の相関行列であり，値が高すぎると局所独立の仮定に問題がある可能性があります。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>Q3mat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>Q3mat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        Item01  Item02   Item03   Item04   Item05   Item06   Item07  Item08
 Item01  1.0000 -0.0535 -0.08856 -0.13197  0.05521  0.01128 -0.09982  0.0139
@@ -805,8 +757,8 @@ Item15 -0.07085 -0.05290 -0.09481 -0.0887  0.01128 -0.06801  1.0000</code></pre>
 <p>Graded Response Model（Samejima, 1969）は，順序カテゴリの反応データに対するIRTモデルです。K段階のカテゴリデータに対して，k以上のカテゴリに反応する確率を2PLモデルのように推定します。</p>
 <p>サンプルデータ<code>J5S1000</code>（5項目・1000人の順序データ）を使用します。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>dat_grm <span class="ot">&lt;-</span> J5S1000</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TestStatistics</span>(dat_grm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dat_grm <span class="ot">&lt;-</span> J5S1000</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TestStatistics</span>(dat_grm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test Statistics
                    value
@@ -824,16 +776,8 @@ Alpha         0.59462241</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>result.GRM <span class="ot">&lt;-</span> <span class="fu">GRM</span>(dat_grm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Parameters: 18 | Initial LL: -6252.352 
-initial  value 6252.351598 
-iter  10 value 6032.463982
-iter  20 value 6010.861094
-final  value 6008.297278 
-converged</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>result.GRM</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>result.GRM <span class="ot">&lt;-</span> <span class="fu">GRM</span>(dat_grm, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>result.GRM</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Item Parameter
    Slope Threshold1 Threshold2 Threshold3
@@ -880,7 +824,7 @@ BIC              333.155</code></pre>
 <section id="grmの可視化baseグラフィックス" class="level3" data-number="4.7.1">
 <h3 data-number="4.7.1" class="anchored" data-anchor-id="grmの可視化baseグラフィックス"><span class="header-section-number">4.7.1</span> GRMの可視化（baseグラフィックス）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.GRM, <span class="at">type =</span> <span class="st">"IRF"</span>, <span class="at">items =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.GRM, <span class="at">type =</span> <span class="st">"IRF"</span>, <span class="at">items =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -890,7 +834,7 @@ BIC              333.155</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.GRM, <span class="at">type =</span> <span class="st">"IRF"</span>, <span class="at">items =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="at">nc =</span> <span class="dv">2</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.GRM, <span class="at">type =</span> <span class="st">"IRF"</span>, <span class="at">items =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="at">nc =</span> <span class="dv">2</span>, <span class="at">nr =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -900,7 +844,7 @@ BIC              333.155</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.GRM, <span class="at">type =</span> <span class="st">"IIF"</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.GRM, <span class="at">type =</span> <span class="st">"IIF"</span>, <span class="at">nr =</span> <span class="dv">2</span>, <span class="at">nc =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -917,7 +861,7 @@ BIC              333.155</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.GRM, <span class="at">type =</span> <span class="st">"TIF"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result.GRM, <span class="at">type =</span> <span class="st">"TIF"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -930,7 +874,7 @@ BIC              333.155</code></pre>
 <section id="grmの可視化ggexametrika" class="level3" data-number="4.7.2">
 <h3 data-number="4.7.2" class="anchored" data-anchor-id="grmの可視化ggexametrika"><span class="header-section-number">4.7.2</span> GRMの可視化（ggExametrika）</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICRF_gg</span>(result.GRM, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotICRF_gg</span>(result.GRM, <span class="at">items =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
@@ -943,7 +887,7 @@ BIC              333.155</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTIC_gg</span>(result.GRM)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTIC_gg</span>(result.GRM)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -958,37 +902,37 @@ BIC              333.155</code></pre>
 <h2 data-number="4.8" class="anchored" data-anchor-id="補助関数"><span class="header-section-number">4.8</span> 補助関数</h2>
 <p><code>exametrika</code>には，IRTモデルの計算に用いる補助関数も公開されています。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ロジスティックモデルの確率</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggExametrikaがマスクするため exametrika:: で呼び出す</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>exametrika<span class="sc">::</span><span class="fu">LogisticModel</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">c =</span> <span class="dv">0</span>, <span class="at">d =</span> <span class="dv">1</span>, <span class="at">theta =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ロジスティックモデルの確率</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggExametrikaがマスクするため exametrika:: で呼び出す</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>exametrika<span class="sc">::</span><span class="fu">LogisticModel</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">c =</span> <span class="dv">0</span>, <span class="at">d =</span> <span class="dv">1</span>, <span class="at">theta =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2PLMの項目情報関数</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>exametrika<span class="sc">::</span><span class="fu">IIF2PLM</span>(<span class="at">a =</span> <span class="fl">1.5</span>, <span class="at">b =</span> <span class="fl">0.5</span>, <span class="at">theta =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2PLMの項目情報関数</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>exametrika<span class="sc">::</span><span class="fu">IIF2PLM</span>(<span class="at">a =</span> <span class="fl">1.5</span>, <span class="at">b =</span> <span class="fl">0.5</span>, <span class="at">theta =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4902637</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3PLMの項目情報関数</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>exametrika<span class="sc">::</span><span class="fu">IIF3PLM</span>(<span class="at">a =</span> <span class="fl">1.5</span>, <span class="at">b =</span> <span class="fl">0.5</span>, <span class="at">c =</span> <span class="fl">0.2</span>, <span class="at">theta =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3PLMの項目情報関数</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>exametrika<span class="sc">::</span><span class="fu">IIF3PLM</span>(<span class="at">a =</span> <span class="fl">1.5</span>, <span class="at">b =</span> <span class="fl">0.5</span>, <span class="at">c =</span> <span class="fl">0.2</span>, <span class="at">theta =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2755452</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GRMの反応確率</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>exametrika<span class="sc">::</span><span class="fu">grm_prob</span>(<span class="at">theta =</span> <span class="dv">0</span>, <span class="at">a =</span> <span class="fl">1.5</span>, <span class="at">b =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GRMの反応確率</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>exametrika<span class="sc">::</span><span class="fu">grm_prob</span>(<span class="at">theta =</span> <span class="dv">0</span>, <span class="at">a =</span> <span class="fl">1.5</span>, <span class="at">b =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1824255 0.3175745 0.3175745 0.1824255</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GRMの項目情報関数</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>exametrika<span class="sc">::</span><span class="fu">grm_iif</span>(<span class="at">theta =</span> <span class="dv">0</span>, <span class="at">a =</span> <span class="fl">1.5</span>, <span class="at">b =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GRMの項目情報関数</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>exametrika<span class="sc">::</span><span class="fu">grm_iif</span>(<span class="at">theta =</span> <span class="dv">0</span>, <span class="at">a =</span> <span class="fl">1.5</span>, <span class="at">b =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.00845</code></pre>
 </div>

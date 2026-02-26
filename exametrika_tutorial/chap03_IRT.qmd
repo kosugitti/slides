@@ -22,7 +22,7 @@ dat <- J15S500
 `IRT()`関数は，`model`引数で2PLM（デフォルト），3PLM，4PLMを指定できます。
 
 ```{r}
-result <- IRT(dat)
+result <- IRT(dat, verbose = FALSE)
 result
 ```
 
@@ -32,10 +32,10 @@ result
 
 ```{r}
 # 2パラメータ・ロジスティックモデル（デフォルト）
-result.2PL <- IRT(dat, model = 2)
+result.2PL <- IRT(dat, model = 2, verbose = FALSE)
 
 # 3パラメータ・ロジスティックモデル
-result.3PL <- IRT(dat, model = 3)
+result.3PL <- IRT(dat, model = 3, verbose = FALSE)
 ```
 
 ## モデル適合度
@@ -185,7 +185,7 @@ TestStatistics(dat_grm)
 ```
 
 ```{r}
-result.GRM <- GRM(dat_grm)
+result.GRM <- GRM(dat_grm, verbose = FALSE)
 result.GRM
 ```
 

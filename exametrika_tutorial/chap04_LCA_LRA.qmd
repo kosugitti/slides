@@ -19,7 +19,7 @@ TestStatistics(dat)
 潜在クラス分析は，受検者を潜在的なグループに分類するモデルです。`ncls`引数でクラス数を指定します。
 
 ```{r}
-result.LCA <- LCA(dat, ncls = 6)
+result.LCA <- LCA(dat, ncls = 6, verbose = FALSE)
 result.LCA
 ```
 

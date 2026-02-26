@@ -72,7 +72,7 @@ write.csv(DAG_dat, edgeFile, row.names = FALSE, quote = TRUE)
 サンプルデータ`J12S5000`（12項目・5000人）を使用します。
 
 ```{r}
-result.LDLRA <- LDLRA(J12S5000, ncls = 5, adj_file = edgeFile)
+result.LDLRA <- LDLRA(J12S5000, ncls = 5, adj_file = edgeFile, verbose = FALSE)
 result.LDLRA
 ```
 
@@ -127,7 +127,8 @@ DAGの構造が未知の場合は，`LDLRA_PBIL()`でPBILにより各ランク�
 ```{r}
 result.LDLRA.PBIL <- LDLRA_PBIL(J35S515,
   seed = 123, ncls = 5, method = "R",
-  elitism = 1, successiveLimit = 15
+  elitism = 1, successiveLimit = 15,
+  verbose = FALSE
 )
 result.LDLRA.PBIL
 ```
@@ -177,7 +178,7 @@ write.csv(edges_data, file = edgeFile, row.names = FALSE)
 サンプルデータ`J35S515`を使用します。
 
 ```{r}
-result.LDB <- LDB(U = J35S515, ncls = 5, conf = conf, adj_file = edgeFile)
+result.LDB <- LDB(U = J35S515, ncls = 5, conf = conf, adj_file = edgeFile, verbose = FALSE)
 result.LDB
 ```
 
@@ -286,7 +287,8 @@ write.csv(edges_data, file = edgeFile, row.names = FALSE)
 ```{r}
 result.BINET <- BINET(
   U = J35S515, ncls = 13, nfld = 12,
-  conf = conf, adj_file = edgeFile
+  conf = conf, adj_file = edgeFile,
+  verbose = FALSE
 )
 result.BINET
 ```
