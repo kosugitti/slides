@@ -88,8 +88,8 @@ result.LRA
 
 ### 項目参照プロファイル
 
-+ 項目参照プロファイル(Item Reference Profile)は，項目と潜在クラスの関係を表しています
-    + 項目ごと・クラスごとの正答率を返します
++ 項目参照プロファイル(Item Reference Profile)は，項目と潜在ランクの関係を表しています
+    + 項目ごと・ランクごとの正答率を返します
 
 ```{r}
 result.LRA$IRP
@@ -102,7 +102,7 @@ plot(result.LRA, type = "IRP", items = 1:4, nr = 2, nc = 2)
 
 ### ランクメンバーシッププロファイル
 
-+ 受検者がどのクラスに所属しやすいかの確率を表します
++ 受検者がどのランクに所属しやすいかの確率を表します
     + `Rank-Up Odds`や`Rank-Down Odds`が表示されています
     + 上のランクへの上がりやすさ，下のランクへの落ちやすさの指標です
 
@@ -149,13 +149,13 @@ plot(result.LRA, type = "LRD")
 + `IRP index`を表示することができます
     + A；Item Slope Index.識別力に相当する指標
         + $\alpha$；Aの最大値が出たランク
-        + ![Test Data Enginieering,P.224](ItemLocationIndex.png)
+        + ![Test Data Engineering,P.224](ItemSlopeIndex.png)
     + B；Item Location Index.困難度に相当する指標
         + $\beta$；0.5に最も近い値が出たランク
-        + ![Test Data Enginieering,P.226](ItemSlopeIndex.png)
+        + ![Test Data Engineering,P.226](ItemLocationIndex.png)
     + C；Item Monotonicity Index.単調増加しているかどうかの指標
         + $\gamma$；ランクの上昇に応じて増加しなかった大きさの総和
-        + ![Test Data Enginieering,P.227](MonotonicityIndex.png)
+        + ![Test Data Engineering,P.227](MonotonicityIndex.png)
 
 ```{r}
 result.LRA$IRPIndex
@@ -168,7 +168,7 @@ result.LRA$IRPIndex
     + データサイズが大きくなっても安定的に推定が進む
 + 自己組織化マップSelf Organization Mappingの方法もオプションとして選択可能
     + 最初ランダムに生成した行列$\Pi_R$に対し，データ行列に近い勝者ベクトルがその周囲の重みをアップデートしていく
-    + ![Test Data Enginieering,P.202](LRA_SOM.png)
+    + ![Test Data Engineering,P.202](LRA_SOM.png)
     + 乱数による近似なので，再現性のためにはシード値などを設定する必要があります。
 
 ### SOMによる推定の例

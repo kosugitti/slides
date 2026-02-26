@@ -105,7 +105,7 @@ result2
 
 ## 項目分析をしよう
 
-#### 正当数
+#### 正答数
 ```{r}
 nrs(dat) |> head(10)
 ```
@@ -165,7 +165,7 @@ IIAnalysis$MI
 ```
 
 
-#### 点双列相関係数(Phi coefficient)
+#### ファイ係数(Phi coefficient)
 
 ```{r}
 IIAnalysis$Phi
@@ -268,7 +268,7 @@ result5 <- dataFormat(psych::bfi[1:5, 1:25])
 result5
 ```
 
-+ 正答(正しい選択枝)があるばあいは，引数`CA`で指定します
++ 正答(正しい選択肢)があるばあいは，引数`CA`で指定します
 
 ```{r}
 data3 <- data.frame(
@@ -315,7 +315,7 @@ IIAnalysis$JSR[[1]][[2]]
 
 #### 条件付き選択率(Conditional Selection Ratio)
 
-+ 同時選択率Conditional Selection Ratioは`CSR`変数にリストとして入っています
++ 条件付き選択率Conditional Selection Ratioは`CSR`変数にリストとして入っています
     + 項目$J$と項目$K$の条件付き選択率行列は`CSR[[J]][[K]]`で表示します
 
 ```{r}

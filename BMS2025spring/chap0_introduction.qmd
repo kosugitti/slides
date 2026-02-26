@@ -71,7 +71,7 @@ title: "Rとexametrikaパッケージの導入"
 
 ### RStudioの起動画面
 
-![RStudi起動画面](RStudioStartup.png)
+![RStudio起動画面](RStudioStartup.png)
 
 + 大きく4分割して使います。
 + 起動して最初にやるのが「**環境設定**」です。
@@ -82,7 +82,7 @@ title: "Rとexametrikaパッケージの導入"
 
 ![環境設定画面](RStudioGlobalOptions.png)
 
-+ General > Basic のWrokspace，`Save Workspace to .RData on exit:`を**never**に
++ General > Basic のWorkspace，`Save Workspace to .RData on exit:`を**never**に
 + General > Graphics > Graphics Deviceの`Backend`を**AGG**に
 + Appearance の `Editor Font`を見やすいフォントにしましょう
 + Appearance の `Editor Font size`を見やすい大きさにしましょう
@@ -98,7 +98,7 @@ title: "Rとexametrikaパッケージの導入"
 ![環境設定画面その2](RStudioPaneLayout.png)
 
 + Pane Layoutを
-  + **Source**と**Cosole**を横並びに
+  + **Source**と**Console**を横並びに
   + かなりワイドな画面をお使いの方は，`Add Column`で3列にしてsource paneを一列増やそう
 
 + 設定が終わったら **Apply(適用)** ボタンをおして，**OK** で閉じる
@@ -186,11 +186,11 @@ library(exametrika)
 + これで`exametrika`パッケージの持つ関数が実行できるようになりました！他のパッケージも同様です。
 
 + パッケージのインストールを毎回する必要はありません。インストールは「手に入れる」ということだからです。
-+ パッケージの実装(`library`)はセッション毎に行う必要があります。これは「そうびする」ようなものです。
++ パッケージの読み込み(`library`)はセッション毎に行う必要があります。これは「そうびする」ようなものです。
 + Rスクリプトの冒頭で`rm(list=ls())`としましたが，分析に必要なパッケージはスクリプトの最上部にまとめて書いておきましょう。
     + Rはインタプリタなので，逐次的に処理が進みますが，行ったり来たりしていると「パッケージを読み込んだっけ？」とか「今は何の数字で何の計算をしてるんだっけ？」となってしまいます。
     + 細かいことですが，パッケージは読み込む順番に影響されることがあります。
-        + 同じ関数名を異なるパッケージが使っている場合，後で読み込まれた方が上書きされます。
+        + 同じ関数名を異なるパッケージが使っている場合，先に読み込まれた方が上書きされます。
         + 混同しないように`PackageName::function`のように`::`で明示することがあります。
         
 
@@ -633,5 +633,5 @@ baseball |>
 2. TitleやAuthorを入力，出力書式(HTML,PDF,Word)などを選ぶ画面が出ます
 3. サンプル文書・コードが書いてあるファイルが生成されます
 
-これをRneder/Knitすることでファイルが出力されます。
+これをRender/Knitすることでファイルが出力されます。
 
